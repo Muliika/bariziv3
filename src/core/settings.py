@@ -13,6 +13,9 @@ TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
+PROJECT_NAME = config("PROJECT_NAME", default="BariziUg")
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "django-insecure-v%zori0d%h3(w1&+2prrd5jcxn&ca)+x230&-$#9qf2^!fdea7"
 SECRET_KEY = config(
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # custom apps
     "home",
+    "commando",
 ]
 
 MIDDLEWARE = [
@@ -85,6 +89,19 @@ DATABASES = {
     }
 }
 
+DATABASE_URL = config("DATABASE_URL", cast=str, default="")
+
+if DATABASE_URL:
+    import dj_database_url
+
+    if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith(
+        "postgresql://"
+    ):
+        DATABASES = {
+            "default": dj_database_url.config(
+                default=DATABASE_URL,
+            )
+        }
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators

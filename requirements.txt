@@ -1,4 +1,4 @@
-Django==5.2.0<5.3.0;
+Django~=5.2.0
 python-decouple
 gunicorn
 dj-database-url

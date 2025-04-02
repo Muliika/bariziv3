@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <main class="container py-5">
+  <h1>All listings</h1>
+  
+
+  <p>Masonry is not included in Bootstrap. Add it by including the JavaScript plugin manually, or using a CDN like so:</p>
+
+
+
+  <hr class="my-5">
+
+  <div class="row" data-masonry='{"percentPosition": true }'>
+    
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% include 'partials/footer/footer.html' %}
+
+</main
+{% endblock content %}
+    

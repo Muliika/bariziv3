@@ -1,0 +1,269 @@
+
+/* Landing Page Styles */
+
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.hover-shadow {
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  z-index: 0;
+}
+
+.search-form {
+  border-radius: 10px;
+}
+
+.search-form .form-control:focus {
+  box-shadow: none;
+}
+
+.blog-header-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.25rem;
+}
+
+/* Categories Section */
+.category-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--bs-primary);
+}
+
+.category-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+  border-radius: 50%;
+}
+
+/* Listings Section */
+.listing-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.listing-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.listing-category {
+  z-index: 1;
+}
+
+/* How It Works Section */
+.step-card {
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Cities Section */
+.city-card {
+  transition: all 0.3s ease;
+}
+
+.city-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.city-overlay {
+  transition: all 0.3s ease;
+}
+
+.city-card:hover .city-overlay {
+  background-color: rgba(var(--bs-primary-rgb), 0.7) !important;
+}
+
+/* Testimonials Section */
+.testimonial-card {
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 5rem;
+  color: rgba(var(--bs-primary-rgb), 0.1);
+  line-height: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+/* Blog Section */
+.blog-card {
+  transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.blog-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-title {
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.blog-excerpt {
+  color: #6c757d;
+}
+
+/* Newsletter Section */
+.newsletter-form .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.newsletter-form .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* CTA Section */
+.cta-card {
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+}
+
+/* Partners Section */
+.partners img {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.partners img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+  
+  .hero-section::before {
+    width: 30%;
+  }
+  
+  .blog-header-logo {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding: 40px 0;
+  }
+  
+  .hero-section::before {
+    display: none;
+  }
+  
+  .search-form {
+    margin-top: 2rem;
+  }
+  
+  .blog-header-logo {
+    font-size: 1.5rem;
+  }
+  
+  .step-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out;
+}

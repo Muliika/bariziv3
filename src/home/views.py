@@ -7,3 +7,11 @@ def index(request):
 
 def listings(request):
     return render(request, "home/listings.html")
+
+
+def single_listing(request):
+    return render(request, "home/single-listing.html")
+
+
+def add_post(request):
+    return render(request, "home/add-post.html")

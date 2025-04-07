@@ -14,7 +14,7 @@ def profile_view(request):
     # Try to get the profile, create it if it doesn't exist
     try:
         profile = request.user.profile
-    except:
+    except Profile.DoesNotExist:
         profile = Profile.objects.create(user=request.user)
 
     context = {
@@ -31,7 +31,7 @@ def profile_edit(request):
     # Try to get the profile, create it if it doesn't exist
     try:
         profile = request.user.profile
-    except:
+    except Profile.DoesNotExist:
         profile = Profile.objects.create(user=request.user)
 
     if request.method == "POST":

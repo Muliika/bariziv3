@@ -6,7 +6,7 @@ cd /code
 python manage.py sendtestemail --admins 
 python manage.py migrate --no-input 
 python manage.py auto_admin
-
+python manage.py create_missing_profiles
 
 RUNTIME_PORT=${PORT:-8080}
 RUNTIME_HOST=${HOST:-0.0.0.0}

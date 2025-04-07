@@ -60,7 +60,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_("staff status"), default=False)
 
     # You can add additional fields here
-    date_of_birth = models.DateField(_("date of birth"), null=True, blank=True)
+    USER_TYPE_CHOICES = [
+        ("customer", "Customer"),
+        ("business", "Business"),
+        ("admin", "Admin"),
+    ]
+    user_type = models.CharField(
+        max_length=20, choices=USER_TYPE_CHOICES, default="customer"
+    )
 
     objects = CustomUserManager()
 

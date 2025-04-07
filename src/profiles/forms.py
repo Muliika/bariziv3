@@ -17,7 +17,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email", "username", "date_of_birth")
+        fields = ("email", "username")
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -50,7 +50,6 @@ class UserChangeForm(forms.ModelForm):
             "email",
             "username",
             "password",
-            "date_of_birth",
             "is_active",
             "is_staff",
         )
@@ -75,7 +74,6 @@ class CustomSignupForm(SignupForm):
         # Update additional fields
         user.first_name = self.cleaned_data.get("first_name", "")
         user.last_name = self.cleaned_data.get("last_name", "")
-        user.date_of_birth = self.cleaned_data.get("date_of_birth")
         user.save()
 
         return user

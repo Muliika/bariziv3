@@ -57,6 +57,9 @@ class BusinessListing(models.Model):
         verbose_name_plural = "Business Listings"
         ordering = ["-featured", "-created_at"]
 
+    def is_owner(self, user):
+        return user.is_authenticated and self.owner == user
+
     def __str__(self):
         return self.name
 

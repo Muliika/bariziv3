@@ -38,17 +38,30 @@ class ClaimRequestAdmin(admin.ModelAdmin):
     search_fields = ("business__name", "user__username", "user__email")
     actions = ["approve_claims", "reject_claims"]
 
-    def approve_claims(self, request, queryset):
-        for claim in queryset.filter(status="pending"):
-            # Update the claim status
-            claim.status = "approved"
-            claim.save()
+    # def approve_claims(self, request, queryset):
+    #     for claim in queryset.filter(status="pending"):
+    #         # Update the claim status
+    #         claim.status = "approved"
+    #         claim.save()
 
-            # Update the business
+    #         # Update the business
+    #         business = claim.business
+    #         business.is_claimed = True
+    #         business.owner = claim.user
+    #         business.save()
+
+    # approve_claims.short_description = "Approve selected claim requests"
+    def approve_claims(self, request, queryset):
+        for claim in queryset:
             business = claim.business
             business.is_claimed = True
-            business.owner = claim.user
+            business.owner = claim.user  # Set the owner to the user who claimed it
             business.save()
+            claim.status = "approved"
+            claim.save()
+        self.message_user(
+            request, f"{queryset.count()} claim requests approved successfully."
+        )
 
     approve_claims.short_description = "Approve selected claim requests"
 

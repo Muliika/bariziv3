@@ -28,4 +28,6 @@ urlpatterns = [
         views.cancel_claim_request,
         name="cancel_claim_request",
     ),
+    path("business/<slug:slug>/edit/", views.edit_business, name="edit_business"),
+    path("business/<slug:slug>/delete/", views.delete_business, name="delete_business"),
 ]

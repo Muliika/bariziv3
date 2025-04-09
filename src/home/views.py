@@ -22,7 +22,7 @@ from django.http import HttpResponseForbidden
 #     return render(request, "home/add-post.html")
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ClaimRequestForm
+from .forms import BusinessListingForm, ClaimRequestForm
 from .models import BusinessListing, ClaimRequest
 
 
@@ -177,3 +177,45 @@ def cancel_claim_request(request, pk):
     return render(
         request, "home/cancel_claim_request.html", {"claim_request": claim_request}
     )
+
+
+# edit delete business listing views
+@login_required
+def edit_business(request, slug):
+    listing = get_object_or_404(BusinessListing, slug=slug)
+
+    # Check if user is the owner
+    if not listing.is_owner(request.user):
+        return HttpResponseForbidden("You don't have permission to edit this listing")
+
+    if request.method == "POST":
+        form = BusinessListingForm(request.POST, request.FILES, instance=listing)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your business listing has been updated successfully."
+            )
+            return redirect("single_listing", slug=listing.slug)
+    else:
+        form = BusinessListingForm(instance=listing)
+
+    return render(
+        request, "home/edit-business.html", {"form": form, "listing": listing}
+    )
+
+
+@login_required
+def delete_business(request, slug):
+    listing = get_object_or_404(BusinessListing, slug=slug)
+
+    # Check if user is the owner
+    if not listing.is_owner(request.user):
+        return HttpResponseForbidden("You don't have permission to delete this listing")
+
+    if request.method == "POST":
+        listing_name = listing.name
+        listing.delete()
+        messages.success(request, f"'{listing_name}' has been deleted successfully.")
+        return redirect("listings")
+
+    return render(request, "home/delete-business-confirm.html", {"listing": listing})

@@ -20,16 +20,6 @@
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
               
-              <div class="mb-3">
-                <label for="{{ form.proof_document.id_for_label }}" class="form-label">Proof of Ownership</label>
-                {{ form.proof_document }}
-                <div class="form-text">{{ form.proof_document.help_text }}</div>
-                {% if form.proof_document.errors %}
-                  <div class="text-danger">
-                    {{ form.proof_document.errors }}
-                  </div>
-                {% endif %}
-              </div>
               
               <div class="mb-4">
                 <label for="{{ form.notes.id_for_label }}" class="form-label">Additional Notes</label>

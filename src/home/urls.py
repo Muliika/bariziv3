@@ -30,4 +30,9 @@ urlpatterns = [
     ),
     path("business/<slug:slug>/edit/", views.edit_business, name="edit_business"),
     path("business/<slug:slug>/delete/", views.delete_business, name="delete_business"),
+    path(
+        "admin/claim-request/<int:pk>/approve/",
+        views.approve_claim_request,
+        name="approve_claim_request",
+    ),
 ]

@@ -67,7 +67,17 @@ class BusinessListing(models.Model):
         ordering = ["-featured", "-created_at"]
 
     def is_owner(self, user):
-        return user.is_authenticated and self.owner == user
+        """
+        Check if the given user is the owner of this business listing
+        """
+        if not user.is_authenticated:
+            return False
+
+        # Staff can edit any listing
+        if user.is_staff:
+            return True
+
+        return self.owner == user
 
     def __str__(self):
         return self.name
@@ -110,6 +120,24 @@ class ClaimRequest(models.Model):
         verbose_name = "Claim Request"
         verbose_name_plural = "Claim Requests"
         ordering = ["-created_at"]
+
+    def approve(self):
+        """
+        Approve a claim request and transfer business ownership to the user
+        """
+        business = self.business
+        user = self.user
+
+        # Transfer ownership
+        business.owner = user
+        business.is_claimed = True
+        business.save()
+
+        # Update claim status
+        self.status = "approved"
+        self.save()
+
+        return business
 
     def __str__(self):
         return f"Claim for {self.business.name} by {self.user.username}"

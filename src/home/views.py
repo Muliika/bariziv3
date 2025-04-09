@@ -186,21 +186,35 @@ def edit_business(request, slug):
 
     # Check if user is the owner
     if not listing.is_owner(request.user):
-        return HttpResponseForbidden("You don't have permission to edit this listing")
+        return HttpResponseForbidden(
+            "You don't have permission to edit this business profile"
+        )
 
     if request.method == "POST":
         form = BusinessListingForm(request.POST, request.FILES, instance=listing)
         if form.is_valid():
-            form.save()
+            business_profile = form.save()
+
+            # Since this is now considered a profile, we might want to update user-related fields
+            # For example, if you have fields that should be synchronized:
+            # request.user.business_name = business_profile.name
+            # request.user.save()
+
             messages.success(
-                request, "Your business listing has been updated successfully."
+                request, "Your business profile has been updated successfully."
             )
-            return redirect("business_listing_detail", slug=listing.slug)
+            return redirect("business_listing_detail", slug=business_profile.slug)
     else:
         form = BusinessListingForm(instance=listing)
 
     return render(
-        request, "home/edit-business.html", {"form": form, "listing": listing}
+        request,
+        "home/edit-business.html",
+        {
+            "form": form,
+            "listing": listing,
+            "is_profile": True,  # Flag to indicate this is a profile edit
+        },
     )
 
 
@@ -210,12 +224,61 @@ def delete_business(request, slug):
 
     # Check if user is the owner
     if not listing.is_owner(request.user):
-        return HttpResponseForbidden("You don't have permission to delete this listing")
+        return HttpResponseForbidden(
+            "You don't have permission to delete this business profile"
+        )
 
     if request.method == "POST":
         listing_name = listing.name
-        listing.delete()
-        messages.success(request, f"'{listing_name}' has been deleted successfully.")
-        return redirect("business_listing_list")
 
-    return render(request, "home/delete-business-confirm.html", {"listing": listing})
+        # Option 1: Delete the business listing but keep the user account
+        listing.delete()
+        messages.success(
+            request, f"Your business profile '{listing_name}' has been deleted."
+        )
+
+        # Option 2: If you want to deactivate the user account as well
+        # request.user.is_active = False
+        # request.user.save()
+        # messages.success(request, f"Your business profile '{listing_name}' and account have been deactivated.")
+        # logout(request)
+
+        return redirect("home")
+
+    return render(
+        request,
+        "home/delete-business-confirm.html",
+        {
+            "listing": listing,
+            "is_profile": True,  # Flag to indicate this is a profile deletion
+        },
+    )
+
+
+@login_required
+def approve_claim_request(request, pk):
+    """
+    Approve a claim request (admin only)
+    """
+    if not request.user.is_staff:
+        return HttpResponseForbidden("You don't have permission to perform this action")
+
+    claim_request = get_object_or_404(ClaimRequest, pk=pk)
+
+    if claim_request.status != "pending":
+        messages.error(request, "This claim request has already been processed.")
+        return redirect("admin:home_claimrequest_changelist")
+
+    if request.method == "POST":
+        # Approve the claim and transfer ownership
+        business = claim_request.approve()
+
+        messages.success(
+            request,
+            f"Claim request approved. {business.name} is now owned by {claim_request.user.email}.",
+        )
+        return redirect("admin:home_claimrequest_changelist")
+
+    return render(
+        request, "admin/approve_claim_request.html", {"claim_request": claim_request}
+    )

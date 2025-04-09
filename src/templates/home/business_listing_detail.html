@@ -159,10 +159,10 @@
         {% if listing.owner == user or user.is_staff %}
           <div class="card shadow-sm mb-4">
             <div class="card-body">
-              <h4 class="card-title mb-3">Manage Listing</h4>
+              <h4 class="card-title mb-3">Manage Business Profile</h4>
               <div class="d-grid gap-2">
-                <a href="{% url 'edit_business' listing.slug %}" class="btn btn-outline-primary">Edit Business</a>
-                <a href="{% url 'delete_business' listing.slug %}" class="btn btn-outline-danger">Delete Business</a>
+                <a href="{% url 'edit_business' listing.slug %}" class="btn btn-outline-primary">Edit Profile</a>
+                <a href="{% url 'delete_business' listing.slug %}" class="btn btn-outline-danger">Delete Profile</a>
               </div>
             </div>
           </div>

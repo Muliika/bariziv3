@@ -126,7 +126,7 @@
         </div>
         
         <!-- Claim Business Card -->
-        {% if not listing.is_claimed and user.is_authenticated and user.user_type == 'business' %}
+        {% comment %} {% if not listing.is_claimed and user.is_authenticated and user.user_type == 'business' %}
           {% if claim_request %}
             <div class="card shadow-sm mb-4 border-info">
               <div class="card-body">
@@ -153,7 +153,40 @@
               </div>
             </div>
           {% endif %}
+        {% endif %} {% endcomment %}
+        {% if not listing.is_claimed and user.is_authenticated and user.user_type == 'business' %}
+  {% if claim_request %}
+    <div class="card shadow-sm mb-4 border-info">
+      <div class="card-body">
+        <h4 class="card-title mb-3">Claim Status</h4>
+        <p>You have submitted a claim request for this business.</p>
+        <p><strong>Status:</strong> {{ claim_request.get_status_display }}</p>
+        
+        {% if claim_request.status == 'pending' %}
+          <p class="text-muted">Your claim is being reviewed. We'll notify you when there's an update.</p>
+          <a href="{% url 'cancel_claim_request' claim_request.pk %}" class="btn btn-outline-danger w-100">Cancel Claim Request</a>
+        {% elif claim_request.status == 'approved' %}
+          <p class="text-success">Your claim has been approved! You can now manage this business.</p>
+          <div class="d-grid gap-2 mt-3">
+            <a href="{% url 'edit_business' listing.slug %}" class="btn btn-primary">Edit Business Profile</a>
+            <a href="{% url 'delete_business' listing.slug %}" class="btn btn-outline-danger">Delete Business</a>
+          </div>
+        {% elif claim_request.status == 'rejected' %}
+          <p class="text-danger">Your claim has been rejected. Please contact support for more information.</p>
         {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="card shadow-sm mb-4 border-primary">
+      <div class="card-body">
+        <h4 class="card-title mb-3">Is this your business?</h4>
+        <p>Claim this listing to manage your business information, respond to reviews, and more.</p>
+        <a href="{% url 'claim_business' listing.slug %}" class="btn btn-primary w-100">Claim This Business</a>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+
         
         <!-- Owner Actions -->
         {% if listing.owner == user or user.is_staff %}

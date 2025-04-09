@@ -14,6 +14,7 @@
 
 
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseForbidden
@@ -82,6 +83,18 @@ def business_listing_detail(request, slug):
         claim_request = ClaimRequest.objects.filter(
             business=listing, user=request.user
         ).first()
+
+    # If the claim is approved, the user should be the owner
+    # This ensures the owner actions are displayed
+    if (
+        claim_request
+        and claim_request.status == "approved"
+        and listing.owner != request.user
+    ):
+        # This is a safety check - if the claim is approved but the owner isn't set correctly
+        listing.owner = request.user
+        listing.is_claimed = True
+        listing.save()
 
     context = {
         "listing": listing,
@@ -255,30 +268,56 @@ def delete_business(request, slug):
     )
 
 
-@login_required
+@staff_member_required
 def approve_claim_request(request, pk):
     """
-    Approve a claim request (admin only)
+    Admin view to approve a claim request
     """
-    if not request.user.is_staff:
-        return HttpResponseForbidden("You don't have permission to perform this action")
-
     claim_request = get_object_or_404(ClaimRequest, pk=pk)
 
     if claim_request.status != "pending":
         messages.error(request, "This claim request has already been processed.")
         return redirect("admin:home_claimrequest_changelist")
 
-    if request.method == "POST":
-        # Approve the claim and transfer ownership
-        business = claim_request.approve()
+    # Update the business first
+    business = claim_request.business
+    business.is_claimed = True
+    business.owner = claim_request.user
+    business.save()
 
-        messages.success(
-            request,
-            f"Claim request approved. {business.name} is now owned by {claim_request.user.email}.",
-        )
+    # Then update the claim status
+    claim_request.status = "approved"
+    claim_request.save()
+
+    messages.success(
+        request,
+        f"Claim request for {business.name} has been approved. The business is now owned by {claim_request.user.email}.",
+    )
+    return redirect("admin:home_claimrequest_changelist")
+
+
+def approve_claim_request(request, pk):
+    """
+    Admin view to approve a claim request
+    """
+    claim_request = get_object_or_404(ClaimRequest, pk=pk)
+
+    if claim_request.status != "pending":
+        messages.error(request, "This claim request has already been processed.")
         return redirect("admin:home_claimrequest_changelist")
 
-    return render(
-        request, "admin/approve_claim_request.html", {"claim_request": claim_request}
+    # Update the business first
+    business = claim_request.business
+    business.is_claimed = True
+    business.owner = claim_request.user
+    business.save()
+
+    # Then update the claim status
+    claim_request.status = "approved"
+    claim_request.save()
+
+    messages.success(
+        request,
+        f"Claim request for {business.name} has been approved. The business is now owned by {claim_request.user.email}.",
     )
+    return redirect("admin:home_claimrequest_changelist")

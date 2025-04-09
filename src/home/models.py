@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 
+from profiles.models import User
+
 
 class BusinessListing(models.Model):
     CATEGORY_CHOICES = (
@@ -42,8 +44,15 @@ class BusinessListing(models.Model):
     featured = models.BooleanField(default=False)
     is_claimed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
+    # owner = models.ForeignKey(
+    #     settings.AUTH_USER_MODEL,
+    #     on_delete=models.SET_NULL,
+    #     related_name="owned_businesses",
+    #     null=True,
+    #     blank=True,
+    # )
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.SET_NULL,
         related_name="owned_businesses",
         null=True,

@@ -5,7 +5,8 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section position-relative" style="background-image: url('{% static 'images/one.jpg' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+{% comment %} <section class="hero-section position-relative" style="background-image: url('{% static 'images/one.jpg' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;"> {% endcomment %}
+<section class="hero-section position-relative">
   <div class="container">
     <div class="row align-items-center min-vh-75">
       <div class="col-lg-6 py-5">
@@ -353,7 +354,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
           <div class="listing-img position-relative">
-            <img src="{% static 'images/one.jpg' %}" alt="{{ listing.name }}" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <img src="" alt="{{ listing.name }}" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
             <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
             <div class="listing-category position-absolute bottom-0 start-0 m-3">
               <span class="badge bg-dark">{{ listing.get_category_display }}</span>
@@ -532,7 +533,7 @@
       <!-- City 1 -->
       <div class="col-lg-3 col-md-6">
         <div class="city-card position-relative rounded overflow-hidden shadow-sm">
-          <img src="{% static 'images/one.jpg' %}" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
             <div class="text-center text-white">
               <h4 class="city-name mb-2">Nairobi</h4>
@@ -546,7 +547,7 @@
       <!-- City 2 -->
       <div class="col-lg-3 col-md-6">
         <div class="city-card position-relative rounded overflow-hidden shadow-sm">
-          <img src="{% static 'images/one.jpg' %}" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
             <div class="text-center text-white">
               <h4 class="city-name mb-2">Mombasa</h4>
@@ -560,7 +561,7 @@
       <!-- City 3 -->
       <div class="col-lg-3 col-md-6">
         <div class="city-card position-relative rounded overflow-hidden shadow-sm">
-          <img src="{% static 'images/one.jpg' %}" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
             <div class="text-center text-white">
               <h4 class="city-name mb-2">Kisumu</h4>
@@ -574,7 +575,7 @@
       <!-- City 4 -->
       <div class="col-lg-3 col-md-6">
         <div class="city-card position-relative rounded overflow-hidden shadow-sm">
-          <img src="{% static 'images/one.jpg' %}" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
             <div class="text-center text-white">
               <h4 class="city-name mb-2">Nakuru</h4>
@@ -606,7 +607,7 @@
             <div class="carousel-item active">
               <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
                 <div class="testimonial-avatar mb-3">
-                  <img src="{% static 'images/one.jpg' %}" alt="User" class="rounded-circle" width="80" height="80">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
                 </div>
                 <p class="testimonial-text mb-3">"Barizi helped me discover amazing local restaurants I never knew existed. The detailed listings and reviews made it easy to find exactly what I was looking for."</p>
                 <div class="testimonial-rating mb-2">
@@ -625,7 +626,7 @@
             <div class="carousel-item">
               <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
                 <div class="testimonial-avatar mb-3">
-                  <img src="{% static 'images/one.jpg' %}" alt="User" class="rounded-circle" width="80" height="80">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
                 </div>
                 <p class="testimonial-text mb-3">"As a traveler, Barizi has been invaluable for finding accommodation and activities in new cities. The interface is intuitive and the listings are comprehensive."</p>
                 <div class="testimonial-rating mb-2">
@@ -644,7 +645,7 @@
             <div class="carousel-item">
               <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
                 <div class="testimonial-avatar mb-3">
-                  <img src="{% static 'images/one.jpg' %}" alt="User" class="rounded-circle" width="80" height="80">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
                 </div>
                 <p class="testimonial-text mb-3">"I listed my business on Barizi and saw an immediate increase in customers. The platform is easy to use for both business owners and customers."</p>
                 <div class="testimonial-rating mb-2">
@@ -705,7 +706,7 @@
         </div>
       </div>
       <div class="col-lg-6 text-center">
-        <img src="{% static 'images/one.jpg' %}" alt="Mobile App" class="img-fluid" style="max-height: 400px;">
+        <img src="" alt="Mobile App" class="img-fluid" style="max-height: 400px;">
       </div>
     </div>
   </div>
@@ -726,7 +727,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
           <div class="blog-img">
-            <img src="{% static 'images/blog-1.jpg' %}" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           </div>
           <div class="blog-content p-4">
             <div class="blog-meta text-muted mb-2">
@@ -744,7 +745,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
           <div class="blog-img">
-            <img src="{% static 'images/blog-2.jpg' %}" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           </div>
           <div class="blog-content p-4">
             <div class="blog-meta text-muted mb-2">
@@ -762,7 +763,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
           <div class="blog-img">
-            <img src="{% static 'images/blog-3.jpg' %}" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
           </div>
           <div class="blog-content p-4">
             <div class="blog-meta text-muted mb-2">

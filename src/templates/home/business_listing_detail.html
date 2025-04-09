@@ -4,6 +4,22 @@
 {% block title %}{{ listing.name }}{% endblock %}
 
 {% block content %}
+{% comment %} debugging {% endcomment %}
+{% comment %} debugging {% endcomment %}
+{% comment %} debugging {% endcomment %}
+{% comment %} <div class="card mb-4">
+  <div class="card-body">
+    <h5>Debug Info:</h5>
+    <ul>
+      <li>User authenticated: {{ user.is_authenticated }}</li>
+      <li>User type: {{ user.user_type }}</li>
+      <li>Business claimed: {{ listing.is_claimed }}</li>
+      <li>Claim request exists: {{ claim_request|yesno:"Yes,No" }}</li>
+    </ul>
+  </div>
+</div> {% endcomment %}
+{% comment %} debugging {% endcomment %}
+{% comment %} debugging {% endcomment %}
 <section class="business-detail py-5">
   <div class="container">
     <div class="row">
@@ -43,7 +59,7 @@
         
         <!-- Business Image -->
         <div class="business-image mb-4">
-          <img src="{% static 'images/one.jpg' %}" alt="{{ listing.name }}" class="img-fluid rounded w-100" style="max-height: 400px; object-fit: cover;">
+          <img src="" alt="{{ listing.name }}" class="img-fluid rounded w-100" style="max-height: 400px; object-fit: cover;">
         </div>
         
         <!-- Business Description -->

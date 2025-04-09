@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Businesses{% endblock %}
+
+{% block content %}
+<section class="my-businesses py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="section-title">My Businesses</h1>
+        <p class="section-subtitle">Manage your business listings and claim requests</p>
+      </div>
+    </div>
+    
+    <!-- My Businesses -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h3 class="h5 mb-0">My Business Listings</h3>
+          </div>
+          <div class="card-body">
+            {% if owned_businesses %}
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Business Name</th>
+                      <th>Category</th>
+                      <th>City</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for business in owned_businesses %}
+                      <tr>
+                        <td>
+                          <a href="{% url 'business_listing_detail' business.slug %}">{{ business.name }}</a>
+                        </td>
+                        <td>{{ business.get_category_display }}</td>
+                        <td>{{ business.city }}</td>
+                        <td>
+                          {% if business.is_verified %}
+                            <span class="badge bg-success">Verified</span>
+                          {% else %}
+                            <span class="badge bg-warning text-dark">Pending Verification</span>
+                          {% endif %}
+                        </td>
+                        <td>
+                          <div class="btn-group btn-group-sm">
+                            <a href="{% url 'business_listing_detail' business.slug %}" class="btn btn-outline-primary">View</a>
+                            <a href="#" class="btn btn-outline-secondary">Edit</a>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="alert alert-info">
+                <p class="mb-0">You don't have any business listings yet. You can claim existing businesses from our directory.</p>
+              </div>
+              <a href="{% url 'business_listing_list' %}" class="btn btn-primary">Browse Business Listings</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- My Claim Requests -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-info text-white">
+            <h3 class="h5 mb-0">My Claim Requests</h3>
+          </div>
+          <div class="card-body">
+            {% if claim_requests %}
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Business Name</th>
+                      <th>Submitted On</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for claim in claim_requests %}
+                      <tr>
+                        <td>
+                          <a href="{% url 'business_listing_detail' claim.business.slug %}">{{ claim.business.name }}</a>
+                        </td>
+                        <td>{{ claim.created_at|date:"M d, Y" }}</td>
+                        <td>
+                          {% if claim.status == 'pending' %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                          {% elif claim.status == 'approved' %}
+                            <span class="badge bg-success">Approved</span>
+                          {% elif claim.status == 'rejected' %}
+                            <span class="badge bg-danger">Rejected</span>
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if claim.status == 'pending' %}
+                            <a href="{% url 'cancel_claim_request' claim.pk %}" class="btn btn-sm btn-outline-danger">Cancel</a>
+                          {% else %}
+                            <span class="text-muted">No actions available</span>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="alert alert-info">
+                <p class="mb-0">You don't have any pending claim requests.</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

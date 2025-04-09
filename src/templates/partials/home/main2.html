@@ -155,7 +155,7 @@
 </section>
 
 <!-- Featured Listings Section -->
-<section class="featured-listings py-5">
+{% comment %} <section class="featured-listings py-5">
   <div class="container">
     <div class="row mb-4">
       <div class="col-12 text-center">
@@ -335,6 +335,137 @@
     <div class="row mt-4">
       <div class="col-12 text-center">
         <a href="#" class="btn btn-primary">View All Listings</a>
+      </div>
+    </div>
+  </div>
+</section> {% endcomment %}
+<section class="featured-listings py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Featured Listings</h2>
+        <p class="section-subtitle">Discover our handpicked premium listings</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      {% for listing in featured_listings %}
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="{% static 'images/one.jpg' %}" alt="{{ listing.name }}" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">{{ listing.get_category_display }}</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">{{ listing.name }}</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>{{ listing.rating }}</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> {{ listing.address }}, {{ listing.city }}</p>
+            <p class="listing-description mb-3">{{ listing.description|truncatechars:100 }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">{{ listing.price_range }}</div>
+              <a href="{% url 'business_listing_detail' listing.slug %}" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <!-- Fallback static listings if no featured listings in database -->
+      <!-- Listing 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Accommodation</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.8</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
+            <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$150/night</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Listing 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Food & Drinks</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.6</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
+            <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$$$</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Listing 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Activities</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Adventure Park</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.9</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
+            <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$25/person</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="{% url 'business_listing_list' %}" class="btn btn-primary">View All Listings</a>
       </div>
     </div>
   </div>
@@ -674,7 +805,7 @@
 </section>
 
 <!-- Call to Action Section -->
-<section class="cta py-5">
+{% comment %} <section class="cta py-5">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto text-center">
@@ -684,6 +815,22 @@
           <div class="d-flex justify-content-center gap-3">
             <a href="#" class="btn btn-light btn-lg">Add Your Listing</a>
             <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> {% endcomment %}
+<section class="cta py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <div class="cta-card bg-primary text-white p-5 rounded shadow">
+          <h2 class="mb-3">Ready to List Your Business?</h2>
+          <p class="lead mb-4">Join thousands of businesses that have increased their visibility and customer base through Barizi.</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'business_listing_list' %}" class="btn btn-light btn-lg">Find Your Business</a>
+            <a href="{% url 'account_signup' %}" class="btn btn-outline-light btn-lg">Create Account</a>
           </div>
         </div>
       </div>

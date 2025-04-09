@@ -195,7 +195,7 @@ def edit_business(request, slug):
             messages.success(
                 request, "Your business listing has been updated successfully."
             )
-            return redirect("single_listing", slug=listing.slug)
+            return redirect("business_listing_detail", slug=listing.slug)
     else:
         form = BusinessListingForm(instance=listing)
 
@@ -216,6 +216,6 @@ def delete_business(request, slug):
         listing_name = listing.name
         listing.delete()
         messages.success(request, f"'{listing_name}' has been deleted successfully.")
-        return redirect("listings")
+        return redirect("business_listing_list")
 
     return render(request, "home/delete-business-confirm.html", {"listing": listing})

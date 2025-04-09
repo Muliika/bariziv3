@@ -161,8 +161,8 @@
             <div class="card-body">
               <h4 class="card-title mb-3">Manage Listing</h4>
               <div class="d-grid gap-2">
-                <a href="#" class="btn btn-outline-primary">Edit Business</a>
-                <a href="#" class="btn btn-outline-danger">Delete Business</a>
+                <a href="{% url 'edit_business' listing.slug %}" class="btn btn-outline-primary">Edit Business</a>
+                <a href="{% url 'delete_business' listing.slug %}" class="btn btn-outline-danger">Delete Business</a>
               </div>
             </div>
           </div>

@@ -64,6 +64,7 @@ class UserChangeForm(forms.ModelForm):
             "first_name",
             "last_name",
             "user_type",
+            "slug",
             "is_active",
             "is_staff",
             "is_superuser",
@@ -128,6 +129,13 @@ class CustomSignupForm(SignupForm):
         widget=forms.RadioSelect,
     )
 
+    business_category = forms.ChoiceField(
+        choices=User.CATEGORY_CHOICES,
+        label=_("Business Category"),
+        required=False,
+        initial="other",
+    )
+
     def save(self, request):
         # First call the parent class's save method to create the user
         user = super(CustomSignupForm, self).save(request)
@@ -136,6 +144,9 @@ class CustomSignupForm(SignupForm):
         user.first_name = self.cleaned_data.get("first_name", "")
         user.last_name = self.cleaned_data.get("last_name", "")
         user.user_type = self.cleaned_data.get("user_type", "customer")
+        # Set business category if user is a business
+        if user.user_type == "business":
+            user.business_category = self.cleaned_data.get("business_category", "other")
         user.save()
 
         return user

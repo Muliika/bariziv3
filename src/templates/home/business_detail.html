@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.get_full_name }} - Business Profile{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Business Header -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h1 class="card-title mb-1">{{ user.get_full_name }}</h1>
+                            <h6 class="text-muted mb-3">@{{ user.username }}</h6>
+                            
+                            <div class="mb-3">
+                                <span class="badge bg-primary">{{ user.get_business_category_display }}</span>
+                                {% if profile.featured %}
+                                <span class="badge bg-warning text-dark ms-2">Featured</span>
+                                {% endif %}
+                                {% if profile.price_range %}
+                                <span class="badge bg-secondary ms-2">{{ profile.get_price_range_display }}</span>
+                                {% endif %}
+                            </div>
+                            
+                            {% if profile.rating > 0 %}
+                            <div class="mb-3">
+                                <span class="h5">{{ profile.rating }}/5.0</span>
+                                <small class="text-muted ms-2">Rating</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        {% if request.user.is_authenticated and request.user == user %}
+                        <a href="" class="btn btn-outline-primary">
+                            Edit Profile
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Business Details -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">About</h5>
+                </div>
+                <div class="card-body">
+                    {% if profile.bio %}
+                    <div class="mb-4">
+                        <h6>Description</h6>
+                        <p>{{ profile.bio }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Contact Information</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Email:</strong> {{ user.email }}</li>
+                                {% if profile.phone_number %}
+                                <li><strong>Phone:</strong> {{ profile.phone_number }}</li>
+                                {% endif %}
+                                {% if profile.website %}
+                                <li><strong>Website:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h6>Location</h6>
+                            <ul class="list-unstyled">
+                                {% if profile.address %}
+                                <li><strong>Address:</strong> {{ profile.address }}</li>
+                                {% endif %}
+                                {% if profile.city or profile.district %}
+                                <li><strong>Area:</strong> {% if profile.city %}{{ profile.city }}{% endif %}{% if profile.district %}, {{ profile.district }}{% endif %}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    {% if profile.twitter or profile.instagram or profile.linkedin %}
+                    <div class="mb-4">
+                        <h6>Social Media</h6>
+                        <div class="d-flex gap-2">
+                            {% if profile.twitter %}
+                            <a href="https://twitter.com/{{ profile.twitter }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                Twitter
+                            </a>
+                            {% endif %}
+                            
+                            {% if profile.instagram %}
+                            <a href="https://instagram.com/{{ profile.instagram }}" target="_blank" class="btn btn-outline-danger btn-sm">
+                                Instagram
+                            </a>
+                            {% endif %}
+                            
+                            {% if profile.linkedin %}
+                            <a href="https://linkedin.com/in/{{ profile.linkedin }}" target="_blank" class="btn btn-outline-info btn-sm">
+                                LinkedIn
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Back Button -->
+            <div class="text-center mb-5">
+                <a href="{% url 'profiles_list' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Businesses
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -27,14 +27,16 @@ class UserAdmin(BaseUserAdmin):
         "first_name",
         "last_name",
         "user_type",
+        "business_category",
         "is_staff",
     )
-    list_filter = ("is_staff", "is_superuser", "is_active", "user_type")
+    list_filter = ("user_type", "business_category", "is_staff", "is_active")
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "user_type")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        ("Account type", {"fields": ("user_type", "business_category")}),
         (
-            _("Permissions"),
+            "Permissions",
             {
                 "fields": (
                     "is_active",
@@ -45,20 +47,27 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+        ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "email", "password1", "password2", "user_type"),
+                "fields": (
+                    "username",
+                    "email",
+                    "password1",
+                    "password2",
+                    "user_type",
+                    "business_category",
+                    "slug",
+                ),
             },
         ),
     )
-    prepopulated_fields = {"slug": ("username",)}
+
+    # prepopulated_fields = {"slug": ("username",)}
     search_fields = ("username", "email", "first_name", "last_name")
     ordering = ("username",)
     inlines = (ProfileInline,)

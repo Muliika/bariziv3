@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Business Profiles{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Business Profiles</h1>
+    
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Filter Businesses</h5>
+            <form method="get" class="row g-3">
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Business Category</label>
+                    <select name="category" id="category" class="form-select">
+                        <option value="">All Categories</option>
+                        {% for value, label in category_choices %}
+                        <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <a href="{% url 'profiles_list' %}" class="btn btn-outline-secondary ms-2">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Profiles List -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for profile in profiles %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ profile.user.get_full_name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@{{ profile.user.username }}</h6>
+                    
+                    <p class="card-text">
+                        <strong>Category:</strong> {{ profile.user.get_business_category_display }}<br>
+                        {% if profile.bio %}
+                        <strong>Bio:</strong> {{ profile.bio|truncatechars:100 }}<br>
+                        {% endif %}
+                        {% if profile.city %}
+                        <strong>Location:</strong> {{ profile.city }}{% if profile.district %}, {{ profile.district }}{% endif %}<br>
+                        {% endif %}
+                        {% if profile.rating > 0 %}
+                        <strong>Rating:</strong> {{ profile.rating }}/5.0<br>
+                        {% endif %}
+                        {% if profile.price_range %}
+                        <strong>Price Range:</strong> {{ profile.get_price_range_display }}<br>
+                        {% endif %}
+                    </p>
+                    
+                    {% if profile.featured %}
+                    <div class="badge bg-warning text-dark mb-2">Featured</div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'business_detail' profile.user.slug %}" class="btn btn-primary btn-sm">View Business</a>
+                
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No business profiles found matching your criteria.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

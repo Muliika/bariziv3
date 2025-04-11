@@ -52,6 +52,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     for authentication.
     """
 
+    CATEGORY_CHOICES = (
+        ("accommodation", "Accommodation"),
+        ("food_drinks", "Food & Drinks"),
+        ("activities", "Activities"),
+        ("shopping", "Shopping"),
+        ("health", "Health"),
+        ("entertainment", "Entertainment"),
+        ("services", "Services"),
+        ("other", "Other"),
+    )
+
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(_("username"), max_length=150, unique=True)
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
@@ -69,6 +80,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     user_type = models.CharField(
         max_length=20, choices=USER_TYPE_CHOICES, default="customer"
+    )
+    business_category = models.CharField(
+        max_length=50, choices=CATEGORY_CHOICES, default="other", blank=True
     )
 
     objects = CustomUserManager()
@@ -95,22 +109,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Return the short name for the user."""
         return self.first_name or self.username
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.username)
+        super().save(*args, **kwargs)
+
 
 class Profile(models.Model):
     """
     User profile with additional information
     """
-
-    CATEGORY_CHOICES = (
-        ("accommodation", "Accommodation"),
-        ("food_drinks", "Food & Drinks"),
-        ("activities", "Activities"),
-        ("shopping", "Shopping"),
-        ("health", "Health"),
-        ("entertainment", "Entertainment"),
-        ("services", "Services"),
-        ("other", "Other"),
-    )
 
     PRICE_RANGE_CHOICES = (
         ("$", "Budget"),
@@ -143,9 +151,9 @@ class Profile(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     featured = models.BooleanField(default=False)
 
-    category = models.CharField(
-        max_length=50, choices=CATEGORY_CHOICES, default="other"
-    )
+    # category = models.CharField(
+    #     max_length=50, choices=CATEGORY_CHOICES, default="other"
+    # )
     price_range = models.CharField(
         max_length=10, choices=PRICE_RANGE_CHOICES, blank=True, null=True
     )

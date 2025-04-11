@@ -9,7 +9,7 @@ from .models import Profile, User
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
-    verbose_name_plural = "Profile"
+    verbose_name_plural = "Profiles"
     fk_name = "user"
 
 
@@ -58,6 +58,7 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+    prepopulated_fields = {"slug": ("username",)}
     search_fields = ("username", "email", "first_name", "last_name")
     ordering = ("username",)
     inlines = (ProfileInline,)

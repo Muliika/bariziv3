@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -58,6 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(_("active"), default=True)
     is_staff = models.BooleanField(_("staff status"), default=False)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
 
     # You can add additional fields here
     USER_TYPE_CHOICES = [
@@ -99,6 +101,24 @@ class Profile(models.Model):
     User profile with additional information
     """
 
+    CATEGORY_CHOICES = (
+        ("accommodation", "Accommodation"),
+        ("food_drinks", "Food & Drinks"),
+        ("activities", "Activities"),
+        ("shopping", "Shopping"),
+        ("health", "Health"),
+        ("entertainment", "Entertainment"),
+        ("services", "Services"),
+        ("other", "Other"),
+    )
+
+    PRICE_RANGE_CHOICES = (
+        ("$", "Budget"),
+        ("$$", "Moderate"),
+        ("$$$", "Expensive"),
+        ("$$$$", "Luxury"),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     # profile_picture = models.ImageField(
     #     upload_to="profile_pics/", blank=True, null=True
@@ -106,6 +126,10 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
     address = models.CharField(max_length=255, blank=True)
+    district = models.CharField(
+        max_length=100, blank=True, null=True, default="Kampala"
+    )
+    city = models.CharField(max_length=100, blank=True, null=True, default="Kampala")
 
     # Social media accounts
     website = models.URLField(max_length=200, blank=True)
@@ -115,6 +139,16 @@ class Profile(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
+    featured = models.BooleanField(default=False)
+
+    category = models.CharField(
+        max_length=50, choices=CATEGORY_CHOICES, default="other"
+    )
+    price_range = models.CharField(
+        max_length=10, choices=PRICE_RANGE_CHOICES, blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

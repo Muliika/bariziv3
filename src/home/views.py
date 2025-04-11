@@ -7,6 +7,18 @@ def home(request):
     return render(request, "index.html")
 
 
+def sample_page(request):
+    return render(request, "home/single-listing.html")
+
+
+def listings(request):
+    return render(request, "home/listings.html")
+
+
+def categories(request):
+    return render(request, "home/categories.html")
+
+
 def profiles_list(request):
     """
     View to display all business profiles

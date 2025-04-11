@@ -15,6 +15,9 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="index"),
+    path("sample/", views.sample_page, name="sample_page"),
+    path("listings/", views.listings, name="listings"),
+    path("categories/", views.categories, name="categories"),
     path("businesses/", views.profiles_list, name="profiles_list"),
     path("business/<slug:slug>/", views.business_detail, name="business_detail"),
 ]

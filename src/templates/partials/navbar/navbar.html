@@ -1,40 +1,210 @@
-<div class="container overflow-x-hidden">
-      <header class="border-bottom lh-1 py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-4 pt-1">
-            <a class="link-secondary" href="#">+ Add Post</a>
-          </div>
-          <div class="col-4 text-center">
-            <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Barizi</a>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="link-secondary" href="#" aria-label="Search">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-            </a>
-            <a class="btn btn-sm btn-outline-secondary" href="#">Profile</a>
-            
-          </div>
-        </div>
-      </header>
-    
-      <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-          <a class="nav-item nav-link link-body-emphasis active" href="#">Home</a>
-          {% comment %} <a class="nav-item nav-link link-body-emphasis" href="#">Events</a> {% endcomment %}
-          <a class="nav-item nav-link link-body-emphasis" href="#">Accommodation</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Entertainment</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Food and Drinks</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Local attractions</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Activities</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Shopping</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Communication</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Safety</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Weather</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Currency</a>
-          <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>
-          {% comment %} <a class="nav-item nav-link link-body-emphasis" href="#">Others</a> {% endcomment %}
-        </nav>
+<div class="container-fluid px-0">
+  <!-- Top bar -->
+  <div class="bg-primary text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <span>Welcome to Barizi</span>
       </div>
+      <div class="social-icons">
+        <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand fw-bold fs-4" href="/">Barizi</a>
+      
+      <!-- Mobile Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          
+          <!-- Categories Mega Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu mega-menu p-3" aria-labelledby="categoriesDropdown">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Accommodation</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="dropdown-item py-2">Hotels & Resorts</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Apartments</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Hostels</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Vacation Rentals</a></li>
+                      <li><a href="#" class="dropdown-item py-2">All Accommodation</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Food & Drinks</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="dropdown-item py-2">Restaurants</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Cafes</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Bars & Pubs</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Food Delivery</a></li>
+                      <li><a href="#" class="dropdown-item py-2">All Food & Drinks</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Entertainment</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="dropdown-item py-2">Nightlife</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Theaters</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Museums</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Concerts</a></li>
+                      <li><a href="#" class="dropdown-item py-2">All Entertainment</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <h5 class="text-primary mb-3">Activities</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="#" class="dropdown-item py-2">Outdoor</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Sports</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Tours</a></li>
+                      <li><a href="#" class="dropdown-item py-2">Workshops</a></li>
+                      <li><a href="#" class="dropdown-item py-2">All Activities</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          
+          <!-- Locations Mega Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="locationsDropdown" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Locations
+            </a>
+            <div class="dropdown-menu mega-menu p-3" aria-labelledby="locationsDropdown">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Popular Cities</h5>
+                    <div class="row">
+                      <div class="col-6">
+                        <ul class="list-unstyled">
+                          <li><a href="#" class="dropdown-item py-2">Nairobi</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Mombasa</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Kisumu</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Nakuru</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-unstyled">
+                          <li><a href="#" class="dropdown-item py-2">Eldoret</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Malindi</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Lamu</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Nyeri</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="text-primary mb-3">Regions</h5>
+                    <div class="row">
+                      <div class="col-6">
+                        <ul class="list-unstyled">
+                          <li><a href="#" class="dropdown-item py-2">Coast</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Rift Valley</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Central</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Western</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-6">
+                        <ul class="list-unstyled">
+                          <li><a href="#" class="dropdown-item py-2">Eastern</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Nyanza</a></li>
+                          <li><a href="#" class="dropdown-item py-2">North Eastern</a></li>
+                          <li><a href="#" class="dropdown-item py-2">Nairobi</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-12">
+                    <h5 class="text-primary mb-3">Featured Locations</h5>
+                    <div class="row g-3">
+                      <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100">
+                          <img src="https://via.placeholder.com/150x100" class="card-img-top" alt="Featured location">
+                          <div class="card-body p-2">
+                            <p class="card-text small mb-0">Maasai Mara</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="card border-0 shadow-sm h-100">
+                          <img src="https://via.placeholder.com/150x100" class="card-img-top" alt="Featured location">
+                          <div class="card-body p-2">
+                            <p class="card-text small mb-0">Mount Kenya</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#">Businesses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+        
+        <!-- Right side of navbar -->
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <a href="#" class="text-dark" aria-label="Search">
+              <i class="bi bi-search"></i>
+            </a>
+          </div>
+          <a href="#" class="btn btn-outline-primary me-2">Login</a>
+          <a href="#" class="btn btn-primary">+ Add Listing</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Category Navigation (shows on smaller screens) -->
+  <div class="d-lg-none bg-light py-2 border-bottom overflow-auto">
+    <div class="container">
+      <div class="d-flex flex-nowrap">
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Accommodation</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Food & Drinks</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Entertainment</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Activities</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Travel</a>
+        <a href="#" class="btn btn-sm btn-outline-secondary me-2 text-nowrap">Shopping</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+{% block scripts %}
+  
+{% endblock scripts %}
+  

@@ -1,49 +1,163 @@
-{% load static %}
-
-<div class="container w-auto h-auto flex justify-content-center mx-auto">
-  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-    <div class="col mb-3">
-      <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+<footer class="bg-dark text-white py-5">
+  <div class="container">
+    <!-- Main Footer Content -->
+    <div class="row g-4">
+      <!-- About Column -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="mb-4 fw-bold">About Barizi</h5>
+        <p class="mb-4">Barizi is your ultimate guide to discovering local businesses, services, and attractions across Kenya. We connect users with the best options in their area.</p>
+        <div class="social-links">
+          <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      
+      <!-- Quick Links Column -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="mb-4 fw-bold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="/" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Home</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> About Us</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Businesses</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Add Listing</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <!-- Popular Categories Column -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="mb-4 fw-bold">Popular Categories</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Accommodation</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Food & Drinks</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Entertainment</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Activities</a></li>
+          <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-opacity"><i class="bi bi-chevron-right small me-1"></i> Shopping</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact Column -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="mb-4 fw-bold">Contact Us</h5>
+        <ul class="list-unstyled">
+          <li class="mb-3 d-flex">
+            <i class="bi bi-geo-alt-fill me-2 text-primary"></i>
+            <span>123 Main Street, Nairobi, Kenya</span>
+          </li>
+          <li class="mb-3 d-flex">
+            <i class="bi bi-telephone-fill me-2 text-primary"></i>
+            <span>+254 123 456 789</span>
+          </li>
+          <li class="mb-3 d-flex">
+            <i class="bi bi-envelope-fill me-2 text-primary"></i>
+            <span>info@barizi.com</span>
+          </li>
+          <li class="mb-3 d-flex">
+            <i class="bi bi-clock-fill me-2 text-primary"></i>
+            <span>Mon-Fri: 9:00 AM - 5:00 PM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Middle Section with Newsletter -->
+    <div class="row mt-5 mb-4">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h5 class="mb-3 fw-bold">Subscribe to Our Newsletter</h5>
+        <p class="mb-3">Stay updated with the latest listings and offers in your area.</p>
+        <div class="input-group">
+          <input type="email" class="form-control" placeholder="Your Email Address" aria-label="Your Email Address">
+          <button class="btn btn-primary" type="button">Subscribe</button>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="mb-3 fw-bold">Download Our App</h5>
+        <p class="mb-3">Get the Barizi experience on your mobile device.</p>
+        <div class="d-flex flex-wrap">
+          <a href="#" class="me-2 mb-2">
+            <img src="https://via.placeholder.com/140x40" alt="App Store" class="app-badge">
+          </a>
+          <a href="#" class="mb-2">
+            <img src="https://via.placeholder.com/140x40" alt="Google Play" class="app-badge">
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <hr class="my-4 border-secondary">
+    
+    <!-- Bottom Section with Copyright and Links -->
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <p class="mb-0">&copy; 2023 Barizi. All rights reserved.</p>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex flex-wrap justify-content-md-end">
+          <a href="#" class="text-white text-decoration-none me-3 mb-2 mb-md-0">Privacy Policy</a>
+          <a href="#" class="text-white text-decoration-none me-3 mb-2 mb-md-0">Terms of Service</a>
+          <a href="#" class="text-white text-decoration-none mb-2 mb-md-0">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-primary btn-sm rounded-circle back-to-top">
+        <i class="bi bi-arrow-up"></i>
       </a>
-      <p class="text-body-secondary">&copy; 2025</p>
     </div>
+  </div>
+</footer>
 
-    <div class="col mb-3">
+<style>
+  .hover-opacity:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  
+  .back-to-top {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .app-badge {
+    height: 40px;
+    width: auto;
+    border-radius: 5px;
+  }
+  
+  footer .bi {
+    font-size: 1.1rem;
+  }
+  
+  footer .social-links .bi {
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 767.98px) {
+    footer h5 {
+      margin-top: 10px;
+    }
+  }
+</style>
 
-    </div>
-
-    <div class="col mb-3">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col mb-3">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col mb-3">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-      </ul>
-    </div>
-  </footer>
-</div>
+{% block scripts %}
+<script>
+  // Back to top button functionality
+  document.querySelector('.back-to-top').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>
+{% endblock scripts %}

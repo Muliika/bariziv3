@@ -1,0 +1,609 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- Sidebar Filters - Left Column -->
+    <div class="col-lg-3 mb-4">
+      <!-- Mobile Filter Toggle Button -->
+      <div class="d-lg-none mb-3">
+        <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterSidebar" aria-expanded="false" aria-controls="filterSidebar">
+          <i class="bi bi-funnel-fill me-2"></i> Show Filters
+        </button>
+      </div>
+      
+      <!-- Filter Sidebar Content -->
+      <div class="collapse d-lg-block" id="filterSidebar">
+        <!-- Search Filter -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Search Filter</h5>
+            <form>
+              <div class="mb-3">
+                <label for="keywordSearch" class="form-label">Keyword</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                  <input type="text" class="form-control" id="keywordSearch" placeholder="Search...">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="categorySelect" class="form-label">Category</label>
+                <select class="form-select" id="categorySelect">
+                  <option selected>All Categories</option>
+                  <option>Restaurants</option>
+                  <option>Hotels</option>
+                  <option>Shopping</option>
+                  <option>Fitness</option>
+                  <option>Travel</option>
+                  <option>Real Estate</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="locationSelect" class="form-label">Location</label>
+                <select class="form-select" id="locationSelect">
+                  <option selected>All Locations</option>
+                  <option>New York</option>
+                  <option>Los Angeles</option>
+                  <option>Chicago</option>
+                  <option>Houston</option>
+                  <option>Miami</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-danger w-100">Search</button>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Price Range Filter -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Price Range</h5>
+            <div class="mb-3">
+              <label for="priceRange" class="form-label d-flex justify-content-between">
+                <span>Price</span>
+                <span id="priceRangeValue">$0 - $1000</span>
+              </label>
+              <input type="range" class="form-range" min="0" max="1000" step="50" id="priceRange">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Features Filter -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Features</h5>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature1">
+                <label class="form-check-label" for="feature1">Free WiFi</label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature2">
+                <label class="form-check-label" for="feature2">Parking</label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature3">
+                <label class="form-check-label" for="feature3">Air Conditioning</label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature4">
+                <label class="form-check-label" for="feature4">Restaurant</label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature5">
+                <label class="form-check-label" for="feature5">Swimming Pool</label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="feature6">
+                <label class="form-check-label" for="feature6">Fitness Center</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Rating Filter -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Rating</h5>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rating5">
+                <label class="form-check-label" for="rating5">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rating4">
+                <label class="form-check-label" for="rating4">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                </label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rating3">
+                <label class="form-check-label" for="rating3">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                </label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rating2">
+                <label class="form-check-label" for="rating2">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                </label>
+              </div>
+            </div>
+            <div class="mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rating1">
+                <label class="form-check-label" for="rating1">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                  <i class="bi bi-star text-warning"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Popular Tags -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Popular Tags</h5>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#" class="btn btn-sm btn-outline-secondary">Restaurant</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Hotel</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Spa</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Cafe</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Gym</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Shopping</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Travel</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">Beauty</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reset Filters Button -->
+        <button class="btn btn-outline-secondary w-100 mb-4">Reset Filters</button>
+      </div>
+    </div>
+    
+    <!-- Listings - Right Column -->
+    <div class="col-lg-9">
+      <!-- Top Filter Bar -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <p class="mb-0">Showing <strong>1-12</strong> of <strong>256</strong> results</p>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex justify-content-md-end">
+                <div class="btn-group me-3" role="group" aria-label="View options">
+                  <a href="#" class="btn btn-outline-secondary active">
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                  </a>
+                  <a href="#" class="btn btn-outline-secondary">
+                    <i class="bi bi-list"></i>
+                  </a>
+                </div>
+                <select class="form-select" style="width: auto;">
+                  <option selected>Sort by: Default</option>
+                  <option>Price: Low to High</option>
+                  <option>Price: High to Low</option>
+                  <option>Rating: High to Low</option>
+                  <option>Newest First</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Listings Grid -->
+      <div class="row g-4">
+        <!-- Listing Item 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Restaurant">
+              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Restaurant</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Gourmet Delight Restaurant</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Manhattan, New York</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 10:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Fine Dining</span>
+                <span class="badge bg-light text-dark">Italian</span>
+                <span class="badge bg-light text-dark">Outdoor Seating</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Hotel">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Hotel</span>
+                                    <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Hotel</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Luxury Skyline Hotel</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Downtown, Chicago</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">24/7 Service</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Spa</span>
+                <span class="badge bg-light text-dark">Pool</span>
+                <span class="badge bg-light text-dark">Gym</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Fitness Center">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-info px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Fitness</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Elite Fitness Center</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Beverly Hills, Los Angeles</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 11:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Personal Training</span>
+                <span class="badge bg-light text-dark">Yoga</span>
+                <span class="badge bg-light text-dark">Sauna</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 4 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Shopping Mall">
+              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-warning px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Shopping</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.5</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Metropolis Shopping Center</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Miami Beach, Florida</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 9:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Fashion</span>
+                <span class="badge bg-light text-dark">Food Court</span>
+                <span class="badge bg-light text-dark">Cinema</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 5 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Cafe">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Cafe</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Artisan Coffee House</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Portland, Oregon</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 8:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Organic</span>
+                <span class="badge bg-light text-dark">Vegan Options</span>
+                <span class="badge bg-light text-dark">WiFi</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 6 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Spa">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Spa</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Tranquility Wellness Spa</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Scottsdale, Arizona</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 7:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Massage</span>
+                <span class="badge bg-light text-dark">Facial</span>
+                <span class="badge bg-light text-dark">Hot Stone</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 7 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Restaurant">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Restaurant</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.3</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Seaside Seafood Restaurant</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> San Francisco, California</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
+                <span class="text-muted small">Closes at 10:30 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">Seafood</span>
+                <span class="badge bg-light text-dark">Ocean View</span>
+                <span class="badge bg-light text-dark">Bar</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 8 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Nightclub">
+              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-dark px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Nightlife</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+                            <h5 class="card-title mb-1">Pulse Nightclub & Lounge</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Las Vegas, Nevada</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-danger"><i class="bi bi-x-circle-fill me-1"></i> Closed Now</span>
+                <span class="text-muted small">Opens at 9:00 PM</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">DJ</span>
+                <span class="badge bg-light text-dark">VIP</span>
+                <span class="badge bg-light text-dark">Cocktails</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$$$</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing Item 9 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm hover-shadow">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Apartment">
+              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Real Estate</span>
+                  <span><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-1">Modern Downtown Apartment</h5>
+              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Seattle, Washington</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Available</span>
+                <span class="text-muted small">For Rent</span>
+              </div>
+              <div class="d-flex flex-wrap gap-1 mb-3">
+                <span class="badge bg-light text-dark">2 Bed</span>
+                <span class="badge bg-light text-dark">2 Bath</span>
+                <span class="badge bg-light text-dark">Parking</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-danger">$2,500/mo</span>
+                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="col-12 mt-4">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                  <i class="bi bi-chevron-left"></i>
+                </a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <i class="bi bi-chevron-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add JavaScript for price range slider -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const priceRange = document.getElementById('priceRange');
+    const priceRangeValue = document.getElementById('priceRangeValue');
+    
+    priceRange.addEventListener('input', function() {
+      priceRangeValue.textContent = `$0 - $${this.value}`;
+    });
+    
+    // Initialize Bootstrap tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+</script>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  // Additional JavaScript for mobile responsiveness
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle filter sidebar on mobile
+    const filterSidebar = document.getElementById('filterSidebar');
+    const filterToggleBtn = document.querySelector('[data-bs-target="#filterSidebar"]');
+    
+    // Close sidebar when clicking outside on mobile
+    if (window.innerWidth < 992) {
+      document.addEventListener('click', function(event) {
+        if (!filterSidebar.contains(event.target) && !filterToggleBtn.contains(event.target) && filterSidebar.classList.contains('show')) {
+          const bsCollapse = new bootstrap.Collapse(filterSidebar);
+          bsCollapse.hide();
+        }
+      });
+    }
+    
+    // Add hover effect for cards
+    const cards = document.querySelectorAll('.hover-shadow');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.transition = 'transform 0.3s ease';
+        this.style.boxShadow = '0 .5rem 1rem rgba(0,0,0,.15)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 .125rem .25rem rgba(0,0,0,.075)';
+      });
+    });
+  });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,68 @@
+/* Categories Page Specific Styles */
+
+/* General Styles */
+.section-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* Category Cards */
+.category-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.card:hover .category-icon {
+  transform: scale(1.1);
+}
+
+/* Search Form */
+.form-control:focus, .form-select:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.input-group-text {
+  color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .display-5 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .display-5 {
+    font-size: 1.75rem;
+  }
+}

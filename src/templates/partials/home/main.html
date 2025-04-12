@@ -1,139 +1,729 @@
-<div class="overflow-x-hidden">
-  
-    <main class="container">
-      <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-        <div class="col-lg-6 px-0">
-          <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-          <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-          <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+
+{% load static %}
+
+
+
+
+<!-- Hero Section -->
+
+{% comment %} <section class="hero-section position-relative" style="background-image: url('{% static 'images/one.jpg' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;"> {% endcomment %}
+<section class="hero-section position-relative">
+  <div class="container">
+    <div class="row align-items-center min-vh-75">
+      <div class="col-lg-6 py-5">
+        <h1 class="display-4 fw-bold mb-4">Find Nearby Places & Things to Do</h1>
+        <p class="lead mb-4">Discover the best local businesses, attractions, and services in your area.</p>
+        
+        <!-- Search Form -->
+        <div class="search-form bg-white p-4 rounded shadow">
+          <form action="#" method="get">
+            <div class="row g-2">
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text bg-transparent border-0">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input type="text" class="form-control border-0" placeholder="What are you looking for?">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="input-group">
+                  <span class="input-group-text bg-transparent border-0">
+                    <i class="bi bi-geo-alt"></i>
+                  </span>
+                  <input type="text" class="form-control border-0" placeholder="Location">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
+      {% comment %} <div class="col-lg-6 d-none d-lg-block">
+        <img src="{% static 'images/one.jpg' %}" alt="Find local services" class="img-fluid rounded shadow-lg">
+      </div> {% endcomment %}
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Browse Categories</h2>
+        <p class="section-subtitle">Find the best services in your neighborhood</p>
+      </div>
+    </div>
     
-      <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-              <h3 class="mb-0">Featured post</h3>
-              <div class="mb-1 text-body-secondary">Nov 12</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-              </a>
+    <div class="row g-4">
+      <!-- Category 1 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-house-door fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Accommodation</h5>
+          <p class="category-count text-muted">25 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 2 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-cup-hot fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Food & Drinks</h5>
+          <p class="category-count text-muted">40 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 3 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-shop fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Shopping</h5>
+          <p class="category-count text-muted">32 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 4 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-bicycle fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Activities</h5>
+          <p class="category-count text-muted">15 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 5 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-heart-pulse fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Health</h5>
+          <p class="category-count text-muted">22 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 6 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-car-front fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Travel</h5>
+          <p class="category-count text-muted">18 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 7 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-music-note-beamed fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Entertainment</h5>
+          <p class="category-count text-muted">28 Listings</p>
+        </div>
+      </div>
+      
+      <!-- Category 8 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="category-card text-center p-4 bg-white rounded shadow-sm hover-shadow">
+          <div class="category-icon mb-3">
+            <i class="bi bi-bank fs-1 text-primary"></i>
+          </div>
+          <h5 class="category-title">Local Attractions</h5>
+          <p class="category-count text-muted">20 Listings</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="#" class="btn btn-outline-primary">View All Categories</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Listings Section -->
+<section class="featured-listings py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Featured Listings</h2>
+        <p class="section-subtitle">Discover our handpicked premium listings</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <!-- Listing 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Accommodation</span>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.8</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
+            <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$150/night</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-              </a>
+      </div>
+      
+      <!-- Listing 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Food & Drinks</span>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.6</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
+            <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$$$</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
             </div>
           </div>
         </div>
       </div>
-    
-      <div class="row g-5">
-        <div class="col-md-8">
-          <h3 class="pb-4 mb-4 fst-italic border-bottom">
-            Featured posts
-          </h3>
-    
-          {% include './masonry.html' %}
-    
-          <h3 class="pb-4 mb-4 fst-italic border-bottom">
-            Latest posts
-          </h3>
-    
-          {% include './masonry.html' %}
-    
-        </div>
-    
-        <div class="col-md-4">
-          <div class="position-sticky" style="top: 2rem;">
-            <div class="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 class="fst-italic">About</h4>
-              <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+      
+      <!-- Listing 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Activities</span>
             </div>
-    
-            <div>
-              <h4 class="fst-italic">Recent posts</h4>
-              <ul class="list-unstyled">
-                <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                    <div class="col-lg-8">
-                      <h6 class="mb-0">Example blog post title</h6>
-                      <small class="text-body-secondary">January 15, 2024</small>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                    <div class="col-lg-8">
-                      <h6 class="mb-0">This is another blog post title</h6>
-                      <small class="text-body-secondary">January 14, 2024</small>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                    <div class="col-lg-8">
-                      <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
-                      <small class="text-body-secondary">January 13, 2024</small>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Adventure Park</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.9</span>
+              </div>
             </div>
-    
-            <div class="p-4">
-              <h4 class="fst-italic">Quick Links</h4>
-              <ol class="list-unstyled mb-0">
-                <li><a href="#">Time</a></li>
-                <li><a href="#">Emergency</a></li>
-                <li><a href="#">Insurance</a></li>
-                <li><a href="#">Connectivity</a></li>
-                <li><a href="#">Local laws & customs</a></li>
-                <li><a href="#">Local wildlife</a></li>
-                {% comment %} <li><a href="#">September 2020</a></li>
-                <li><a href="#">August 2020</a></li>
-                <li><a href="#">July 2020</a></li>
-                <li><a href="#">June 2020</a></li>
-                <li><a href="#">May 2020</a></li>
-                <li><a href="#">April 2020</a></li> {% endcomment %}
-              </ol>
-            </div>
-    
-            <div class="p-4">
-              <h4 class="fst-italic">Social Media</h4>
-              <ol class="list-unstyled">
-                <li><a href="#">Instagram</a></li>
-                {% comment %} <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li> {% endcomment %}
-              </ol>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
+            <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$25/person</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Listing 4 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Shopping</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Fashion Boutique</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.5</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 101 Fashion St, City</p>
+            <p class="listing-description mb-3">Trendy clothing and accessories from local and international designers.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$$</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Listing 5 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                Let me continue with the rest of the landing page code:
+                <span class="badge bg-dark">Health</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Wellness Spa & Center</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.7</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 202 Wellness Ave, City</p>
+            <p class="listing-description mb-3">Rejuvenate your body and mind with our premium spa treatments and services.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">From $60</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Listing 6 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="listing-img position-relative">
+            <img src="" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+            <div class="listing-category position-absolute bottom-0 start-0 m-3">
+              <span class="badge bg-dark">Entertainment</span>
+            </div>
+          </div>
+          <div class="listing-content p-3">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="listing-title mb-0">Cinema Complex</h5>
+              <div class="listing-rating">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>4.4</span>
+              </div>
+            </div>
+            <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 303 Cinema Blvd, City</p>
+            <p class="listing-description mb-3">State-of-the-art movie theaters with the latest releases and premium seating.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="listing-price text-primary fw-bold">$12/ticket</div>
+              <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
-    </main>
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="#" class="btn btn-primary">View All Listings</a>
+      </div>
+    </div>
+  </div>
+</section> 
+
+
+<!-- How It Works Section -->
+<section class="how-it-works py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Find what you need in just a few steps</p>
+      </div>
+    </div>
     
-    {% include 'partials/footer/footer.html' %}
+    <div class="row g-4">
+      <!-- Step 1 -->
+      <div class="col-md-4">
+        <div class="step-card text-center p-4 bg-white rounded shadow-sm">
+          <div class="step-icon mb-3 mx-auto rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+            <i class="bi bi-search fs-1"></i>
+          </div>
+          <h4 class="step-title">Search</h4>
+          <p class="step-description">Find what you're looking for by category, location, or keyword.</p>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="col-md-4">
+        <div class="step-card text-center p-4 bg-white rounded shadow-sm">
+          <div class="step-icon mb-3 mx-auto rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+            <i class="bi bi-list-check fs-1"></i>
+          </div>
+          <h4 class="step-title">Select</h4>
+          <p class="step-description">Compare options and choose the best one for your needs.</p>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="col-md-4">
+        <div class="step-card text-center p-4 bg-white rounded shadow-sm">
+          <div class="step-icon mb-3 mx-auto rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+            <i class="bi bi-emoji-smile fs-1"></i>
+          </div>
+          <h4 class="step-title">Enjoy</h4>
+          <p class="step-description">Visit, book, or contact your selected listing and enjoy the experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Cities Section -->
+<section class="popular-cities py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Popular Cities</h2>
+        <p class="section-subtitle">Explore listings in these top destinations</p>
+      </div>
+    </div>
     
-</div>
+    <div class="row g-4">
+      <!-- City 1 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="city-card position-relative rounded overflow-hidden shadow-sm">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+            <div class="text-center text-white">
+              <h4 class="city-name mb-2">Nairobi</h4>
+              <p class="city-count mb-0">120 Listings</p>
+            </div>
+          </div>
+          <a href="#" class="stretched-link"></a>
+        </div>
+      </div>
+      
+      <!-- City 2 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="city-card position-relative rounded overflow-hidden shadow-sm">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+            <div class="text-center text-white">
+              <h4 class="city-name mb-2">Mombasa</h4>
+              <p class="city-count mb-0">85 Listings</p>
+            </div>
+          </div>
+          <a href="#" class="stretched-link"></a>
+        </div>
+      </div>
+      
+      <!-- City 3 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="city-card position-relative rounded overflow-hidden shadow-sm">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+            <div class="text-center text-white">
+              <h4 class="city-name mb-2">Kisumu</h4>
+              <p class="city-count mb-0">62 Listings</p>
+            </div>
+          </div>
+          <a href="#" class="stretched-link"></a>
+        </div>
+      </div>
+      
+      <!-- City 4 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="city-card position-relative rounded overflow-hidden shadow-sm">
+          <img src="" alt="City" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          <div class="city-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+            <div class="text-center text-white">
+              <h4 class="city-name mb-2">Nakuru</h4>
+              <p class="city-count mb-0">45 Listings</p>
+            </div>
+          </div>
+          <a href="#" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials py-5 bg-light">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">What Our Users Say</h2>
+        <p class="section-subtitle">Testimonials from our satisfied users</p>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Testimonial 1 -->
+            <div class="carousel-item active">
+              <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
+                <div class="testimonial-avatar mb-3">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
+                </div>
+                <p class="testimonial-text mb-3">"Barizi helped me discover amazing local restaurants I never knew existed. The detailed listings and reviews made it easy to find exactly what I was looking for."</p>
+                <div class="testimonial-rating mb-2">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <h5 class="testimonial-name mb-1">John Doe</h5>
+                <p class="testimonial-position text-muted">Food Enthusiast</p>
+              </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="carousel-item">
+              <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
+                <div class="testimonial-avatar mb-3">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
+                </div>
+                <p class="testimonial-text mb-3">"As a traveler, Barizi has been invaluable for finding accommodation and activities in new cities. The interface is intuitive and the listings are comprehensive."</p>
+                <div class="testimonial-rating mb-2">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-half text-warning"></i>
+                </div>
+                <h5 class="testimonial-name mb-1">Jane Smith</h5>
+                <p class="testimonial-position text-muted">Travel Blogger</p>
+              </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="carousel-item">
+              <div class="testimonial-card text-center p-5 bg-white rounded shadow-sm">
+                <div class="testimonial-avatar mb-3">
+                  <img src="" alt="User" class="rounded-circle" width="80" height="80">
+                </div>
+                <p class="testimonial-text mb-3">"I listed my business on Barizi and saw an immediate increase in customers. The platform is easy to use for both business owners and customers."</p>
+                <div class="testimonial-rating mb-2">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <h5 class="testimonial-name mb-1">David Johnson</h5>
+                <p class="testimonial-position text-muted">Business Owner</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-primary rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-primary rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          
+          <div class="carousel-indicators position-relative mt-4">
+            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active bg-primary" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" class="bg-primary" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" class="bg-primary" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- App Download Section -->
+<section class="app-download py-5 bg-primary text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="mb-3">Download Our Mobile App</h2>
+        <p class="lead mb-4">Get the Barizi experience on your mobile device. Search for listings, save favorites, and receive notifications on the go.</p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#" class="btn btn-light d-inline-flex align-items-center px-4 py-2">
+            <i class="bi bi-apple fs-4 me-2"></i>
+            <div class="text-start">
+              <small class="d-block">Download on the</small>
+              <strong>App Store</strong>
+            </div>
+          </a>
+          <a href="#" class="btn btn-light d-inline-flex align-items-center px-4 py-2">
+            <i class="bi bi-google-play fs-4 me-2"></i>
+            <div class="text-start">
+              <small class="d-block">Get it on</small>
+              <strong>Google Play</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="" alt="Mobile App" class="img-fluid" style="max-height: 400px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Blog Posts Section -->
+<section class="blog-posts py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Latest From Our Blog</h2>
+        <p class="section-subtitle">Tips, guides, and news for local explorers</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <!-- Blog Post 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="blog-img">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          </div>
+          <div class="blog-content p-4">
+            <div class="blog-meta text-muted mb-2">
+              <span><i class="bi bi-calendar me-1"></i> May 15, 2023</span>
+              <span class="ms-3"><i class="bi bi-person me-1"></i> Admin</span>
+            </div>
+            <h5 class="blog-title mb-3">Top 10 Restaurants You Must Try This Summer</h5>
+            <p class="blog-excerpt mb-3">Discover the best culinary experiences in the city with our curated list of top restaurants...</p>
+            <a href="#" class="btn btn-link text-primary p-0">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Blog Post 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="blog-img">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          </div>
+          <div class="blog-content p-4">
+            <div class="blog-meta text-muted mb-2">
+              <span><i class="bi bi-calendar me-1"></i> May 10, 2023</span>
+              <span class="ms-3"><i class="bi bi-person me-1"></i> Admin</span>
+            </div>
+            <h5 class="blog-title mb-3">A Guide to Hidden Gems in the City</h5>
+            <p class="blog-excerpt mb-3">Explore the lesser-known attractions and local favorites that most tourists miss during their visits...</p>
+            <a href="#" class="btn btn-link text-primary p-0">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Blog Post 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="blog-card bg-white rounded shadow-sm overflow-hidden">
+          <div class="blog-img">
+            <img src="" alt="Blog Post" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+          </div>
+          <div class="blog-content p-4">
+            <div class="blog-meta text-muted mb-2">
+              <span><i class="bi bi-calendar me-1"></i> May 5, 2023</span>
+              <span class="ms-3"><i class="bi bi-person me-1"></i> Admin</span>
+            </div>
+            <h5 class="blog-title mb-3">How to Plan the Perfect Weekend Getaway</h5>
+            <p class="blog-excerpt mb-3">Tips and tricks for planning a stress-free weekend trip with recommendations for accommodations...</p>
+            <a href="#" class="btn btn-link text-primary p-0">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <a href="#" class="btn btn-outline-primary">View All Posts</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="mb-3">Subscribe to Our Newsletter</h2>
+        <p class="lead mb-4">Stay updated with the latest listings, offers, and news from Barizi.</p>
+        <form class="newsletter-form">
+          <div class="input-group mb-3">
+            <input type="email" class="form-control form-control-lg" placeholder="Your Email Address" aria-label="Email Address">
+            <button class="btn btn-primary px-4" type="submit">Subscribe</button>
+          </div>
+          <div class="form-text text-muted">We respect your privacy and will never share your email with anyone else.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <div class="cta-card bg-primary text-white p-5 rounded shadow">
+          <h2 class="mb-3">Ready to List Your Business?</h2>
+          <p class="lead mb-4">Join thousands of businesses that have increased their visibility and customer base through Barizi.</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="#" class="btn btn-light btn-lg">Add Your Listing</a>
+            <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners Section -->
+<section class="partners py-5 bg-white">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="section-title">Our Partners</h2>
+        <p class="section-subtitle">Trusted by leading brands and businesses</p>
+      </div>
+    </div>
+    
+    <div class="row align-items-center">
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+      <div class="col-6 col-md-2 mb-4 mb-md-0 text-center">
+        <img src="" alt="Partner" class="img-fluid" style="max-height: 60px;">
+      </div>
+    </div>
+  </div>
+</section>
+

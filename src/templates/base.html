@@ -25,7 +25,7 @@
   </head>
   <body class="overflow-x-hidden">
 
-    {% include 'partials/navbar/navbar.html' %}
+    {% include 'partials/navbar/mega-navbar.html' %}
     
     {% block content %}
         
@@ -40,7 +40,74 @@
     <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script></body>
     {% comment %} <script src="{% static '/assets/js/color-modes.js' %}"></script> {% endcomment %}
     
-    
+    <!-- Mega Navbar JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        if (hamburgerMenu && mobileMenu) {
+          hamburgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+          });
+        }
+        
+        // Mobile dropdown toggles
+        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+        
+        dropdownToggles.forEach(toggle => {
+          toggle.addEventListener('click', function() {
+            const parent = this.closest('.mobile-nav-item');
+            const dropdown = parent.querySelector('.mobile-dropdown');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.mobile-dropdown.active').forEach(item => {
+              if (item !== dropdown) {
+                item.classList.remove('active');
+                const parentItem = item.closest('.mobile-nav-item');
+                const parentToggle = parentItem.querySelector('.mobile-dropdown-toggle i');
+                parentToggle.classList.remove('bi-chevron-up');
+                parentToggle.classList.add('bi-chevron-down');
+              }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+            
+            // Toggle icon
+            const icon = this.querySelector('i');
+            if (dropdown.classList.contains('active')) {
+              icon.classList.remove('bi-chevron-down');
+              icon.classList.add('bi-chevron-up');
+            } else {
+              icon.classList.remove('bi-chevron-up');
+              icon.classList.add('bi-chevron-down');
+            }
+          });
+        });
+        
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 991.98 && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            hamburgerMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            // Reset all dropdowns
+            document.querySelectorAll('.mobile-dropdown.active').forEach(dropdown => {
+              dropdown.classList.remove('active');
+              const toggle = dropdown.closest('.mobile-nav-item').querySelector('.mobile-dropdown-toggle i');
+              toggle.classList.remove('bi-chevron-up');
+              toggle.classList.add('bi-chevron-down');
+            });
+          }
+        });
+      });
+    </script>
+
     {% block scripts %}
       
     {% endblock scripts %}

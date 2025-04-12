@@ -1,0 +1,217 @@
+{% load static %}
+
+<nav class="mega-navbar">
+  <div class="container">
+    <div class="navbar-container">
+      <!-- Logo -->
+      <div class="navbar-logo">
+        <a href="/" class="logo">Barizi</a>
+      </div>
+      
+      <!-- Navigation Links -->
+      <div class="navbar-links">
+        <ul class="nav-items">
+          <li class="nav-item has-megamenu">
+            <a href="#" class="nav-link">Categories <i class="bi bi-chevron-down"></i></a>
+            <div class="mega-menu">
+              <div class="container">
+                <div class="mega-menu-content">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-house"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Accommodation</h4>
+                          <p>Find hotels, rentals, and places to stay.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-cup-hot"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Food & Drinks</h4>
+                          <p>Discover restaurants, cafes, and local cuisine.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-ticket-perforated"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Entertainment</h4>
+                          <p>Find events, shows, and nightlife options.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-geo-alt"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Local Attractions</h4>
+                          <p>Explore landmarks and tourist spots.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-bicycle"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Activities</h4>
+                          <p>Find outdoor and indoor activities.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-airplane"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Travel</h4>
+                          <p>Transportation and travel services.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-heart-pulse"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Health</h4>
+                          <p>Medical services and wellness centers.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="mega-menu-section">
+                        <div class="mega-menu-icon"><i class="bi bi-bag"></i></div>
+                        <div class="mega-menu-details">
+                          <h4>Shopping</h4>
+                          <p>Retail stores and shopping centers.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mega-menu-featured">
+                  <div class="featured-content">
+                    <div class="featured-image">
+                      <img src="{% static 'images/featured-image.jpg' %}" alt="Featured" onerror="this.src='https://via.placeholder.com/200x200'">
+                    </div>
+                    <div class="featured-text">
+                      <h3>Discover Local Experiences</h3>
+                      <p>Find the best local services and attractions in your area.</p>
+                      <a href="#" class="btn btn-primary">Explore Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link">Explore</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+      
+      <!-- Right Side Actions -->
+      <div class="navbar-actions">
+        <div class="search-icon">
+          <i class="bi bi-search"></i>
+        </div>
+        <a href="#" class="btn btn-outline-primary btn-sm">Login</a>
+        <a href="#" class="btn btn-primary btn-sm">Sign Up</a>
+        <div class="mobile-toggle">
+          <button class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="container">
+      <ul class="mobile-nav-items">
+        <li class="mobile-nav-item">
+          <div class="mobile-nav-link">
+            <a href="#">Categories</a>
+            <button class="mobile-dropdown-toggle"><i class="bi bi-chevron-down"></i></button>
+          </div>
+          <div class="mobile-dropdown">
+            <div class="mobile-mega-menu">
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-house"></i>
+                  <h4>Accommodation</h4>
+                </div>
+                <p>Find hotels, rentals, and places to stay.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-cup-hot"></i>
+                  <h4>Food & Drinks</h4>
+                </div>
+                <p>Discover restaurants, cafes, and local cuisine.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-ticket-perforated"></i>
+                  <h4>Entertainment</h4>
+                </div>
+                <p>Find events, shows, and nightlife options.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-geo-alt"></i>
+                  <h4>Local Attractions</h4>
+                </div>
+                <p>Explore landmarks and tourist spots.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-bicycle"></i>
+                  <h4>Activities</h4>
+                </div>
+                <p>Find outdoor and indoor activities.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-airplane"></i>
+                  <h4>Travel</h4>
+                </div>
+                <p>Transportation and travel services.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-heart-pulse"></i>
+                  <h4>Health</h4>
+                </div>
+                <p>Medical services and wellness centers.</p>
+              </div>
+              <div class="mobile-mega-section">
+                <div class="mobile-mega-header">
+                  <i class="bi bi-bag"></i>
+                  <h4>Shopping</h4>
+                </div>
+                <p>Retail stores and shopping centers.</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Explore</a></li>
+        <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Services</a></li>
+        <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">About</a></li>
+        <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Contact</a></li>
+        <li class="mobile-nav-item mobile-actions">
+          <a href="#" class="btn btn-outline-primary">Login</a>
+          <a href="#" class="btn btn-primary">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -353,6 +353,10 @@ h1, h2, h3, h4, h5, h6 {
 /* MEGA NAVBAR STYLES */
 /* ---------------------------------- */
 
+/* ----------------------------------- */
+/* MEGA NAVBAR STYLES */
+/* ---------------------------------- */
+
 .mega-navbar {
   position: relative;
   background-color: #fff;
@@ -431,7 +435,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 80vw;
   background-color: #fff;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   opacity: 0;
@@ -448,9 +452,30 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
+.mega-menu-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 .mega-menu-content {
   display: flex;
+  flex-direction: column;
+ 
+}
+
+.mega-menu-content .row {
+  display: flex;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.mega-menu-content .col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 15px;
 }
 
 .mega-menu-section {
@@ -582,6 +607,13 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
+}
+
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 .mobile-nav-items {

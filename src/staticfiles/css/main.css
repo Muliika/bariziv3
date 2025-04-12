@@ -1,6 +1,6 @@
 /* homepage css */
 .blog-header-logo {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/!important;
+  font-family: "Poppins", Georgia, "Times New Roman";
   font-size: 2.25rem !important;
 }
 
@@ -9,7 +9,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+  font-family: "Poppins", Georgia, "Times New Roman";
 }
 
 .flex-auto {

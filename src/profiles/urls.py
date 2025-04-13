@@ -8,6 +8,8 @@ urlpatterns = [
     # Profile view and edit
     path("profile/", views.profile_view, name="profile"),
     path("profile/edit/", views.profile_edit, name="profile_edit"),
+    # Bookmarks
+    path("bookmarks/", views.bookmarks, name="bookmarks"),
     # Authentication URLs (redirects to allauth views)
     path("login/", LoginView.as_view(), name="login"),
     path("signup/", SignupView.as_view(), name="signup"),

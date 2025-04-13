@@ -1,0 +1,691 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Account | Barizi{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 mb-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <div class="avatar-wrapper mb-3">
+              {% if request.user.profile.avatar %}
+                <img src="{{ request.user.profile.avatar.url }}" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
+              {% else %}
+                <img src="{% static 'images/default-avatar.png' %}" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 100px; height: 100px; object-fit: cover;">
+              {% endif %}
+            </div>
+            <h5 class="mb-1">{{ request.user.get_full_name|default:request.user.username }}</h5>
+            <p class="text-muted small mb-0">{{ request.user.email }}</p>
+          </div>
+          
+          <div class="list-group list-group-flush" id="account-tabs">
+            <a href="#profile-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
+              <i class="bi bi-person me-2"></i> My Profile
+            </a>
+            <a href="#bookmarks-tab" class="list-group-item list-group-item-action border-0 px-0 active" data-bs-toggle="tab" role="tab">
+              <i class="bi bi-bookmark-heart-fill me-2"></i> My Bookmarks
+            </a>
+            <a href="#listings-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
+              <i class="bi bi-building me-2"></i> My Listings
+            </a>
+            <a href="#messages-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
+              <i class="bi bi-chat-left-text me-2"></i> Messages
+            </a>
+            <a href="#settings-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
+              <i class="bi bi-gear me-2"></i> Settings
+            </a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action border-0 px-0 text-danger">
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <div class="tab-content">
+        <!-- Profile Tab -->
+        <div class="tab-pane fade" id="profile-tab" role="tabpanel">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+              <h5 class="mb-0">My Profile</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                  <div class="text-center">
+                    <div class="position-relative d-inline-block">
+                      {% if request.user.profile.avatar %}
+                        <img src="{{ request.user.profile.avatar.url }}" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                      {% else %}
+                        <img src="{% static 'images/default-avatar.png' %}" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                      {% endif %}
+                      <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle" style="width: 36px; height: 36px;">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                    </div>
+                    <h5 class="mb-1">{{ request.user.get_full_name|default:request.user.username }}</h5>
+                    <p class="text-muted">Member since {{ request.user.date_joined|date:"F Y" }}</p>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <form>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" value="{{ request.user.first_name }}">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" value="{{ request.user.last_name }}">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" value="{{ request.user.email }}">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" value="{{ request.user.profile.phone|default:'' }}">
+                      </div>
+                      <div class="col-12">
+                        <label for="bio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="bio" rows="4">{{ request.user.profile.bio|default:'' }}</textarea>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bookmarks Tab -->
+        <div class="tab-pane fade show active" id="bookmarks-tab" role="tabpanel">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-0 me-3">My Bookmarks</h5>
+                <div class="d-flex gap-2 mt-2 mt-sm-0">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search bookmarks...">
+                    <button class="btn btn-outline-secondary" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-sort-down me-1"></i> Sort
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+                      <li><a class="dropdown-item" href="#">Newest First</a></li>
+                      <li><a class="dropdown-item" href="#">Oldest First</a></li>
+                      <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+                      <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              {% if bookmarks %}
+                <div class="row g-4">
+                  {% for bookmark in bookmarks %}
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 border-0 shadow-sm position-relative bookmark-card">
+                      <div class="position-absolute top-0 end-0 p-3">
+                        <button class="btn btn-sm btn-danger rounded-circle remove-bookmark" data-id="{{ bookmark.id }}" title="Remove bookmark">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                      <div class="position-relative">
+                        <img src="{% static bookmark.image|default:'images/placeholder-property.jpg' %}" class="card-img-top" alt="{{ bookmark.title }}" style="height: 200px; object-fit: cover;">
+                        <span class="position-absolute bottom-0 start-0 m-3 badge bg-primary">{{ bookmark.category }}</span>
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">{{ bookmark.title }}</h5>
+                        <p class="card-text text-muted small mb-3">
+                          <i class="bi bi-geo-alt me-1"></i> {{ bookmark.location }}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center small text-muted mb-3">
+                          <span><i class="bi bi-building me-1"></i> {{ bookmark.bedrooms }} Beds</span>
+                          <span><i class="bi bi-droplet me-1"></i> {{ bookmark.bathrooms }} Baths</span>
+                          <span><i class="bi bi-rulers me-1"></i> {{ bookmark.area }} sqft</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <span class="text-primary fw-bold">${{ bookmark.price }}</span>
+                          <span class="badge bg-light text-dark">
+                            <i class="bi bi-calendar-event me-1"></i> 2 days ago
+                          </span>
+                        </div>
+                        <a href="#" class="btn btn-outline-primary w-100">View Details</a>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                <nav class="mt-5">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                        <i class="bi bi-chevron-left"></i>
+                      </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">                      <a class="page-link" href="#">
+                        <i class="bi bi-chevron-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              {% else %}
+                <div class="text-center py-5">
+                  <div class="mb-4">
+                    <i class="bi bi-bookmark-x text-muted" style="font-size: 4rem;"></i>
+                  </div>
+                  <h4>No Bookmarks Yet</h4>
+                  <p class="text-muted">You haven't saved any listings to your bookmarks.</p>
+                  <a href="#" class="btn btn-primary mt-3">Browse Listings</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listings Tab -->
+        <div class="tab-pane fade" id="listings-tab" role="tabpanel">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-0 me-3">My Listings</h5>
+                <div class="d-flex gap-2 mt-2 mt-sm-0">
+                  <a href="#" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i> Add New Listing
+                  </a>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-funnel me-1"></i> Filter
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
+                      <li><a class="dropdown-item" href="#">All Listings</a></li>
+                      <li><a class="dropdown-item" href="#">Active</a></li>
+                      <li><a class="dropdown-item" href="#">Pending</a></li>
+                      <li><a class="dropdown-item" href="#">Expired</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th scope="col">Listing</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Views</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="{% static 'images/property-1.jpg' %}" alt="Property" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                          <div>
+                            <h6 class="mb-0">Modern Apartment in Downtown</h6>
+                            <small class="text-muted">Downtown, New York</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>For Rent</td>
+                      <td>$1,200</td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>245</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="{% static 'images/property-2.jpg' %}" alt="Property" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                          <div>
+                            <h6 class="mb-0">Luxury Villa with Pool</h6>
+                            <small class="text-muted">Beverly Hills, Los Angeles</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>For Sale</td>
+                      <td>$450,000</td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>187</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <img src="{% static 'images/property-3.jpg' %}" alt="Property" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                          <div>
+                            <h6 class="mb-0">Cozy Studio near University</h6>
+                            <small class="text-muted">University District, Seattle</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>For Rent</td>
+                      <td>$800</td>
+                      <td><span class="badge bg-warning text-dark">Pending</span></td>
+                      <td>98</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Messages Tab -->
+        <div class="tab-pane fade" id="messages-tab" role="tabpanel">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+              <h5 class="mb-0">Messages</h5>
+            </div>
+            <div class="card-body p-0">
+              <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'images/user-1.jpg' %}" alt="User" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      <div>
+                        <h6 class="mb-1">John Smith</h6>
+                        <p class="mb-1 text-truncate" style="max-width: 500px;">I'm interested in your Modern Apartment listing. Is it still available for viewing this weekend?</p>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <small class="text-muted">3 days ago</small>
+                      <span class="badge bg-primary rounded-pill d-block mt-1">New</span>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'images/user-2.jpg' %}" alt="User" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      <div>
+                        <h6 class="mb-1">Sarah Johnson</h6>
+                        <p class="mb-1 text-truncate" style="max-width: 500px;">Thank you for the information. I would like to schedule a viewing for next Tuesday if possible.</p>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <small class="text-muted">1 week ago</small>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'images/user-3.jpg' %}" alt="User" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                      <div>
+                        <h6 class="mb-1">Michael Brown</h6>
+                        <p class="mb-1 text-truncate" style="max-width: 500px;">Is the price negotiable for the Luxury Villa? I'm seriously interested but would like to discuss the terms.</p>
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <small class="text-muted">2 weeks ago</small>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Settings Tab -->
+        <div class="tab-pane fade" id="settings-tab" role="tabpanel">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+              <h5 class="mb-0">Account Settings</h5>
+            </div>
+            <div class="card-body">
+              <!-- Settings Tabs -->
+              <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="true">Password</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab" aria-controls="notifications" aria-selected="false">Notifications</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="false">Privacy</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="connected-tab" data-bs-toggle="tab" data-bs-target="#connected" type="button" role="tab" aria-controls="connected" aria-selected="false">Connected Accounts</button>
+                </li>
+              </ul>
+              
+              <!-- Settings Tab Content -->
+              <div class="tab-content" id="settingsTabsContent">
+                <!-- Password Tab -->
+                <div class="tab-pane fade show active" id="password" role="tabpanel" aria-labelledby="password-tab">
+                  <form>
+                    <div class="mb-3">
+                      <label for="currentPassword" class="form-label">Current Password</label>
+                      <input type="password" class="form-control" id="currentPassword">
+                    </div>
+                    <div class="mb-3">
+                      <label for="newPassword" class="form-label">New Password</label>
+                      <input type="password" class="form-control" id="newPassword">
+                      <div class="form-text">Password must be at least 8 characters and include a number and a special character.</div>
+                    </div>
+                    <div class="mb-4">
+                      <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                      <input type="password" class="form-control" id="confirmPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                  </form>
+                </div>
+                
+                <!-- Notifications Tab -->
+                <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                  <div class="mb-4">
+                    <h6>Email Notifications</h6>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="newMessage" checked>
+                      <label class="form-check-label" for="newMessage">New messages</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="newBooking" checked>
+                      <label class="form-check-label" for="newBooking">Booking requests</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="listingUpdates" checked>
+                      <label class="form-check-label" for="listingUpdates">Listing updates</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="promotions">
+                      <label class="form-check-label" for="promotions">Promotions and offers</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                      <label class="form-check-label" for="newsletter">Newsletter</label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <h6>Push Notifications</h6>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="pushMessages" checked>
+                      <label class="form-check-label" for="pushMessages">New messages</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="pushBookings" checked>
+                      <label class="form-check-label" for="pushBookings">Booking requests</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="pushUpdates">
+                      <label class="form-check-label" for="pushUpdates">Listing updates</label>
+                    </div>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Save Preferences</button>
+                </div>
+                
+                <!-- Privacy Tab -->
+                <div class="tab-pane fade" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+                  <div class="mb-4">
+                    <h6>Profile Visibility</h6>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityPublic" checked>
+                      <label class="form-check-label" for="visibilityPublic">
+                        Public - Anyone can view your profile
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityRegistered">
+                      <label class="form-check-label" for="visibilityRegistered">
+                        Registered Users - Only registered users can view your profile
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityPrivate">
+                      <label class="form-check-label" for="visibilityPrivate">
+                        Private - Only you can view your profile
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <h6>Contact Information</h6>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="showEmail" checked>
+                      <label class="form-check-label" for="showEmail">Show email on profile</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                      <input class="form-check-input" type="checkbox" id="showPhone" checked>
+                      <label class="form-check-label" for="showPhone">Show phone number on profile</label>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <h6>Data Management</h6>
+                    <p class="text-muted small mb-3">You can download all your data or request account deletion.</p>
+                    <div class="d-flex gap-2">
+                      <button type="button" class="btn btn-outline-primary">Download My Data</button>
+                      <button type="button" class="btn btn-outline-danger">Delete Account</button>
+                    </div>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Save Privacy Settings</button>
+                </div>
+                
+                <!-- Connected Accounts Tab -->
+                <div class="tab-pane fade" id="connected" role="tabpanel" aria-labelledby="connected-tab">
+                  <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-google fs-4 me-3"></i>
+                        <div>
+                          <h6 class="mb-0">Google</h6>
+                          <p class="text-muted mb-0 small">Connected as john.doe@gmail.com</p>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-danger">Disconnect</button>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-facebook fs-4 me-3"></i>
+                        <div>
+                          <h6 class="mb-0">Facebook</h6>
+                          <p class="text-muted mb-0 small">Not connected</p>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Connect</button>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-twitter fs-4 me-3"></i>
+                        <div>
+                          <h6 class="mb-0">Twitter</h6>
+                          <p class="text-muted mb-0 small">Not connected</p>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Connect</button>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-linkedin fs-4 me-3"></i>
+                        <div>
+                          <h6 class="mb-0">LinkedIn</h6>
+                          <p class="text-muted mb-0 small">Not connected</p>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Connect</button>
+                    </div>
+                  </div>
+                  
+                  <div class="alert alert-info" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Connecting your social accounts allows for quicker login and helps us personalize your experience.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap tabs
+    const triggerTabList = [].slice.call(document.querySelectorAll('#account-tabs a'));
+    triggerTabList.forEach(function(triggerEl) {
+      triggerEl.addEventListener('click', function(event) {
+        event.preventDefault();
+        // Update active class on sidebar items
+        document.querySelectorAll('#account-tabs a').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+    
+    // Handle bookmark removal
+    const removeButtons = document.querySelectorAll('.remove-bookmark');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const bookmarkId = this.getAttribute('data-id');
+        const card = this.closest('.bookmark-card').parentElement;
+        
+        // Add fade-out animation
+        card.style.transition = 'opacity 0.3s ease';
+        card.style.opacity = '0';
+        
+        // Remove the card after animation completes
+        setTimeout(() => {
+          card.remove();
+          
+          // Check if there are any bookmarks left
+          const remainingCards = document.querySelectorAll('.bookmark-card');
+          if (remainingCards.length === 0) {
+                        const cardBody = document.querySelector('#bookmarks-tab .card-body');
+            cardBody.innerHTML = `
+              <div class="text-center py-5">
+                <div class="mb-4">
+                  <i class="bi bi-bookmark-x text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h4>No Bookmarks Left</h4>
+                <p class="text-muted">You've removed all your bookmarked listings.</p>
+                <a href="#" class="btn btn-primary mt-3">Browse Listings</a>
+              </div>
+            `;
+          }
+        }, 300);
+        
+        // Here you would typically make an AJAX call to remove the bookmark from the database
+        // fetch('/api/bookmarks/' + bookmarkId + '/remove/', {
+        //   method: 'POST',
+        //   headers: {
+        //     'X-CSRFToken': getCookie('csrftoken'),
+        //     'Content-Type': 'application/json'
+        //   }
+        // })
+        // .then(response => response.json())
+        // .then(data => console.log('Bookmark removed:', data))
+        // .catch(error => console.error('Error removing bookmark:', error));
+      });
+    });
+    
+    // Helper function to get CSRF token from cookies (for AJAX requests)
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    
+    // Handle URL hash for direct tab access
+    const hash = window.location.hash;
+    if (hash) {
+      const tabId = hash.replace('#', '');
+      const tab = document.querySelector(`#account-tabs a[href="#${tabId}"]`);
+      if (tab) {
+        // Simulate click on the tab
+        tab.click();
+      }
+    }
+    
+    // Update URL hash when tab changes
+    const tabLinks = document.querySelectorAll('#account-tabs a[data-bs-toggle="tab"]');
+    tabLinks.forEach(link => {
+      link.addEventListener('shown.bs.tab', function(event) {
+        const targetId = event.target.getAttribute('href').replace('#', '');
+        window.history.replaceState(null, null, `#${targetId}`);
+      });
+    });
+  });
+</script>
+{% endblock %}

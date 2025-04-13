@@ -160,3 +160,20 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+
+class Bookmark(models.Model):
+    """
+    Model to store user bookmarks for listings
+    """
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bookmarks")
+    listing_id = models.IntegerField()  # Reference to the listing
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "listing_id")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} - Listing {self.listing_id}"

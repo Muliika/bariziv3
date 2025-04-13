@@ -587,6 +587,40 @@ h1, h2, h3, h4, h5, h6 {
 .hamburger-menu.active span:nth-child(3) {
   transform: translateY(-11px) rotate(-45deg);
 }
+/* Mega Menu Positioning */
+.nav-item.has-megamenu {
+  position: static;
+}
+
+.mega-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.mega-menu-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Ensure the mega menu content is properly sized */
+.mega-menu-content {
+  width: 100%;
+}
+
+/* Make sure rows are properly aligned */
+.mega-menu-content .row {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
 
 .mobile-menu {
   position: fixed;

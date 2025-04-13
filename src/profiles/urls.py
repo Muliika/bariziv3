@@ -4,6 +4,8 @@ from django.views.generic import RedirectView
 
 from . import views
 
+app_name = "profiles"
+
 urlpatterns = [
     # Profile view and edit
     path("profile/", views.profile_view, name="profile"),

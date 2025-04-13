@@ -7,3 +7,4 @@ whitenoise[brotli]
 django-redis
 django-allauth
 pillow
+django-storages[s3]

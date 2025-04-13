@@ -221,6 +221,20 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# cloudlflare dev settings
+# Add this to your settings.py where you configure Cloudflare R2
+CLOUDFLARE_R2_BUCKET = config("CLOUDFLARE_R2_BUCKET", default="barizidev")
+CLOUDFLARE_R2_BUCKET_ENDPOINT = config(
+    "CLOUDFLARE_R2_BUCKET_ENDPOINT",
+    default="https://6c38a689b026e79e942a8776227c7c7c.r2.cloudflarestorage.com",
+)
+CLOUDFLARE_R2_ACCESS_KEY = config(
+    "CLOUDFLARE_R2_ACCESS_KEY", default="4dec32bfd0405372d1e64a4f2cc592a8"
+)
+CLOUDFLARE_R2_SECRET_KEY = config(
+    "CLOUDFLARE_R2_SECRET_KEY",
+    default="892c6e3fff153af7eff90fb5936f2c967fae5a45f2745a0f1d393aa04c9b7585",
+)
 
 # cloud storage configuration
 CLOUDFLARE_R2_CONFIG_OPTIONS = {

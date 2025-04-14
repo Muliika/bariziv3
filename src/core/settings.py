@@ -26,7 +26,8 @@ EMAIL_USE_TLS = config(
 EMAIL_USE_SSL = config(
     "EMAIL_USE_SSL", cast=bool, default=False
 )  # EUse MAIL_PORT 465 for SSL
-
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", cast=str, default=None)
+CONTACT_EMAIL = config("CONTACT_EMAIL", cast=str, default=None)
 # via gmail
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER

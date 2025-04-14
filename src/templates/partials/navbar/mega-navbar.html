@@ -12,7 +12,7 @@
       <div class="navbar-links">
         <ul class="nav-items">
           <li class="nav-item has-megamenu position-static">
-            <a href="#" class="nav-link">Categories <i class="bi bi-chevron-down"></i></a>
+            <a href="#" class="nav-link">Info Hub <i class="bi bi-chevron-down"></i></a>
             <div class="mega-menu">
               <div class="container mega-menu-container">
                 <div class="mega-menu-content">
@@ -97,10 +97,10 @@
               </div>
             </div>
           </li>
-          <li class="nav-item"><a href="#" class="nav-link">Explore</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="{% url 'home:listings' %}" class="nav-link">All listings</a></li>
+          <li class="nav-item"><a href="{% url 'home:categories' %}" class="nav-link">Categories</a></li>
+          <li class="nav-item"><a href="{% url 'home:about' %}" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="{% url 'home:contact' %}" class="nav-link">Contact</a></li>
         </ul>
       </div>
       
@@ -109,8 +109,8 @@
         <div class="search-icon">
           <i class="bi bi-search"></i>
         </div>
-        <a href="#" class="btn btn-outline-primary btn-sm">Login</a>
-        <a href="#" class="btn btn-primary btn-sm">Sign Up</a>
+        <a href="#" class="btn btn-outline-primary">Login</a>
+        <a href="#" class="btn btn-danger">Sign Up</a>
         <div class="mobile-toggle">
           <button class="hamburger-menu">
             <span></span>

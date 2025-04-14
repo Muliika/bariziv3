@@ -1,0 +1,850 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} | Barizi{% endblock %}
+
+{% block styles %}
+<style>
+  /* About Us Page Specific Styles */
+  .about-hero {
+    position: relative;
+    min-height: 80vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow: hidden;
+  }
+  
+  .about-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 0;
+  }
+  
+  .about-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards 0.3s;
+  }
+  
+  .about-hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards 0.5s;
+  }
+  
+  .about-hero-shape {
+    position: absolute;
+    right: -5%;
+    top: 10%;
+    width: 50%;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: morphShape 15s ease-in-out infinite;
+    z-index: 1;
+  }
+  
+  .about-hero-image {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    width: 40%;
+    height: 60%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(50px);
+    animation: fadeInRight 1s ease forwards 0.7s;
+  }
+  
+  .about-section {
+    padding: 6rem 0;
+    position: relative;
+  }
+  
+  .about-section-dark {
+    background-color: #f8f9fa;
+  }
+  
+  .about-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .about-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+  }
+  
+  .about-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #dc3545;
+  }
+  
+  .about-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  .about-image-grid {
+    position: relative;
+    height: 500px;
+  }
+  
+  .about-image-item {
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+  }
+  
+  .about-image-item:hover {
+    transform: scale(1.05);
+    z-index: 10;
+  }
+  
+  .about-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .about-image-item-1 {
+    width: 60%;
+    height: 60%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+  }
+  
+  .about-image-item-2 {
+    width: 45%;
+    height: 45%;
+    top: 10%;
+    right: 0;
+    z-index: 2;
+  }
+  
+  .about-image-item-3 {
+    width: 50%;
+    height: 40%;
+    bottom: 0;
+    right: 10%;
+    z-index: 1;
+  }
+  
+  .team-member {
+    position: relative;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team-member-image {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .team-member-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .team-member:hover .team-member-image img {
+    transform: scale(1.1);
+  }
+  
+  .team-member-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    transform: translateY(20%);
+    transition: transform 0.3s ease;
+  }
+  
+  .team-member:hover .team-member-info {
+    transform: translateY(0);
+  }
+  
+  .team-member-name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .team-member-position {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+  
+  .team-member-social {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .team-member-social a {
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .team-member-social a:hover {
+    color: #dc3545;
+  }
+  
+  .stats-item {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .stats-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .stats-label {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }
+  
+  .timeline {
+    position: relative;
+    padding: 3rem 0;
+  }
+  
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ff9a9e 0%, #fad0c4 100%);
+  }
+  
+  .timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+  }
+  
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .timeline-content {
+    position: relative;
+    width: 45%;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  .timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+  }
+  
+  .timeline-date {
+    position: absolute;
+    top: 0;
+    width: 120px;
+    padding: 0.5rem 1rem;
+    background: #dc3545;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .timeline-item:nth-child(odd) .timeline-date {
+    left: -140px;
+  }
+  
+  .timeline-item:nth-child(even) .timeline-date {
+    right: -140px;
+  }
+  
+  .timeline-dot {
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #dc3545;
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.3);
+  }
+  
+  .timeline-item:nth-child(odd) .timeline-dot {
+    left: -10px;
+  }
+  
+  .timeline-item:nth-child(even) .timeline-dot {
+    right: -10px;
+  }
+  
+  .testimonial-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 6rem 0;
+  }
+  
+  .testimonial-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin: 1rem;
+  }
+  
+  .testimonial-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .testimonial-text::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    top: -20px;
+    left: -15px;
+    color: rgba(220, 53, 69, 0.1);
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+  }
+  
+  .testimonial-author-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+  }
+  
+  .testimonial-author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .testimonial-author-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .testimonial-author-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+  
+  .cta-section {
+    padding: 6rem 0;
+    background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+    color: white;
+    text-align: center;
+  }
+  
+  .cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .btn-cta {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    background: white;
+    color: #dc3545;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-cta:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes morphShape {
+    0% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    25% {
+      border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    }
+    50% {
+      border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+    }
+    75% {
+      border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+    }
+    100% {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .about-hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .about-hero-image {
+      width: 50%;
+      height: 50%;
+    }
+    
+    .timeline::before {
+      left: 30px;
+    }
+    
+    .timeline-content {
+      width: calc(100% - 80px);
+      margin-left: 80px !important;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-date,
+    .timeline-item:nth-child(even) .timeline-date {
+      left: 0;
+      right: auto;
+      top: -40px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: 20px;
+      right: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-hero-content {
+      padding: 5rem 0;
+    }
+    
+    .about-hero-title {
+      font-size: 2rem;
+    }
+    
+    .about-hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .about-hero-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      right: 0;
+      top: 0;
+      margin-top: 2rem;
+    }
+    
+    .about-hero-shape {
+      display: none;
+    }
+    
+    .about-section {
+      padding: 4rem 0;
+    }
+    
+    .about-section-title {
+      font-size: 2rem;
+    }
+    
+    .about-image-grid {
+      height: 400px;
+    }
+    
+    .team-member-image img {
+      height: 300px;
+    }
+    
+    .stats-number {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .about-image-grid {
+      height: 350px;
+    }
+    
+    .about-image-item-1 {
+      width: 70%;
+      height: 50%;
+    }
+    
+    .about-image-item-2 {
+      width: 50%;
+      height: 40%;
+    }
+    
+    .about-image-item-3 {
+      width: 60%;
+      height: 35%;
+    }
+    
+    .timeline-content {
+      padding: 1.5rem;
+    }
+    
+    .cta-title {
+      font-size: 2rem;
+    }
+    
+    .cta-text {
+      font-size: 1rem;
+    }
+  }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<!-- Hero Section -->
+
+
+<!-- Mission Section -->
+<section class="about-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2 class="about-section-title">Our Mission</h2>
+        <p class="mb-4">At Barizi, we're on a mission to transform how people discover and connect with local businesses. We believe that every business has a unique story to tell, and every consumer deserves to find exactly what they're looking for.</p>
+        <p>Our platform bridges the gap between businesses and consumers, creating a vibrant ecosystem where quality services are recognized and rewarded. We're committed to supporting local economies and helping businesses thrive in an increasingly digital world.</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-image-grid">
+          <div class="about-image-item about-image-item-1">
+            <img src="{% static 'images/one.jpg' %}" alt="Our Mission">
+          </div>
+          <div class="about-image-item about-image-item-2">
+            <img src="{% static 'images/one.jpg' %}" alt="Our Vision">
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values Section -->
+<section class="about-section about-section-dark">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-12">
+        <h2 class="about-section-title mx-auto">Our Core Values</h2>
+        <p class="mb-0">The principles that guide everything we do</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-star"></i>
+          </div>
+          <h3 class="about-card-title">Excellence</h3>
+          <p>We strive for excellence in every aspect of our platform, from user experience to customer support.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="about-card-title">Trust</h3>
+          <p>We build trust through transparency, reliability, and consistently delivering on our promises.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-lightbulb"></i>
+          </div>
+          <h3 class="about-card-title">Innovation</h3>
+          <p>We constantly innovate to provide better solutions for businesses and consumers alike.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <h3 class="about-card-title">Community</h3>
+          <p>We foster a sense of community among our users, businesses, and team members.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-globe"></i>
+          </div>
+          <h3 class="about-card-title">Inclusivity</h3>
+          <p>We embrace diversity and ensure our platform is accessible and welcoming to all.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <i class="bi bi-graph-up"></i>
+          </div>
+          <h3 class="about-card-title">Growth</h3>
+          <p>We're committed to helping businesses grow and consumers find new experiences.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Testimonials Section -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-6 mx-auto text-center">
+        <h2 class="about-section-title mx-auto">What People Say</h2>
+        <p>Hear from our users and business partners</p>
+      </div>
+    </div>
+    <div class="row">
+      {% for testimonial in testimonials %}
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            {{ testimonial.text }}
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-author-image">
+              <img src="{% static testimonial.image %}" alt="{{ testimonial.name }}">
+            </div>
+            <div>
+              <div class="testimonial-author-name">{{ testimonial.name }}</div>
+              <div class="testimonial-author-title">{{ testimonial.position }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="cta-title">Ready to Join Our Community?</h2>
+        <p class="cta-text">Whether you're looking for great local businesses or want to showcase your own business, Barizi is the platform for you.</p>
+        <a href="#" class="btn btn-cta">Sign Up Today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Animate elements when they come into view
+    const animateOnScroll = function() {
+      const elements = document.querySelectorAll('.about-card, .team-member, .timeline-item, .testimonial-card');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementPosition < windowHeight - 100) {
+          element.classList.add('animate__animated', 'animate__fadeInUp');
+        }
+      });
+    };
+    
+    // Initial check for elements in view
+    animateOnScroll();
+    
+    // Check for elements on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Animate stats counter
+    const statsNumbers = document.querySelectorAll('.stats-number');
+    
+    const animateStats = function() {
+      statsNumbers.forEach(stat => {
+        const statPosition = stat.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (statPosition < windowHeight - 100) {
+          const targetValue = stat.getAttribute('data-count');
+          const duration = 2000; // 2 seconds
+          const startTime = Date.now();
+          const startValue = 0;
+          
+          const updateCounter = function() {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+            
+            if (elapsedTime < duration) {
+              const progress = elapsedTime / duration;
+              const currentValue = Math.floor(progress * targetValue);
+              
+              // Format the number with commas
+              stat.textContent = currentValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (targetValue.toString().includes('%') ? '%' : '+');
+              
+              requestAnimationFrame(updateCounter);
+            } else {
+              // Ensure we end with the exact target value
+              stat.textContent = targetValue.includes ? targetValue : targetValue + '+';
+            }
+          };
+          
+          updateCounter();
+          
+          // Remove the event listener once animation starts
+          window.removeEventListener('scroll', animateStats);
+        }
+      });
+    };
+    
+    // Initial check for stats in view
+    animateStats();
+    
+    // Check for stats on scroll
+    window.addEventListener('scroll', animateStats);
+    
+    // Mobile menu toggle for timeline on smaller screens
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    if (window.innerWidth < 992) {
+      timelineItems.forEach(item => {
+        const content = item.querySelector('.timeline-content');
+        const date = item.querySelector('.timeline-date');
+        
+        content.style.width = 'calc(100% - 80px)';
+        content.style.marginLeft = '80px';
+        
+        date.style.left = '0';
+        date.style.right = 'auto';
+        date.style.top = '-40px';
+      });
+    }
+    
+    // Handle image hover effects
+    const imageItems = document.querySelectorAll('.about-image-item');
+    
+    imageItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        imageItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.style.opacity = '0.7';
+            otherItem.style.transform = 'scale(0.95)';
+          }
+        });
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        imageItems.forEach(otherItem => {
+          otherItem.style.opacity = '1';
+          otherItem.style.transform = 'scale(1)';
+        });
+      });
+    });
+    
+    // Add parallax effect to hero section
+    const heroSection = document.querySelector('.about-hero');
+    const heroShape = document.querySelector('.about-hero-shape');
+    
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      
+      if (heroShape) {
+        heroShape.style.transform = `translateY(${scrollPosition * 0.1}px) rotate(${scrollPosition * 0.02}deg)`;
+      }
+    });
+  });
+</script>
+{% endblock scripts %}
+    

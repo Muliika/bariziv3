@@ -16,6 +16,11 @@
       
       <!-- Filter Sidebar Content -->
       <div class="collapse d-lg-block" id="filterSidebar">
+        <!-- Mobile Close Button - Added this -->
+        <div class="d-flex justify-content-between align-items-center d-lg-none mb-3">
+          <h5 class="mb-0">Filters</h5>
+          <button type="button" class="btn-close" id="filterSidebarClose" aria-label="Close"></button>
+        </div>
         <!-- Search Filter -->
         <div class="card shadow-sm mb-4">
           <div class="card-body">
@@ -236,293 +241,167 @@
       
       <!-- Listings Grid -->
       <div class="row g-4">
-        <!-- Listing Item 1 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Restaurant">
-              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Restaurant</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.8</span>
-                </div>
+        <!-- Listing 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Accommodation</span>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Gourmet Delight Restaurant</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Manhattan, New York</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 10:00 PM</span>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.8</span>
+                </div>
               </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Fine Dining</span>
-                <span class="badge bg-light text-dark">Italian</span>
-                <span class="badge bg-light text-dark">Outdoor Seating</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
+              <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">$150/night</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Listing Item 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Hotel">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Hotel</span>
-                                    <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Hotel</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.6</span>
-                </div>
+        <!-- Listing 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Food & Drinks</span>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Luxury Skyline Hotel</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Downtown, Chicago</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">24/7 Service</span>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.6</span>
+                </div>
               </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Spa</span>
-                <span class="badge bg-light text-dark">Pool</span>
-                <span class="badge bg-light text-dark">Gym</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
+              <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">$$$</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Listing Item 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Fitness Center">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-info px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Fitness</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.7</span>
-                </div>
+        <!-- Listing 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Activities</span>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Elite Fitness Center</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Beverly Hills, Los Angeles</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 11:00 PM</span>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Adventure Park</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.9</span>
+                </div>
               </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Personal Training</span>
-                <span class="badge bg-light text-dark">Yoga</span>
-                <span class="badge bg-light text-dark">Sauna</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
+              <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">$25/person</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Listing Item 4 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Shopping Mall">
-              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-warning px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Shopping</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.5</span>
-                </div>
+        <!-- Listing 4 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Shopping</span>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Metropolis Shopping Center</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Miami Beach, Florida</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 9:00 PM</span>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Fashion Boutique</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.5</span>
+                </div>
               </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Fashion</span>
-                <span class="badge bg-light text-dark">Food Court</span>
-                <span class="badge bg-light text-dark">Cinema</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 101 Fashion St, City</p>
+              <p class="listing-description mb-3">Trendy clothing and accessories from local and international designers.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">$$</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Listing Item 5 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Cafe">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Cafe</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.9</span>
-                </div>
+        <!-- Listing 5 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                  Let me continue with the rest of the landing page code:
+                  <span class="badge bg-dark">Health</span>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Artisan Coffee House</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Portland, Oregon</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 8:00 PM</span>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Wellness Spa & Center</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.7</span>
+                </div>
               </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Organic</span>
-                <span class="badge bg-light text-dark">Vegan Options</span>
-                <span class="badge bg-light text-dark">WiFi</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 202 Wellness Ave, City</p>
+              <p class="listing-description mb-3">Rejuvenate your body and mind with our premium spa treatments and services.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">From $60</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- Listing Item 6 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Spa">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Spa</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+        <!-- Listing 6 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Entertainment</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Cinema Complex</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.4</span>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Tranquility Wellness Spa</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Scottsdale, Arizona</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 7:00 PM</span>
-              </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Massage</span>
-                <span class="badge bg-light text-dark">Facial</span>
-                <span class="badge bg-light text-dark">Hot Stone</span>
-              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 303 Cinema Blvd, City</p>
+              <p class="listing-description mb-3">State-of-the-art movie theaters with the latest releases and premium seating.</p>
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing Item 7 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1517840901100-8179e982acb7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Restaurant">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-primary px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Restaurant</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.3</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Seaside Seafood Restaurant</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> San Francisco, California</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Open Now</span>
-                <span class="text-muted small">Closes at 10:30 PM</span>
-              </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">Seafood</span>
-                <span class="badge bg-light text-dark">Ocean View</span>
-                <span class="badge bg-light text-dark">Bar</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing Item 8 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Nightclub">
-              <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-dark px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Nightlife</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.7</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-                            <h5 class="card-title mb-1">Pulse Nightclub & Lounge</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Las Vegas, Nevada</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-danger"><i class="bi bi-x-circle-fill me-1"></i> Closed Now</span>
-                <span class="text-muted small">Opens at 9:00 PM</span>
-              </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">DJ</span>
-                <span class="badge bg-light text-dark">VIP</span>
-                <span class="badge bg-light text-dark">Cocktails</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$$$</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing Item 9 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm hover-shadow">
-            <div class="position-relative">
-              <img src="https://images.unsplash.com/photo-1568084680786-a84f91d1153c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Apartment">
-              <div class="position-absolute bottom-0 start-0 w-100 p-3 text-white" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="bg-success px-2 py-1 rounded-pill"><i class="bi bi-building me-1"></i> Real Estate</span>
-                  <span><i class="bi bi-star-fill text-warning"></i> 4.6</span>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">Modern Downtown Apartment</h5>
-              <p class="card-text text-muted mb-2"><i class="bi bi-geo-alt-fill me-1"></i> Seattle, Washington</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i> Available</span>
-                <span class="text-muted small">For Rent</span>
-              </div>
-              <div class="d-flex flex-wrap gap-1 mb-3">
-                <span class="badge bg-light text-dark">2 Bed</span>
-                <span class="badge bg-light text-dark">2 Bath</span>
-                <span class="badge bg-light text-dark">Parking</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-danger">$2,500/mo</span>
-                <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                <div class="listing-price text-primary fw-bold">$12/ticket</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
               </div>
             </div>
           </div>
@@ -579,19 +458,36 @@
     // Handle filter sidebar on mobile
     const filterSidebar = document.getElementById('filterSidebar');
     const filterToggleBtn = document.querySelector('[data-bs-target="#filterSidebar"]');
+    const closeBtn = document.getElementById('filterSidebarClose');
     
-    // Close sidebar when clicking outside on mobile
-    if (window.innerWidth < 992) {
-      document.addEventListener('click', function(event) {
-        if (!filterSidebar.contains(event.target) && !filterToggleBtn.contains(event.target) && filterSidebar.classList.contains('show')) {
-          const bsCollapse = new bootstrap.Collapse(filterSidebar);
-          bsCollapse.hide();
-        }
+    // Ensure Bootstrap is properly loaded
+    if (typeof bootstrap !== 'undefined') {
+      // Initialize the collapse element
+      const bsCollapse = new bootstrap.Collapse(filterSidebar, {
+        toggle: false
       });
+      
+      // Add click event to close button
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          bsCollapse.hide();
+        });
+      }
+      
+      // Close sidebar when clicking outside on mobile
+      if (window.innerWidth < 992) {
+        document.addEventListener('click', function(event) {
+          if (!filterSidebar.contains(event.target) && 
+              !filterToggleBtn.contains(event.target) && 
+              filterSidebar.classList.contains('show')) {
+            bsCollapse.hide();
+          }
+        });
+      }
     }
     
     // Add hover effect for cards
-    const cards = document.querySelectorAll('.hover-shadow');
+    const cards = document.querySelectorAll('.listing-card');
     cards.forEach(card => {
       card.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-5px)';

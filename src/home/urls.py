@@ -22,4 +22,6 @@ urlpatterns = [
     path("categories/", views.categories, name="categories"),
     path("businesses/", views.profiles_list, name="profiles_list"),
     path("business/<slug:slug>/", views.business_detail, name="business_detail"),
+    path("contact/", views.contact_view, name="contact"),
+    path("about/", views.about, name="about"),
 ]

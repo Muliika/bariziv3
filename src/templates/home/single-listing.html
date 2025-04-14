@@ -4,12 +4,46 @@
 
 {% block content %}
 <div class="container py-5">
+  
+
+  <!-- Property Images Carousel -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+        {% comment %} <div class="carousel-indicators">
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div> {% endcomment %}
+        <div class="carousel-inner overflow-hidden">
+          <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 1">
+          </div>
+          {% comment %} <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 2">
+          </div>
+          <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 3">
+          </div> {% endcomment %}
+        </div>
+        {% comment %} <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button> {% endcomment %}
+      </div>
+    </div>
+  </div>
+
   <!-- Property Header -->
   <div class="row mb-4">
     <div class="col-md-8">
       <div class="d-flex align-items-center">
         <div class="me-3">
-          <img src="{% static 'images/placeholder-profile.jpg' %}" alt="Owner" class="rounded-circle" width="80" height="80">
+          <img src="{% static 'images/one.jpg' %}" alt="Owner" class="rounded-circle" width="80" height="80">
         </div>
         <div>
           <h1 class="fs-2 fw-bold mb-1">Sleep In a Room in Apartment</h1>
@@ -29,40 +63,9 @@
     </div>
     <div class="col-md-4 text-md-end">
       <div class="d-flex flex-column align-items-end">
-        <h2 class="display-4 fw-bold mb-0">$350</h2>
-        <p class="text-muted">Fixed</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Property Images Carousel -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner rounded-4 overflow-hidden">
-          <div class="carousel-item active">
-            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 1">
-          </div>
-          <div class="carousel-item">
-            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 2">
-          </div>
-          <div class="carousel-item">
-            <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 3">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        {% comment %} <h2 class="display-4 fw-bold mb-0">$350</h2> {% endcomment %}
+        <i class="bi bi-gear-wide-connected "></i>
+        <p class="text-muted">Settings</p>
       </div>
     </div>
   </div>
@@ -71,22 +74,22 @@
   <div class="row mb-5">
     <div class="col-12">
       <div class="d-flex flex-wrap gap-3">
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-map me-2"></i> Get Directions
         </a>
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-globe me-2"></i> Website
         </a>
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-share me-2"></i> Share
         </a>
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-pencil-square me-2"></i> Write A Review
         </a>
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-flag me-2"></i> Report
         </a>
-        <a href="#" class="btn btn-outline-primary d-flex align-items-center">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
           <i class="bi bi-bookmark me-2"></i> Save
         </a>
         <a href="#" class="btn btn-danger d-flex align-items-center ms-auto">
@@ -236,11 +239,7 @@
               <ul class="list-unstyled ps-5">
                 <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Fire extinguishers</li>
                 <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Smoke alarms</li>
-                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>
-                I'll complete the code for your property listing page by adding the remaining sections, including the security features, property gallery, and right column with property details and business information.
-
-**File: d:\PROJECTS\003-FULL-STACK-PROJECTS\BARIZIV3\src\templates\home\single-listing.html**
-```html
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> CCTV in common areas</li>
                 <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> 24/7 security staff</li>
               </ul>
             </div>
@@ -249,7 +248,7 @@
       </div>
 
       <!-- Gallery Section -->
-      <div class="card shadow-sm mb-4">
+      {% comment %} <div class="card shadow-sm mb-4">
         <div class="card-body">
           <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
             <i class="bi bi-images me-2 text-danger"></i> Gallery
@@ -291,7 +290,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
 
       <!-- Reviews Section -->
       <div class="card shadow-sm mb-4">
@@ -313,7 +312,7 @@
           <!-- Review Item -->
           <div class="border-bottom pb-4 mb-4">
             <div class="d-flex mb-3">
-              <img src="{% static 'images/avatar-1.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
+              <img src="{% static 'images/one.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
               <div>
                 <h5 class="mb-1">John Doe</h5>
                 <div class="d-flex align-items-center">
@@ -334,7 +333,7 @@
           <!-- Review Item -->
           <div class="border-bottom pb-4 mb-4">
             <div class="d-flex mb-3">
-              <img src="{% static 'images/avatar-2.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
+              <img src="{% static 'images/one.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
               <div>
                 <h5 class="mb-1">Jane Smith</h5>
                 <div class="d-flex align-items-center">
@@ -353,7 +352,7 @@
           </div>
 
           <div class="text-center">
-            <a href="#" class="btn btn-outline-primary">View All 128 Reviews</a>
+            <a href="#" class="btn btn-outline-danger">View All 128 Reviews</a>
           </div>
         </div>
       </div>
@@ -564,7 +563,7 @@
           <div class="card border-0 shadow-sm">
             <div class="row g-0">
               <div class="col-4">
-                <img src="https://images.unsplash.com/photo-1560185127-f529c3a82bf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-cover" alt="Similar property">
+                <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-coverr" alt="Similar property">
               </div>
               <div class="col-8">
                 <div class="card-body p-2">
@@ -579,12 +578,12 @@
       </div>
 
       <!-- Call to Action -->
-      <div class="card bg-primary text-white shadow mb-4">
+      <div class="card bg-dark text-white shadow mb-4">
         <div class="card-body text-center p-4">
           <i class="bi bi-telephone-fill display-4 mb-3"></i>
           <h4 class="card-title mb-3">Need Help?</h4>
           <p class="card-text mb-3">Contact our support team for any questions or assistance with your booking.</p>
-          <a href="tel:+442012345678" class="btn btn-light text-primary fw-bold">
+          <a href="tel:+442012345678" class="btn btn-dark text-white fw-bold">
             <i class="bi bi-telephone-fill me-2"></i> +44 20 1234 5678
           </a>
         </div>
@@ -595,100 +594,94 @@
   <!-- Related Properties Section -->
   <div class="row mt-5">
     <div class="col-12">
-      <h2 class="border-start border-4 border-danger ps-3 mb-4">Related Properties</h2>
+      <h2 class="border-start border-4 border-danger ps-3 mb-4">Related Listings</h2>
     </div>
     
     <!-- Related Property Card -->
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="position-relative">
-          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Property image">
-          <span class="position-absolute top-0 start-0 bg-danger text-white m-3 px-2 py-1 rounded">Featured</span>
-          <span class="position-absolute top-0 end-0 bg-primary text-white m-3 px-2 py-1 rounded">For Rent</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Modern Apartment in Downtown</h5>
-          <p class="card-text text-muted"><i class="bi bi-geo-alt-fill me-1"></i> Manhattan, New York</p>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="fw-bold fs-5">$280/night</span>
-            <div>
-              <i class="bi bi-star-fill text-warning"></i>
-              <span class="ms-1">4.8 (120)</span>
+    <!-- Listing 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Accommodation</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.8</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
+              <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$150/night</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between text-muted">
-            <span><i class="bi bi-building me-1"></i> 2 Rooms</span>
-            <span><i class="bi bi-people me-1"></i> 4 Guests</span>
-            <span><i class="bi bi-rulers me-1"></i> 75 m²</span>
-          </div>
         </div>
-        <div class="card-footer bg-white border-top-0">
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Related Property Card -->
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="position-relative">
-          <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Property image">
-          <span class="position-absolute top-0 end-0 bg-success text-white m-3 px-2 py-1 rounded">For Sale</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Luxury Penthouse with View</h5>
-          <p class="card-text text-muted"><i class="bi bi-geo-alt-fill me-1"></i> Brooklyn, New York</p>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="fw-bold fs-5">$450,000</span>
-            <div>
-              <i class="bi bi-star-fill text-warning"></i>
-              <span class="ms-1">4.9 (85)</span>
+        
+        <!-- Listing 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Food & Drinks</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
+              <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$$$</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between text-muted">
-            <span><i class="bi bi-building me-1"></i> 3 Rooms</span>
-            <span><i class="bi bi-people me-1"></i> 6 Guests</span>
-            <span><i class="bi bi-rulers me-1"></i> 120 m²</span>
-          </div>
         </div>
-        <div class="card-footer bg-white border-top-0">
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Related Property Card -->
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="position-relative">
-          <img src="https://images.unsplash.com/photo-1560185127-f529c3a82bf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="card-img-top" alt="Property image">
-          <span class="position-absolute top-0 end-0 bg-primary text-white m-3 px-2 py-1 rounded">For Rent</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Cozy Studio in City Center</h5>
-          <p class="card-text text-muted"><i class="bi bi-geo-alt-fill me-1"></i> Queens, New York</p>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="fw-bold fs-5">$195/night</span>
-            <div>
-              <i class="bi bi-star-fill text-warning"></i>
-              <span class="ms-1">4.6 (92)</span>
+        
+        <!-- Listing 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Activities</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Adventure Park</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.9</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
+              <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$25/person</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between text-muted">
-            <span><i class="bi bi-building me-1"></i> 1 Room</span>
-            <span><i class="bi bi-people me-1"></i> 2 Guests</span>
-            <span><i class="bi bi-rulers me-1"></i> 45 m²</span>
-          </div>
         </div>
-        <div class="card-footer bg-white border-top-0">
-          <a href="#" class="btn btn-outline-primary w-100">View Details</a>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
-{% comment %} footer {% endcomment %}
-    {% include 'partials/footer/footer.html' %}
-{% comment %} footer {% endcomment %}
+
 {% endblock content %}

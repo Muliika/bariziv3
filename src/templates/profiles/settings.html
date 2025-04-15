@@ -26,7 +26,9 @@
               <a href="#profile-tab" class="list-group-item list-group-item-action border-0 px-0 active" data-bs-toggle="tab" role="tab">
                 <i class="bi bi-person me-2"></i> My Profile
               </a>
-            </a>
+              <a href="#options-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
+                <i class="bi bi-person me-2"></i> Options
+              </a>
               <a href="#settings-tab" class="list-group-item list-group-item-action border-0 px-0" data-bs-toggle="tab" role="tab">
                 <i class="bi bi-gear me-2"></i> Settings
               </a>
@@ -57,17 +59,17 @@
                     <button class="nav-link active" id="basic-information" data-bs-toggle="tab" data-bs-target="#basicInformation" type="button" role="tab" aria-controls="basicInformation" aria-selected="true">Basic Information</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab" aria-controls="notifications" aria-selected="false">Notifications</button>
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact & Location</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="false">Privacy</button>
+                    <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Details & Features</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="connected-tab" data-bs-toggle="tab" data-bs-target="#connected" type="button" role="tab" aria-controls="connected" aria-selected="false">Connected Accounts</button>
+                    <button class="nav-link" id="faqs-tab" data-bs-toggle="tab" data-bs-target="#faqs" type="button" role="tab" aria-controls="faqs" aria-selected="false">FAQs</button>
                   </li>
                 </ul>
 
-                <!-- Settings Tab Content -->
+                <!-- Profile Tab Content -->
                 <div class="tab-content" id="settingsTabsContent">
                 <!-- Basic Information -->
                   <div class="tab-pane fade show active" id="basicInformation" role="tabpanel" aria-labelledby="basic-information">
@@ -116,729 +118,587 @@
                   </div>
 
                   <!-- Notifications Tab -->
-                  <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
-                    <div class="mb-4">
-                      <h6>Email Notifications</h6>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="newMessage" checked>
-                        <label class="form-check-label" for="newMessage">New messages</label>
-                      </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="newBooking" checked>
-                        <label class="form-check-label" for="newBooking">Booking requests</label>
-                      </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="listingUpdates" checked>
-                        <label class="form-check-label" for="listingUpdates">Listing updates</label>
-                      </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="promotions">
-                        <label class="form-check-label" for="promotions">Promotions and offers</label>
-                      </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="newsletter" checked>
-                        <label class="form-check-label" for="newsletter">Newsletter</label>
-                      </div>
-                    </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <form id="add-listing-form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <!-- Contact Details -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Contact Details</h5>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label for="listing-phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="listing-phone" name="phone" required>
+                          </div>
 
-                    <div class="mb-4">
-                      <h6>Push Notifications</h6>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="pushMessages" checked>
-                        <label class="form-check-label" for="pushMessages">New messages</label>
+                          <div class="col-md-6">
+                            <label for="listing-email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="listing-email" name="email" required>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-website" class="form-label">Website</label>
+                            <input type="url" class="form-control" id="listing-website" name="website" placeholder="https://example.com">
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-social" class="form-label">Social Media</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-facebook"></i></span>
+                              <input type="text" class="form-control" id="listing-social" name="facebook" placeholder="Facebook URL">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-twitter"></i></span>
+                              <input type="text" class="form-control" name="twitter" placeholder="Twitter URL">
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><i class="bi bi-instagram"></i></span>
+                              <input type="text" class="form-control" name="instagram" placeholder="Instagram URL">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="pushBookings" checked>
-                        <label class="form-check-label" for="pushBookings">Booking requests</label>
+
+                      <!-- Location -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Location</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <label for="listing-address" class="form-label">Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="listing-address" name="address" required>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-city" class="form-label">City <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="listing-city" name="city" required>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-state" class="form-label">State/Province <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="listing-state" name="state" required>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-zip" class="form-label">Zip/Postal Code <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="listing-zip" name="zip" required>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="listing-country" class="form-label">Country <span class="text-danger">*</span></label>
+                            <select class="form-select" id="listing-country" name="country" required>
+                              <option value="">Select Country</option>
+                              <option value="US">United States</option>
+                              <option value="CA">Canada</option>
+                              <option value="UK">United Kingdom</option>
+                              <option value="AU">Australia</option>
+                              <option value="KE">Kenya</option>
+                              <!-- Add more countries as needed -->
+                            </select>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="show-map" name="show_map" checked>
+                              <label class="form-check-label" for="show-map">
+                                Show Map
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="border p-3 rounded" style="height: 300px; background-color: #f8f9fa;">
+                              <p class="text-center text-muted mb-0 d-flex align-items-center justify-content-center h-100">
+                                <i class="bi bi-map me-2"></i> Map will be displayed here
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="pushUpdates">
-                        <label class="form-check-label" for="pushUpdates">Listing updates</label>
-                      </div>
-                    </div>
+                    </form>
 
                     <button type="submit" class="btn btn-primary">Save Preferences</button>
                   </div>
 
                   <!-- Privacy Tab -->
-                  <div class="tab-pane fade" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
-                    <div class="mb-4">
-                      <h6>Profile Visibility</h6>
-                      <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityPublic" checked>
-                        <label class="form-check-label" for="visibilityPublic">
-                          Public - Anyone can view your profile
-                        </label>
-                      </div>
-                      <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityRegistered">
-                        <label class="form-check-label" for="visibilityRegistered">
-                          Registered Users - Only registered users can view your profile
-                        </label>
-                      </div>
-                      <div class="form-check mb-2">
-                        <input class="form-check-input" type="radio" name="profileVisibility" id="visibilityPrivate">
-                        <label class="form-check-label" for="visibilityPrivate">
-                          Private - Only you can view your profile
-                        </label>
-                      </div>
-                    </div>
+                  <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    <form id="add-listing-form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <!-- Details & Features -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Details & Features</h5>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label for="listing-price-range" class="form-label">Price Range</label>
+                            <select class="form-select" id="listing-price-range" name="price_range">
+                              <option value="">Select Price Range</option>
+                              <option value="$">$ (Inexpensive)</option>
+                              <option value="$$">$$ (Moderate)</option>
+                              <option value="$$$">$$$ (Expensive)</option>
+                              <option value="$$$$">$$$$ (Very Expensive)</option>
+                            </select>
+                          </div>
 
-                    <div class="mb-4">
-                      <h6>Contact Information</h6>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="showEmail" checked>
-                        <label class="form-check-label" for="showEmail">Show email on profile</label>
-                      </div>
-                      <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" id="showPhone" checked>
-                        <label class="form-check-label" for="showPhone">Show phone number on profile</label>
-                      </div>
-                    </div>
+                          <div class="col-md-6">
+                            <label for="listing-establishment-year" class="form-label">Establishment Year</label>
+                            <input type="number" class="form-control" id="listing-establishment-year" name="establishment_year" min="1900" max="2099">
+                          </div>
 
-                    <div class="mb-4">
-                      <h6>Data Management</h6>
-                      <p class="text-muted small mb-3">You can download all your data or request account deletion.</p>
-                      <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-outline-primary">Download My Data</button>
-                        <button type="button" class="btn btn-outline-danger">Delete Account</button>
-                      </div>
-                    </div>
+                          <div class="col-md-12">
+                            <label class="form-label">Amenities & Features</label>
+                            <div class="row g-2">
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-wifi" name="features" value="wifi">
+                                  <label class="form-check-label" for="feature-wifi">Free WiFi</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-parking" name="features" value="parking">
+                                  <label class="form-check-label" for="feature-parking">Parking</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-ac" name="features" value="ac">
+                                  <label class="form-check-label" for="feature-ac">Air Conditioning</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-card" name="features" value="card">
+                                  <label class="form-check-label" for="feature-card">Credit Cards</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-delivery" name="features" value="delivery">
+                                  <label class="form-check-label" for="feature-delivery">Delivery</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-takeout" name="features" value="takeout">
+                                  <label class="form-check-label" for="feature-takeout">Takeout</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-reservations" name="features" value="reservations">
+                                  <label class="form-check-label" for="feature-reservations">Reservations</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-outdoor" name="features" value="outdoor">
+                                  <label class="form-check-label" for="feature-outdoor">Outdoor Seating</label>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" id="feature-wheelchair" name="features" value="wheelchair">
+                                  <label class="form-check-label" for="feature-wheelchair">Wheelchair Accessible</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
+                          <div class="col-md-12">
+                            <label for="listing-tags" class="form-label">Tags (separate with commas)</label>
+                            <input type="text" class="form-control" id="listing-tags" name="tags" placeholder="restaurant, food, pizza">
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Opening Hours -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Opening Hours</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <div class="form-check mb-2">
+                              <input class="form-check-input" type="checkbox" id="always-open" name="always_open">
+                              <label class="form-check-label" for="always-open">
+                                Always Open (24/7)
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12" id="hours-container">
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Monday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="monday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <option value="00:30">12:30 AM</option>
+                                  <option value="01:00">1:00 AM</option>
+                                  <option value="01:30">1:30 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="12:00">12:00 PM</option>
+                                  <option value="12:30">12:30 PM</option>
+                                  <option value="13:00">1:00 PM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="monday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <option value="00:30">12:30 AM</option>
+                                  <option value="01:00">1:00 AM</option>
+                                  <option value="01:30">1:30 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="12:00">12:00 PM</option>
+                                  <option value="12:30">12:30 PM</option>
+                                  <option value="13:00">1:00 PM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Tuesday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="tuesday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="tuesday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                    <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Wednesday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="wednesday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="wednesday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Thursday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="thursday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="thursday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Friday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="friday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="friday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Saturday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="saturday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="saturday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="row mb-2 align-items-center">
+                              <div class="col-md-3">
+                                <label class="form-label">Sunday</label>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="sunday_open">
+                                  <option value="">Opening Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" name="sunday_close">
+                                  <option value="">Closing Time</option>
+                                  <option value="closed">Closed</option>
+                                  <option value="00:00">12:00 AM</option>
+                                  <!-- Add more time options -->
+                                  <option value="23:30">11:30 PM</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Images & Gallery -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Images & Gallery</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <label class="form-label">Featured Image <span class="text-danger">*</span></label>
+                            <div class="border rounded p-3 text-center">
+                              <img src="" alt="Featured Image Preview" id="featured-image-preview" class="img-fluid mb-3" style="display: none; max-height: 200px;">
+                              <label class="btn btn-outline-primary mb-0">
+                                <i class="bi bi-cloud-arrow-up me-2"></i> Upload Featured Image
+                                <input type="file" name="featured_image" id="featured-image-input" class="d-none" accept="image/*" required>
+                              </label>
+                              <div class="form-text mt-2">Recommended size: 800x600 pixels</div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <label class="form-label">Gallery Images</label>
+                            <div class="row" id="listing-images-container">
+                              <div class="col-md-4 mb-3 image-upload-wrap">
+                                <div class="border rounded p-2 text-center position-relative">
+                                  <img src="" alt="Preview" class="img-fluid mb-2 image-preview" style="display: none; max-height: 150px;">
+                                  <label class="form-label w-100">
+                                    <span class="d-block mb-2"><i class="bi bi-cloud-arrow-up"></i> Upload Image</span>
+                                    <input type="file" class="form-control listing-image-input" name="gallery_images[]" accept="image/*">
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary mt-2" id="add-more-images">
+                              <i class="bi bi-plus-lg me-1"></i> Add More Images
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Menu/Services (for restaurants, services, etc.) -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Menu/Services</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <div class="card mb-3">
+                              <div class="card-body">
+                                <h6 class="card-title">Item/Service 1</h6>
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="menu_name[]" placeholder="e.g., Margherita Pizza">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label class="form-label">Price</label>
+                                    <label class="form-label">Price</label>
+                                    <input type="text" class="form-control" name="menu_price[]" placeholder="e.g., $12.99">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label class="form-label">Category</label>
+                                    <input type="text" class="form-control" name="menu_category[]" placeholder="e.g., Pizza">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" name="menu_description[]" rows="2" placeholder="Brief description of the item/service"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div id="menu-items-container">
+                              <!-- Additional menu items will be added here -->
+                            </div>
+
+                            <button type="button" class="btn btn-outline-secondary" id="add-menu-item">
+                              <i class="bi bi-plus-lg me-1"></i> Add Another Item/Service
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Pricing Plans (for services, memberships, etc.) -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Pricing Plans</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <div class="card mb-3">
+                              <div class="card-body">
+                                <h6 class="card-title">Plan 1</h6>
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <label class="form-label">Plan Name</label>
+                                    <input type="text" class="form-control" name="plan_name[]" placeholder="e.g., Basic">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" class="form-control" name="plan_price[]" placeholder="e.g., $29.99">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label class="form-label">Duration</label>
+                                    <select class="form-select" name="plan_duration[]">
+                                      <option value="">Select Duration</option>
+                                      <option value="one-time">One-time</option>
+                                      <option value="hourly">Hourly</option>
+                                      <option value="daily">Daily</option>
+                                      <option value="weekly">Weekly</option>
+                                      <option value="monthly">Monthly</option>
+                                      <option value="yearly">Yearly</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Features (one per line)</label>
+                                    <textarea class="form-control" name="plan_features[]" rows="3" placeholder="e.g., 5 Users&#10;10GB Storage&#10;Email Support"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div id="pricing-plans-container">
+                              <!-- Additional pricing plans will be added here -->
+                            </div>
+
+                            <button type="button" class="btn btn-outline-secondary" id="add-pricing-plan">
+                              <i class="bi bi-plus-lg me-1"></i> Add Another Plan
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                     <button type="submit" class="btn btn-primary">Save Privacy Settings</button>
                   </div>
 
                   <!-- Connected Accounts Tab -->
-                  <div class="tab-pane fade" id="connected" role="tabpanel" aria-labelledby="connected-tab">
-                    <div class="mb-4">
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-google fs-4 me-3"></i>
-                          <div>
-                            <h6 class="mb-0">Google</h6>
-                            <p class="text-muted mb-0 small">Connected as john.doe@gmail.com</p>
+                  <div class="tab-pane fade" id="faqs" role="tabpanel" aria-labelledby="faqs-tab">
+                    <form id="add-listing-form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                      <!-- FAQ Section -->
+                      <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3">Frequently Asked Questions</h5>
+                        <div class="row g-3">
+                          <div class="col-md-12">
+                            <div class="card mb-3">
+                              <div class="card-body">
+                                <h6 class="card-title">FAQ 1</h6>
+                                <div class="row g-3">
+                                  <div class="col-md-12">
+                                    <label class="form-label">Question</label>
+                                    <input type="text" class="form-control" name="faq_question[]" placeholder="e.g., Do you offer delivery?">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Answer</label>
+                                    <textarea class="form-control" name="faq_answer[]" rows="2" placeholder="e.g., Yes, we offer delivery within a 5-mile radius."></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div id="faq-container">
+                          <!-- Additional FAQs will be added here -->
+                            </div>
+
+                            <button type="button" class="btn btn-outline-secondary" id="add-faq">
+                              <i class="bi bi-plus-lg me-1"></i> Add Another FAQ
+                            </button>
                           </div>
                         </div>
-                        <button class="btn btn-sm btn-outline-danger">Disconnect</button>
                       </div>
-
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-facebook fs-4 me-3"></i>
-                          <div>
-                            <h6 class="mb-0">Facebook</h6>
-                            <p class="text-muted mb-0 small">Not connected</p>
-                          </div>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary">Connect</button>
-                      </div>
-
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-twitter fs-4 me-3"></i>
-                          <div>
-                            <h6 class="mb-0">Twitter</h6>
-                            <p class="text-muted mb-0 small">Not connected</p>
-                          </div>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary">Connect</button>
-                      </div>
-
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-linkedin fs-4 me-3"></i>
-                          <div>
-                            <h6 class="mb-0">LinkedIn</h6>
-                            <p class="text-muted mb-0 small">Not connected</p>
-                          </div>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary">Connect</button>
-                      </div>
-                    </div>
-
-                    <div class="alert alert-info" role="alert">
-                      <i class="bi bi-info-circle me-2"></i>
-                      Connecting your social accounts allows for quicker login and helps us personalize your experience.
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
               {% comment %} tabs {% endcomment %}
               {% comment %} tabs {% endcomment %}
 
+            </div>
+          </div>
+
+          <!-- Settings Tab -->
+          <div class="tab-pane fade" id="options-tab" role="tabpanel">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Account Settings</h5>
+              </div>
               <div class="card-body">
-                <form id="add-listing-form" method="post" enctype="multipart/form-data">
+                  <form id="add-listing-form" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
-
-                 
-
-                  <!-- Contact Details -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Contact Details</h5>
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label for="listing-phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" id="listing-phone" name="phone" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="listing-email" name="email" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-website" class="form-label">Website</label>
-                        <input type="url" class="form-control" id="listing-website" name="website" placeholder="https://example.com">
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-social" class="form-label">Social Media</label>
-                        <div class="input-group">
-                          <span class="input-group-text"><i class="bi bi-facebook"></i></span>
-                          <input type="text" class="form-control" id="listing-social" name="facebook" placeholder="Facebook URL">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label class="form-label d-block">&nbsp;</label>
-                        <div class="input-group">
-                          <span class="input-group-text"><i class="bi bi-twitter"></i></span>
-                          <input type="text" class="form-control" name="twitter" placeholder="Twitter URL">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label class="form-label d-block">&nbsp;</label>
-                        <div class="input-group">
-                          <span class="input-group-text"><i class="bi bi-instagram"></i></span>
-                          <input type="text" class="form-control" name="instagram" placeholder="Instagram URL">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Location -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Location</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <label for="listing-address" class="form-label">Address <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="listing-address" name="address" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-city" class="form-label">City <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="listing-city" name="city" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-state" class="form-label">State/Province <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="listing-state" name="state" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-zip" class="form-label">Zip/Postal Code <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="listing-zip" name="zip" required>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-country" class="form-label">Country <span class="text-danger">*</span></label>
-                        <select class="form-select" id="listing-country" name="country" required>
-                          <option value="">Select Country</option>
-                          <option value="US">United States</option>
-                          <option value="CA">Canada</option>
-                          <option value="UK">United Kingdom</option>
-                          <option value="AU">Australia</option>
-                          <option value="KE">Kenya</option>
-                          <!-- Add more countries as needed -->
-                        </select>
-                      </div>
-
-                      <div class="col-md-12">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="show-map" name="show_map" checked>
-                          <label class="form-check-label" for="show-map">
-                            Show Map
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <div class="border p-3 rounded" style="height: 300px; background-color: #f8f9fa;">
-                          <p class="text-center text-muted mb-0 d-flex align-items-center justify-content-center h-100">
-                            <i class="bi bi-map me-2"></i> Map will be displayed here
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Details & Features -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Details & Features</h5>
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label for="listing-price-range" class="form-label">Price Range</label>
-                        <select class="form-select" id="listing-price-range" name="price_range">
-                          <option value="">Select Price Range</option>
-                          <option value="$">$ (Inexpensive)</option>
-                          <option value="$$">$$ (Moderate)</option>
-                          <option value="$$$">$$$ (Expensive)</option>
-                          <option value="$$$$">$$$$ (Very Expensive)</option>
-                        </select>
-                      </div>
-
-                      <div class="col-md-6">
-                        <label for="listing-establishment-year" class="form-label">Establishment Year</label>
-                        <input type="number" class="form-control" id="listing-establishment-year" name="establishment_year" min="1900" max="2099">
-                      </div>
-
-                      <div class="col-md-12">
-                        <label class="form-label">Amenities & Features</label>
-                        <div class="row g-2">
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-wifi" name="features" value="wifi">
-                              <label class="form-check-label" for="feature-wifi">Free WiFi</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-parking" name="features" value="parking">
-                              <label class="form-check-label" for="feature-parking">Parking</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-ac" name="features" value="ac">
-                              <label class="form-check-label" for="feature-ac">Air Conditioning</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-card" name="features" value="card">
-                              <label class="form-check-label" for="feature-card">Credit Cards</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-delivery" name="features" value="delivery">
-                              <label class="form-check-label" for="feature-delivery">Delivery</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-takeout" name="features" value="takeout">
-                              <label class="form-check-label" for="feature-takeout">Takeout</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-reservations" name="features" value="reservations">
-                              <label class="form-check-label" for="feature-reservations">Reservations</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-outdoor" name="features" value="outdoor">
-                              <label class="form-check-label" for="feature-outdoor">Outdoor Seating</label>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="feature-wheelchair" name="features" value="wheelchair">
-                              <label class="form-check-label" for="feature-wheelchair">Wheelchair Accessible</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <label for="listing-tags" class="form-label">Tags (separate with commas)</label>
-                        <input type="text" class="form-control" id="listing-tags" name="tags" placeholder="restaurant, food, pizza">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Opening Hours -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Opening Hours</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <div class="form-check mb-2">
-                          <input class="form-check-input" type="checkbox" id="always-open" name="always_open">
-                          <label class="form-check-label" for="always-open">
-                            Always Open (24/7)
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12" id="hours-container">
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Monday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="monday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <option value="00:30">12:30 AM</option>
-                              <option value="01:00">1:00 AM</option>
-                              <option value="01:30">1:30 AM</option>
-                              <!-- Add more time options -->
-                              <option value="12:00">12:00 PM</option>
-                              <option value="12:30">12:30 PM</option>
-                              <option value="13:00">1:00 PM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="monday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <option value="00:30">12:30 AM</option>
-                              <option value="01:00">1:00 AM</option>
-                              <option value="01:30">1:30 AM</option>
-                              <!-- Add more time options -->
-                              <option value="12:00">12:00 PM</option>
-                              <option value="12:30">12:30 PM</option>
-                              <option value="13:00">1:00 PM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Tuesday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="tuesday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="tuesday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                                <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Wednesday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="wednesday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="wednesday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Thursday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="thursday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="thursday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Friday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="friday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="friday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Saturday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="saturday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="saturday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="row mb-2 align-items-center">
-                          <div class="col-md-3">
-                            <label class="form-label">Sunday</label>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="sunday_open">
-                              <option value="">Opening Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select" name="sunday_close">
-                              <option value="">Closing Time</option>
-                              <option value="closed">Closed</option>
-                              <option value="00:00">12:00 AM</option>
-                              <!-- Add more time options -->
-                              <option value="23:30">11:30 PM</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Images & Gallery -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Images & Gallery</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <label class="form-label">Featured Image <span class="text-danger">*</span></label>
-                        <div class="border rounded p-3 text-center">
-                          <img src="" alt="Featured Image Preview" id="featured-image-preview" class="img-fluid mb-3" style="display: none; max-height: 200px;">
-                          <label class="btn btn-outline-primary mb-0">
-                            <i class="bi bi-cloud-arrow-up me-2"></i> Upload Featured Image
-                            <input type="file" name="featured_image" id="featured-image-input" class="d-none" accept="image/*" required>
-                          </label>
-                          <div class="form-text mt-2">Recommended size: 800x600 pixels</div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <label class="form-label">Gallery Images</label>
-                        <div class="row" id="listing-images-container">
-                          <div class="col-md-4 mb-3 image-upload-wrap">
-                            <div class="border rounded p-2 text-center position-relative">
-                              <img src="" alt="Preview" class="img-fluid mb-2 image-preview" style="display: none; max-height: 150px;">
-                              <label class="form-label w-100">
-                                <span class="d-block mb-2"><i class="bi bi-cloud-arrow-up"></i> Upload Image</span>
-                                <input type="file" class="form-control listing-image-input" name="gallery_images[]" accept="image/*">
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary mt-2" id="add-more-images">
-                          <i class="bi bi-plus-lg me-1"></i> Add More Images
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Menu/Services (for restaurants, services, etc.) -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Menu/Services</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <div class="card mb-3">
-                          <div class="card-body">
-                            <h6 class="card-title">Item/Service 1</h6>
-                            <div class="row g-3">
-                              <div class="col-md-6">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="menu_name[]" placeholder="e.g., Margherita Pizza">
-                              </div>
-                              <div class="col-md-3">
-                                <label class="form-label">Price</label>
-                                <label class="form-label">Price</label>
-                                <input type="text" class="form-control" name="menu_price[]" placeholder="e.g., $12.99">
-                              </div>
-                              <div class="col-md-3">
-                                <label class="form-label">Category</label>
-                                <input type="text" class="form-control" name="menu_category[]" placeholder="e.g., Pizza">
-                              </div>
-                              <div class="col-md-12">
-                                <label class="form-label">Description</label>
-                                <textarea class="form-control" name="menu_description[]" rows="2" placeholder="Brief description of the item/service"></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div id="menu-items-container">
-                          <!-- Additional menu items will be added here -->
-                        </div>
-
-                        <button type="button" class="btn btn-outline-secondary" id="add-menu-item">
-                          <i class="bi bi-plus-lg me-1"></i> Add Another Item/Service
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Pricing Plans (for services, memberships, etc.) -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Pricing Plans</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <div class="card mb-3">
-                          <div class="card-body">
-                            <h6 class="card-title">Plan 1</h6>
-                            <div class="row g-3">
-                              <div class="col-md-6">
-                                <label class="form-label">Plan Name</label>
-                                <input type="text" class="form-control" name="plan_name[]" placeholder="e.g., Basic">
-                              </div>
-                              <div class="col-md-3">
-                                <label class="form-label">Price</label>
-                                <input type="text" class="form-control" name="plan_price[]" placeholder="e.g., $29.99">
-                              </div>
-                              <div class="col-md-3">
-                                <label class="form-label">Duration</label>
-                                <select class="form-select" name="plan_duration[]">
-                                  <option value="">Select Duration</option>
-                                  <option value="one-time">One-time</option>
-                                  <option value="hourly">Hourly</option>
-                                  <option value="daily">Daily</option>
-                                  <option value="weekly">Weekly</option>
-                                  <option value="monthly">Monthly</option>
-                                  <option value="yearly">Yearly</option>
-                                </select>
-                              </div>
-                              <div class="col-md-12">
-                                <label class="form-label">Features (one per line)</label>
-                                <textarea class="form-control" name="plan_features[]" rows="3" placeholder="e.g., 5 Users&#10;10GB Storage&#10;Email Support"></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div id="pricing-plans-container">
-                          <!-- Additional pricing plans will be added here -->
-                        </div>
-
-                        <button type="button" class="btn btn-outline-secondary" id="add-pricing-plan">
-                          <i class="bi bi-plus-lg me-1"></i> Add Another Plan
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- FAQ Section -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">Frequently Asked Questions</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <div class="card mb-3">
-                          <div class="card-body">
-                            <h6 class="card-title">FAQ 1</h6>
-                            <div class="row g-3">
-                              <div class="col-md-12">
-                                <label class="form-label">Question</label>
-                                <input type="text" class="form-control" name="faq_question[]" placeholder="e.g., Do you offer delivery?">
-                              </div>
-                              <div class="col-md-12">
-                                <label class="form-label">Answer</label>
-                                <textarea class="form-control" name="faq_answer[]" rows="2" placeholder="e.g., Yes, we offer delivery within a 5-mile radius."></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div id="faq-container">
-                          <!-- Additional FAQs will be added here -->
-                        </div>
-
-                        <button type="button" class="btn btn-outline-secondary" id="add-faq">
-                          <i class="bi bi-plus-lg me-1"></i> Add Another FAQ
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- SEO Information -->
-                  <div class="mb-4">
-                    <h5 class="border-bottom pb-2 mb-3">SEO Information</h5>
-                    <div class="row g-3">
-                      <div class="col-md-12">
-                        <label for="seo-title" class="form-label">SEO Title</label>
-                        <input type="text" class="form-control" id="seo-title" name="seo_title" placeholder="Enter SEO-friendly title">
-                        <div class="form-text">Recommended length: 50-60 characters</div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <label for="seo-description" class="form-label">Meta Description</label>
-                        <textarea class="form-control" id="seo-description" name="seo_description" rows="3" placeholder="Enter meta description"></textarea>
-                        <div class="form-text">Recommended length: 150-160 characters</div>
-                      </div>
-
-                      <div class="col-md-12">
-                        <label for="seo-keywords" class="form-label">Meta Keywords</label>
-                        <input type="text" class="form-control" id="seo-keywords" name="seo_keywords" placeholder="e.g., restaurant, pizza, italian food">
-                        <div class="form-text">Separate keywords with commas</div>
-                      </div>
-                    </div>
-                  </div>
 
                   <!-- Listing Options -->
                   <div class="mb-4">
@@ -892,12 +752,13 @@
                     <button type="submit" name="save_draft" value="1" class="btn btn-outline-secondary">Save as Draft</button>
                     <button type="reset" class="btn btn-outline-danger">Reset Form</button>
                   </div>
-                </form>
+                </form>         
               </div>
             </div>
           </div>
 
-        <!-- Settings Tab -->
+
+          <!-- Settings Tab -->
           <div class="tab-pane fade" id="settings-tab" role="tabpanel">
             <div class="card border-0 shadow-sm">
               <div class="card-header bg-white py-3">

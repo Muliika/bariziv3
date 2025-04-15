@@ -27,4 +27,6 @@ urlpatterns = [
         RedirectView.as_view(pattern_name="account_reset_password"),
         name="password_reset",
     ),
+    # settings
+    path("settings/", views.settings, name="settings"),
 ]

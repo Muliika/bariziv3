@@ -116,3 +116,10 @@ def bookmarks(request):
     context = {"bookmarks": sample_bookmarks}
 
     return render(request, "profiles/bookmarks.html", context)
+
+
+def settings(request):
+    """
+    View to display the user's settings
+    """
+    return render(request, "profiles/settings.html")

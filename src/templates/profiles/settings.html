@@ -118,7 +118,7 @@
                             <label for="bio" class="form-label">Bio</label>
                             <textarea class="form-control" id="bio" rows="4" placeholder="Tell us about yourself or your business">{{ request.user.profile.bio|default:'' }}</textarea>
                           </div>
-                          
+
                           <div class="col-12">
                             <label for="listing-category" class="form-label">Category <span class="text-danger">*</span></label>
                             <select class="form-select" id="listing-category" name="category" required>

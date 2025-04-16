@@ -2,504 +2,327 @@
 
 {% load static %}
 
+
+{% block styles %}
+  <style>
+    .dropdown-menu {
+      display: none;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown {
+      position: relative;
+    }
+      /* Add some visual feedback for the dropdown button */
+    .dropdown-toggle:hover {
+      background-color: #e9ecef;
+    }
+  </style>
+{% endblock styles %}
+
+
 {% block content %}
-<div class="container py-5">
-  <div class="row">
-    <!-- Sidebar Filters - Left Column -->
-    <div class="col-lg-3 mb-4">
-      <!-- Mobile Filter Toggle Button -->
-      <div class="d-lg-none mb-3">
-        <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterSidebar" aria-expanded="false" aria-controls="filterSidebar">
-          <i class="bi bi-funnel-fill me-2"></i> Show Filters
-        </button>
-      </div>
-      
-      <!-- Filter Sidebar Content -->
-      <div class="collapse d-lg-block" id="filterSidebar">
-        <!-- Mobile Close Button - Added this -->
-        <div class="d-flex justify-content-between align-items-center d-lg-none mb-3">
-          <h5 class="mb-0">Filters</h5>
-          <button type="button" class="btn-close" id="filterSidebarClose" aria-label="Close"></button>
-        </div>
-        <!-- Search Filter -->
+  <div class="container py-5">
+    <div class="row">
+    <!-- Sidebar with Filters -->
+      <div class="col-lg-4 mb-4 mb-lg-0">
+      <!-- Search Filter -->
         <div class="card shadow-sm mb-4">
           <div class="card-body">
             <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Search Filter</h5>
-            <form>
+            <form method="get" action="{% url 'home:profiles_list' %}">
               <div class="mb-3">
                 <label for="keywordSearch" class="form-label">Keyword</label>
                 <div class="input-group">
                   <span class="input-group-text"><i class="bi bi-search"></i></span>
-                  <input type="text" class="form-control" id="keywordSearch" placeholder="Search...">
+                  <input type="text" class="form-control" id="keywordSearch" name="keyword"
+                         placeholder="Search..." value="{{ current_keyword }}">
                 </div>
               </div>
               <div class="mb-3">
                 <label for="categorySelect" class="form-label">Category</label>
-                <select class="form-select" id="categorySelect">
-                  <option selected>All Categories</option>
-                  <option>Restaurants</option>
-                  <option>Hotels</option>
-                  <option>Shopping</option>
-                  <option>Fitness</option>
-                  <option>Travel</option>
-                  <option>Real Estate</option>
+                <select class="form-select" id="categorySelect" name="category">
+                  <option value="All Categories" {% if current_category == "All Categories" %}selected{% endif %}>All Categories</option>
+                  {% for value, label in category_choices %}
+                    <option value="{{ value }}" {% if current_category == value %}selected{% endif %}>{{ label }}</option>
+                  {% endfor %}
                 </select>
               </div>
               <div class="mb-3">
-                <label for="locationSelect" class="form-label">Location</label>
-                <select class="form-select" id="locationSelect">
-                  <option selected>All Locations</option>
-                  <option>New York</option>
-                  <option>Los Angeles</option>
-                  <option>Chicago</option>
-                  <option>Houston</option>
-                  <option>Miami</option>
+                <label for="locationSelect" class="form-label">District/Location</label>
+                <select class="form-select" id="locationSelect" name="location">
+                  <option value="All Locations" {% if current_location == "All Locations" %}selected{% endif %}>All Locations</option>
+                  {% for city in cities %}
+                    <option value="{{ city }}" {% if current_location == city %}selected{% endif %}>{{ city }}</option>
+                  {% endfor %}
                 </select>
               </div>
               <button type="submit" class="btn btn-danger w-100">Search</button>
+              {% if filters_applied %}
+                <a href="{% url 'home:profiles_list' %}" class="btn btn-outline-secondary w-100 mt-2">Clear Filters</a>
+              {% endif %}
             </form>
           </div>
         </div>
-        
-        <!-- Price Range Filter -->
-        {% comment %} <div class="card shadow-sm mb-4">
+
+      <!-- Additional sidebar content if needed -->
+        <div class="card shadow-sm">
           <div class="card-body">
-            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Price Range</h5>
-            <div class="mb-3">
-              <label for="priceRange" class="form-label d-flex justify-content-between">
-                <span>Price</span>
-                <span id="priceRangeValue">$0 - $1000</span>
-              </label>
-              <input type="range" class="form-range" min="0" max="1000" step="50" id="priceRange">
-            </div>
-          </div>
-        </div> {% endcomment %}
-        
-        <!-- Features Filter -->
-        {% comment %} <div class="card shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Features</h5>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature1">
-                <label class="form-check-label" for="feature1">Free WiFi</label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature2">
-                <label class="form-check-label" for="feature2">Parking</label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature3">
-                <label class="form-check-label" for="feature3">Air Conditioning</label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature4">
-                <label class="form-check-label" for="feature4">Restaurant</label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature5">
-                <label class="form-check-label" for="feature5">Swimming Pool</label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="feature6">
-                <label class="form-check-label" for="feature6">Fitness Center</label>
-              </div>
-            </div>
-          </div>
-        </div> {% endcomment %}
-        
-        <!-- Rating Filter -->
-        {% comment %} <div class="card shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Rating</h5>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rating5">
-                <label class="form-check-label" for="rating5">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                </label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rating4">
-                <label class="form-check-label" for="rating4">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rating3">
-                <label class="form-check-label" for="rating3">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rating2">
-                <label class="form-check-label" for="rating2">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rating1">
-                <label class="form-check-label" for="rating1">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div> {% endcomment %}
-        
-        <!-- Popular Tags -->
-        <div class="card shadow-sm mb-4">
-          <div class="card-body">
-            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Popular Tags</h5>
-            <div class="d-flex flex-wrap gap-2">
-              <a href="#" class="btn btn-sm btn-outline-secondary">Restaurant</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Hotel</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Spa</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Cafe</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Gym</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Shopping</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Travel</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary">Beauty</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Reset Filters Button -->
-        <button class="btn btn-outline-secondary w-100 mb-4">Reset Filters</button>
-      </div>
-    </div>
-    
-    <!-- Listings - Right Column -->
-    <div class="col-lg-9">
-      <!-- Top Filter Bar -->
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <div class="row align-items-center">
-            <div class="col-md-6 mb-3 mb-md-0">
-              <p class="mb-0">Showing <strong>1-12</strong> of <strong>256</strong> results</p>
-            </div>
-            <div class="col-md-6">
-              <div class="d-flex justify-content-md-end">
-                <div class="btn-group me-3" role="group" aria-label="View options">
-                  <a href="#" class="btn btn-outline-secondary active">
-                    <i class="bi bi-grid-3x3-gap-fill"></i>
-                  </a>
-                  <a href="#" class="btn btn-outline-secondary">
-                    <i class="bi bi-list"></i>
-                  </a>
-                </div>
-                <select class="form-select" style="width: auto;">
-                  <option selected>Sort by: Default</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Rating: High to Low</option>
-                  <option>Newest First</option>
-                </select>
-              </div>
-            </div>
+            <h5 class="card-title border-start border-4 border-danger ps-3 mb-3">Need Help?</h5>
+            <p class="card-text">Can't find what you're looking for? Contact our support team for assistance.</p>
+            <a href="{% url 'home:contact' %}" class="btn btn-outline-danger">Contact Us</a>
           </div>
         </div>
       </div>
-      
-      <!-- Listings Grid -->
-      <div class="row g-4">
-        <!-- Listing 1 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Accommodation</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.8</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
-              <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$150/night</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
+
+    <!-- Main Content - Results -->
+      <div class="col-lg-8">
+      <!-- Results Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="mb-1">Business Listings</h2>
+            <p class="text-muted mb-0">{{ total_results }} results found</p>
           </div>
-        </div>
-        
-        <!-- Listing 2 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Food & Drinks</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.6</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
-              <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$$$</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 3 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Activities</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Adventure Park</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.9</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
-              <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$25/person</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 4 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Shopping</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Fashion Boutique</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.5</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 101 Fashion St, City</p>
-              <p class="listing-description mb-3">Trendy clothing and accessories from local and international designers.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$$</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 5 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                  Let me continue with the rest of the landing page code:
-                  <span class="badge bg-dark">Health</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Wellness Spa & Center</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.7</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 202 Wellness Ave, City</p>
-              <p class="listing-description mb-3">Rejuvenate your body and mind with our premium spa treatments and services.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">From $60</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 6 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Entertainment</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Cinema Complex</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.4</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 303 Cinema Blvd, City</p>
-              <p class="listing-description mb-3">State-of-the-art movie theaters with the latest releases and premium seating.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$12/ticket</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Pagination -->
-        <div class="col-12 mt-4">
-          <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                  <i class="bi bi-chevron-left"></i>
-                </a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  <i class="bi bi-chevron-right"></i>
-                </a>
-              </li>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Sort By:
+              {% if current_sort == "newest" %}Newest First
+              {% elif current_sort == "highest_rated" %}Highest Rated
+              {% elif current_sort == "a_z" %}A-Z
+              {% else %}Newest First{% endif %}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+              <li><a class="dropdown-item {% if current_sort == 'newest' %}active{% endif %}"
+                     href="?keyword={{ current_keyword|urlencode }}&category={{ current_category|urlencode }}&location={{ current_location|urlencode }}&sort=newest">Newest First</a></li>
+              <li><a class="dropdown-item {% if current_sort == 'highest_rated' %}active{% endif %}"
+                     href="?keyword={{ current_keyword|urlencode }}&category={{ current_category|urlencode }}&location={{ current_location|urlencode }}&sort=highest_rated">Highest Rated</a></li>
+              <li><a class="dropdown-item {% if current_sort == 'a_z' %}active{% endif %}"
+                     href="?keyword={{ current_keyword|urlencode }}&category={{ current_category|urlencode }}&location={{ current_location|urlencode }}&sort=a_z">A-Z</a></li>
             </ul>
-          </nav>
+          </div>
         </div>
+
+      <!-- Results List -->
+        {% if profiles %}
+          <div class="row g-4">
+            {% for profile in profiles %}
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm hover-shadow">
+                  <div class="position-relative">
+                    {% if profile.avatar %}
+                      <img src="{{ profile.avatar.url }}" class="card-img-top" alt="{{ profile.user.get_full_name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                      <img src="{% static 'images/one.jpg' %}" class="card-img-top" alt="{{ profile.user.get_full_name }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+
+                    {% if profile.featured %}
+                      <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+                    {% endif %}
+
+                    <div class="position-absolute bottom-0 start-0 m-3">
+                      <span class="badge bg-dark">{{ profile.user.get_business_category_display }}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                      <h5 class="card-title mb-0">{{ profile.user.get_full_name }}</h5>
+                      {% if profile.rating > 0 %}
+                        <div class="rating">
+                          <i class="bi bi-star-fill text-warning"></i>
+                          <span>{{ profile.rating }}</span>
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    {% if profile.district or profile.county or profile.parish %}
+                      <p class="card-text mb-2"><i class="bi bi-geo-alt me-1"></i>
+                        {% if profile.district %}{{ profile.district }}{% endif %}
+                        {% if profile.county %}{% if profile.district %}, {% endif %}{{ profile.county }}{% endif %}
+                        {% if profile.parish %}{% if profile.district or profile.county %}, {% endif %}{{ profile.parish }}{% endif %}
+                      </p>
+                    {% endif %}
+
+                    {% if profile.bio %}
+                      <p class="card-text mb-3">{{ profile.bio|truncatechars:100 }}</p>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      {% if profile.price_range %}
+                        <div class="price-range text-primary fw-bold">{{ profile.get_price_range_display }}</div>
+                      {% endif %}
+                      <a href="{% url 'home:business_detail' profile.user.slug %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+        <!-- Pagination -->
+          {% if profiles.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-5">
+              <ul class="pagination justify-content-center">
+                {% if profiles.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ profiles.previous_page_number }}&keyword={{ current_keyword }}&category={{ current_category }}&location={{ current_location }}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+
+                {% for i in profiles.paginator.page_range %}
+                  {% if profiles.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}&keyword={{ current_keyword }}&category={{ current_category }}&location={{ current_location }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if profiles.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ profiles.next_page_number }}&keyword={{ current_keyword }}&category={{ current_category }}&location={{ current_location }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
+
+        {% else %}
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i> No business profiles found matching your criteria. Try adjusting your filters.
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
-</div>
 
-<!-- Add JavaScript for price range slider -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const priceRange = document.getElementById('priceRange');
-    const priceRangeValue = document.getElementById('priceRangeValue');
-    
-    priceRange.addEventListener('input', function() {
-      priceRangeValue.textContent = `$0 - $${this.value}`;
-    });
-    
-    // Initialize Bootstrap tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-  });
-</script>
 {% endblock content %}
 
 {% block scripts %}
-<script>
-  // Additional JavaScript for mobile responsiveness
-  document.addEventListener('DOMContentLoaded', function() {
-    // Handle filter sidebar on mobile
-    const filterSidebar = document.getElementById('filterSidebar');
-    const filterToggleBtn = document.querySelector('[data-bs-target="#filterSidebar"]');
-    const closeBtn = document.getElementById('filterSidebarClose');
-    
-    // Ensure Bootstrap is properly loaded
-    if (typeof bootstrap !== 'undefined') {
-      // Initialize the collapse element
-      const bsCollapse = new bootstrap.Collapse(filterSidebar, {
-        toggle: false
-      });
-      
-      // Add click event to close button
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-          bsCollapse.hide();
-        });
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded - initializing scripts');
+
+      // Check if Bootstrap is loaded
+      if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap is not loaded!');
+        // Load Bootstrap dynamically if needed
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js';
+        script.integrity = 'sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4';
+        script.crossOrigin = 'anonymous';
+        document.body.appendChild(script);
+
+        script.onload = initializeDropdowns;
+      } else {
+        console.log('Bootstrap is loaded - version:', bootstrap.Dropdown.VERSION);
+        initializeDropdowns();
       }
-      
-      // Close sidebar when clicking outside on mobile
-      if (window.innerWidth < 992) {
-        document.addEventListener('click', function(event) {
-          if (!filterSidebar.contains(event.target) && 
-              !filterToggleBtn.contains(event.target) && 
-              filterSidebar.classList.contains('show')) {
-            bsCollapse.hide();
+
+      function initializeDropdowns() {
+        console.log('Initializing dropdowns');
+        // Get all dropdown toggles
+        const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+        console.log('Found', dropdownElementList.length, 'dropdown toggles');
+
+        // Initialize each dropdown
+        dropdownElementList.forEach(function(dropdownToggleEl) {
+          try {
+            new bootstrap.Dropdown(dropdownToggleEl);
+            console.log('Dropdown initialized:', dropdownToggleEl.id);
+          } catch (e) {
+            console.error('Error initializing dropdown:', e);
+          }
+        });
+
+        // Add manual toggle for dropdowns (fallback)
+        document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+          toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const menu = this.nextElementSibling;
+            if (menu.classList.contains('show')) {
+              menu.classList.remove('show');
+            } else {
+              // Close any open dropdowns first
+              document.querySelectorAll('.dropdown-menu.show').forEach(function(openMenu) {
+                openMenu.classList.remove('show');
+              });
+              menu.classList.add('show');
+            }
+          });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.matches('.dropdown-toggle') && !e.target.closest('.dropdown-menu')) {
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+              menu.classList.remove('show');
+            });
           }
         });
       }
-    }
-    
-    // Add hover effect for cards
-    const cards = document.querySelectorAll('.listing-card');
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-5px)';
-        this.style.transition = 'transform 0.3s ease';
-        this.style.boxShadow = '0 .5rem 1rem rgba(0,0,0,.15)';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = '0 .125rem .25rem rgba(0,0,0,.075)';
+
+      // Handle filter sidebar on mobile - only if elements exist
+      const filterSidebar = document.getElementById('filterSidebar');
+      const filterToggleBtn = document.querySelector('[data-bs-target="#filterSidebar"]');
+      const closeBtn = document.getElementById('filterSidebarClose');
+
+      if (filterSidebar && typeof bootstrap !== 'undefined') {
+        // Initialize the collapse element
+        const bsCollapse = new bootstrap.Collapse(filterSidebar, {
+          toggle: false
+        });
+
+        // Add click event to close button
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function() {
+            bsCollapse.hide();
+          });
+        }
+
+        // Close sidebar when clicking outside on mobile
+        if (window.innerWidth < 992) {
+          document.addEventListener('click', function(event) {
+            if (!filterSidebar.contains(event.target) &&
+              !filterToggleBtn.contains(event.target) &&
+              filterSidebar.classList.contains('show')) {
+                bsCollapse.hide();
+              }
+          });
+        }
+      }
+
+      // Add hover effect for cards
+      const cards = document.querySelectorAll('.card.hover-shadow');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.transition = 'transform 0.3s ease';
+          this.style.boxShadow = '0 .5rem 1rem rgba(0,0,0,.15)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 .125rem .25rem rgba(0,0,0,.075)';
+        });
       });
     });
-  });
-</script>
+  </script>
 {% endblock scripts %}

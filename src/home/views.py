@@ -1,9 +1,14 @@
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from profiles.models import Profile, User
+
+# Get CATEGORY_CHOICES from the User model
+CATEGORY_CHOICES = User.CATEGORY_CHOICES
 
 
 def home(request):
@@ -14,8 +19,8 @@ def sample_page(request):
     return render(request, "home/single-listing.html")
 
 
-def listings(request):
-    return render(request, "home/listings.html")
+# def listings(request):
+#     return render(request, "home/listings.html")
 
 
 def categories(request):
@@ -55,23 +60,112 @@ def contact_view(request):
     return render(request, "home/contact-form.html")
 
 
+# def profiles_list(request):
+#     """
+#     View to display all business profiles
+#     """
+#     # Get only business profiles
+#     profiles = Profile.objects.filter(user__user_type="business").select_related("user")
+
+#     # Filter by business category if specified in query parameters
+#     category = request.GET.get("category")
+#     if category:
+#         profiles = profiles.filter(user__business_category=category)
+
+
+#     context = {
+#         "profiles": profiles,
+#         "category_choices": User.CATEGORY_CHOICES,
+#     }
+#     return render(request, "home/profiles_list.html", context)
 def profiles_list(request):
     """
-    View to display all business profiles
+    View to display all business profiles with filtering options
     """
     # Get only business profiles
     profiles = Profile.objects.filter(user__user_type="business").select_related("user")
 
-    # Filter by business category if specified in query parameters
-    category = request.GET.get("category")
-    if category:
+    # Initialize filter flags to track if any filters were applied
+    filters_applied = False
+
+    # Filter by keyword if specified
+    keyword = request.GET.get("keyword", "")
+    if keyword:
+        filters_applied = True
+
+        profiles = profiles.filter(
+            Q(user__username__icontains=keyword)
+            | Q(user__first_name__icontains=keyword)
+            | Q(user__last_name__icontains=keyword)
+            | Q(bio__icontains=keyword)
+        )
+
+    # Filter by business category if specified
+    category = request.GET.get("category", "")
+    if category and category != "All Categories":
+        filters_applied = True
         profiles = profiles.filter(user__business_category=category)
 
+    # Filter by location if specified
+    location = request.GET.get("location", "")
+    if location and location != "All Locations":
+        filters_applied = True
+        # Use district instead of city for location filtering
+        profiles = profiles.filter(
+            Q(district__icontains=location)
+            | Q(county__icontains=location)
+            | Q(parish__icontains=location)
+        )
+
+    # Sort results if specified
+    sort_by = request.GET.get("sort", "newest")
+    if sort_by == "newest":
+        profiles = profiles.order_by("-user__date_joined")
+    elif sort_by == "highest_rated":
+        profiles = profiles.order_by("-rating")
+    elif sort_by == "a_z":
+        profiles = profiles.order_by("user__first_name", "user__last_name")
+
+    # Get unique districts for location filter (instead of cities)
+    districts = (
+        Profile.objects.filter(user__user_type="business", district__isnull=False)
+        .exclude(district="")
+        .values_list("district", flat=True)
+        .distinct()
+    )
+
+    # Convert to list and sort alphabetically
+    locations_list = sorted(list(districts))
+
+    # Pagination
+    page = request.GET.get("page", 1)
+    paginator = Paginator(profiles, 6)  # Show 6 profiles per page
+
+    try:
+        paginated_profiles = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        paginated_profiles = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results
+        paginated_profiles = paginator.page(paginator.num_pages)
+
+    # Count total results before pagination
+    total_results = profiles.count()
+
     context = {
-        "profiles": profiles,
-        "category_choices": User.CATEGORY_CHOICES,
+        "profiles": paginated_profiles,
+        "category_choices": CATEGORY_CHOICES,  # Make sure this is imported or defined
+        "cities": locations_list,  # We're using districts but keeping the variable name for template compatibility
+        # Pass the current filter values back to the template
+        "current_keyword": keyword,
+        "current_category": category or "All Categories",
+        "current_location": location or "All Locations",
+        "current_sort": sort_by,
+        "filters_applied": filters_applied,
+        "total_results": total_results,
     }
-    return render(request, "home/profiles_list.html", context)
+    return render(request, "home/listings.html", context)
 
 
 def business_detail(request, slug):

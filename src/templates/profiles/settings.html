@@ -79,6 +79,25 @@
                       <div class="mb-4">
                         <h5 class="border-bottom pb-2 mb-3">Basic Information</h5>
                         <div class="row g-3">
+                          <div class="col-12 mb-3">
+                            <label class="form-label">Profile Picture</label>
+                            <div class="d-flex align-items-center">
+                              <div class="position-relative me-3">
+                                {% if request.user.profile.avatar %}
+                                  <img src="{{ request.user.profile.avatar.url }}" alt="Profile Picture" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+                                {% else %}
+                                  <img src="{% static 'images/one.jpg' %}" alt="Profile Picture" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+                                {% endif %}
+                                <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle" style="width: 32px; height: 32px;">
+                                  <i class="bi bi-pencil"></i>
+                                </button>
+                              </div>
+                              <div class="flex-grow-1">
+                                <input class="form-control" type="file" id="profilePicture">
+                                <div class="form-text">Recommended size: 300x300px. Max file size: 2MB</div>
+                              </div>
+                            </div>
+                          </div>
                           <div class="col-md-6">
                             <label for="firstName" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="firstName" value="{{ request.user.first_name }}">
@@ -99,34 +118,8 @@
                             <label for="bio" class="form-label">Bio</label>
                             <textarea class="form-control" id="bio" rows="4" placeholder="Tell us about yourself or your business">{{ request.user.profile.bio|default:'' }}</textarea>
                           </div>
+                          
                           <div class="col-12">
-                            <label class="form-label">Profile Picture</label>
-                            <div class="d-flex align-items-center">
-                              <div class="position-relative me-3">
-                                {% if request.user.profile.avatar %}
-                                  <img src="{{ request.user.profile.avatar.url }}" alt="Profile Picture" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
-                                {% else %}
-                                  <img src="{% static 'images/one.jpg' %}" alt="Profile Picture" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
-                                {% endif %}
-                                <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle" style="width: 32px; height: 32px;">
-                                  <i class="bi bi-pencil"></i>
-                                </button>
-                              </div>
-                              <div class="flex-grow-1">
-                                <input class="form-control" type="file" id="profilePicture">
-                                <div class="form-text">Recommended size: 300x300px. Max file size: 2MB</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary">Save Basic Info</button>
-                          </div>
-                          <div class="col-md-12">
-                            <label for="listing-title" class="form-label">Listing Title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="listing-title" name="title" required>
-                          </div>
-
-                          <div class="col-md-6">
                             <label for="listing-category" class="form-label">Category <span class="text-danger">*</span></label>
                             <select class="form-select" id="listing-category" name="category" required>
                               <option value="">Select Category</option>
@@ -142,17 +135,16 @@
                             </select>
                           </div>
 
-                          <div class="col-md-6">
-                            <label for="listing-subcategory" class="form-label">Sub-Category</label>
+                          {% comment %} <div class="col-md-6">
+                            <label for="listing-subcategory" class="form-label" disabled>Sub-Category</label>
                             <select class="form-select" id="listing-subcategory" name="subcategory">
-                              <option value="">Select Sub-Category</option>
+                              <option value="" disabled>Select Sub-Category</option>
                               <!-- Dynamic options will be loaded based on category selection -->
                             </select>
-                          </div>
+                          </div> {% endcomment %}
 
-                          <div class="col-md-12">
-                            <label for="listing-description" class="form-label">Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="listing-description" name="description" rows="5" required></textarea>
+                          <div class="col-12 mt-5">
+                            <button type="submit" class="btn btn-primary">Save</button>
                           </div>
                         </div>
                       </div>

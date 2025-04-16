@@ -98,6 +98,8 @@ INSTALLED_APPS = [
     # allauth
     "allauth",
     "allauth.account",
+    # tagging
+    "taggit",
 ]
 
 AUTH_USER_MODEL = "profiles.User"

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from taggit.forms import TagWidget
 
 from .models import Profile
 
@@ -86,11 +87,20 @@ class ProfileForm(forms.ModelForm):
             "bio",
             "phone_number",
             "address",
+            "district",
+            "county",
+            "sub_county",
+            "parish",
+            "village",
             "website",
             "twitter",
             "instagram",
-            "linkedin",
+            "facebook",
+            "tags",
         )
+        widgets = {
+            "tags": TagWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

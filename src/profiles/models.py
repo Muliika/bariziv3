@@ -7,6 +7,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from taggit.managers import TaggableManager
 
 
 class CustomUserManager(BaseUserManager):
@@ -137,13 +138,16 @@ class Profile(models.Model):
     district = models.CharField(
         max_length=100, blank=True, null=True, default="Kampala"
     )
-    city = models.CharField(max_length=100, blank=True, null=True, default="Kampala")
+    county = models.CharField(max_length=100, blank=True, null=True, default=" ")
+    sub_county = models.CharField(max_length=100, blank=True, null=True, default=" ")
+    parish = models.CharField(max_length=100, blank=True, null=True, default=" ")
+    village = models.CharField(max_length=100, blank=True, null=True, default=" ")
 
     # Social media accounts
     website = models.URLField(max_length=200, blank=True)
     twitter = models.CharField(max_length=100, blank=True)
     instagram = models.CharField(max_length=100, blank=True)
-    linkedin = models.CharField(max_length=100, blank=True)
+    facebook = models.CharField(max_length=100, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -151,11 +155,11 @@ class Profile(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     featured = models.BooleanField(default=False)
 
-    # category = models.CharField(
-    #     max_length=50, choices=CATEGORY_CHOICES, default="other"
-    # )
     price_range = models.CharField(
         max_length=10, choices=PRICE_RANGE_CHOICES, blank=True, null=True
+    )
+    tags = TaggableManager(
+        blank=True, help_text="A comma-separated list of tags for your profile"
     )
 
     def __str__(self):

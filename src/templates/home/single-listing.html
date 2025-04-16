@@ -64,8 +64,11 @@
     <div class="col-md-4 text-md-end">
       <div class="d-flex flex-column align-items-end">
         {% comment %} <h2 class="display-4 fw-bold mb-0">$350</h2> {% endcomment %}
-        <i class="bi bi-gear-wide-connected "></i>
-        <p class="text-muted">Settings</p>
+        {% comment %} <i class="bi bi-gear-wide-connected "></i>
+        <p class="text-muted">Settings</p> {% endcomment %}
+        <a href="{% url 'profiles:settings' %}" class="d-flex align-items-center text-dark text-decoration-none">
+          <i class="bi bi-gear-wide-connected p-3"></i> Settings
+        </a>
       </div>
     </div>
   </div>
@@ -116,7 +119,7 @@
       </div>
 
       <!-- Listing Features -->
-      <div class="card shadow-sm mb-4">
+      {% comment %} <div class="card shadow-sm mb-4">
         <div class="card-body">
           <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
             <i class="bi bi-list-check me-2 text-danger"></i> Listing Features
@@ -245,7 +248,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
 
       <!-- Gallery Section -->
       {% comment %} <div class="card shadow-sm mb-4">
@@ -376,7 +379,7 @@
     <!-- Right Column: Property Details -->
     <div class="col-lg-4">
       <!-- Property Details -->
-      <div class="card shadow-sm mb-4">
+      {% comment %} <div class="card shadow-sm mb-4">
         <div class="card-body">
           <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
             <i class="bi bi-info-circle me-2 text-danger"></i> Details
@@ -429,7 +432,7 @@
             </table>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
 
       <!-- Business Info -->
       <div class="card shadow-sm mb-4">
@@ -438,12 +441,12 @@
             <i class="bi bi-building me-2 text-danger"></i> Business Info
           </h3>
           
-          <div class="mb-4">
+          {% comment %} <div class="mb-4">
             <div class="ratio ratio-16x9 mb-3">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7398366806406!2d-0.12985232302393854!3d51.52377067181161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b323093d307%3A0x2fb199016d5642a7!2sThe%20British%20Museum!5e0!3m2!1sen!2sus!4v1710432943297!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
             </div>
             <p class="text-end mb-0"><a href="#" class="text-decoration-none">View larger map</a></p>
-          </div>
+          </div> {% endcomment %}
           
           <ul class="list-unstyled mb-0">
             <li class="d-flex mb-3">

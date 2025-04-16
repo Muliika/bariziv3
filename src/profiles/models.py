@@ -132,7 +132,8 @@ class Profile(models.Model):
     # profile_picture = models.ImageField(
     #     upload_to="profile_pics/", blank=True, null=True
     # )
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    description = models.TextField(max_length=500, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True)
     address = models.CharField(max_length=255, blank=True)
     district = models.CharField(

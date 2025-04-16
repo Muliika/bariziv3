@@ -85,6 +85,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             "bio",
+            "description",
             "phone_number",
             "address",
             "district",

@@ -8,3 +8,4 @@ django-redis
 django-allauth
 pillow
 django-storages[s3]
+django-taggit

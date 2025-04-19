@@ -19,10 +19,6 @@ def sample_page(request):
     return render(request, "home/single-listing.html")
 
 
-# def listings(request):
-#     return render(request, "home/listings.html")
-
-
 def categories(request):
     return render(request, "home/categories.html")
 
@@ -60,24 +56,6 @@ def contact_view(request):
     return render(request, "home/contact-form.html")
 
 
-# def profiles_list(request):
-#     """
-#     View to display all business profiles
-#     """
-#     # Get only business profiles
-#     profiles = Profile.objects.filter(user__user_type="business").select_related("user")
-
-#     # Filter by business category if specified in query parameters
-#     category = request.GET.get("category")
-#     if category:
-#         profiles = profiles.filter(user__business_category=category)
-
-
-#     context = {
-#         "profiles": profiles,
-#         "category_choices": User.CATEGORY_CHOICES,
-#     }
-#     return render(request, "home/profiles_list.html", context)
 def profiles_list(request):
     """
     View to display all business profiles with filtering options

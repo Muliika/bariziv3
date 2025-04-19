@@ -1,55 +1,696 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
+
+<div class="container py-5">
+  
+
+  <!-- Property Images Carousel -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+        {% comment %} <div class="carousel-indicators">
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#propertyCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div> {% endcomment %}
+        <div class="carousel-inner overflow-hidden">
+          <div class="carousel-item active">
+            
+            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 1">
+
+          </div>
+          {% comment %} <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 2">
+          </div>
+          <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600&q=80" class="d-block w-100" alt="Property Image 3">
+          </div> {% endcomment %}
+        </div>
+        {% comment %} <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button> {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Property Header -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="d-flex align-items-center">
+        <div class="me-3">
             {% if profile.profile_picture %}
                 <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
             {% else %}
-                <div class="bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center mb-3" style="width: 150px; height: 150px;">
-                    <h1>{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</h1>
-                </div>
+                <img src="{% static 'images/one.jpg' %}" alt="Owner" class="rounded-circle" width="80" height="80">
             {% endif %}
         </div>
-        <div class="col-md-8">
-            <h2>{{ user.get_full_name }}</h2>
-            <p class="text-muted">@{{ user.username }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            
-            {% if profile.bio %}
-                <h4>Bio</h4>
-                <p>{{ profile.bio }}</p>
-            {% endif %}
-            
-            {% if profile.phone_number %}
-                <p><strong>Phone:</strong> {{ profile.phone_number }}</p>
-            {% endif %}
-            
-            {% if profile.address %}
-                <p><strong>Address:</strong> {{ profile.address }}</p>
-            {% endif %}
-            
-            <h4>Social Media</h4>
-            <ul class="list-unstyled">
-                {% if profile.website %}
-                    <li><strong>Website:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></li>
-                {% endif %}
-                {% if profile.twitter %}
-                    <li><strong>Twitter:</strong> {{ profile.twitter }}</li>
-                {% endif %}
-                {% if profile.instagram %}
-                    <li><strong>Instagram:</strong> {{ profile.instagram }}</li>
-                {% endif %}
-                {% if profile.linkedin %}
-                    <li><strong>LinkedIn:</strong> {{ profile.linkedin }}</li>
-                {% endif %}
-            </ul>
-            
-            <a href="#" class="btn btn-primary">Edit Profile</a>
+        <div>
+          <h1 class="fs-2 fw-bold mb-1">{{ user.get_full_name }}</h1>
+          <p class="text-muted mb-2">@{{ user.username }}</p>
+          <div class="d-flex align-items-center">
+            <div class="me-2">
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star text-warning"></i>
+            </div>
+            <span class="fw-semibold">4.5</span>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col-md-4 text-md-end">
+      <div class="d-flex flex-column align-items-end">
+        {% comment %} <h2 class="display-4 fw-bold mb-0">$350</h2> {% endcomment %}
+        {% comment %} <i class="bi bi-gear-wide-connected "></i>
+        <p class="text-muted">Settings</p> {% endcomment %}
+        <a href="{% url 'profiles:settings' %}" class="d-flex align-items-center text-dark text-decoration-none">
+          <i class="bi bi-gear-wide-connected p-3"></i> Settings
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <div class="d-flex flex-wrap gap-3">
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-map me-2"></i> Get Directions
+        </a>
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-globe me-2"></i> Website
+        </a>
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-share me-2"></i> Share
+        </a>
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-pencil-square me-2"></i> Write A Review
+        </a>
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-flag me-2"></i> Report
+        </a>
+        <a href="#" class="btn btn-outline-dark d-flex align-items-center">
+          <i class="bi bi-bookmark me-2"></i> Save
+        </a>
+        <a href="#" class="btn btn-danger d-flex align-items-center ms-auto">
+          <i class="bi bi-telephone-fill me-2"></i> Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Left Column: Description and Features -->
+    <div class="col-lg-8">
+      <!-- Description Section -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-file-text me-2 text-danger"></i> Description
+          </h3>
+          <div class="card-text">
+            <p>{{ profile.bio }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listing Features -->
+      {% comment %} <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-list-check me-2 text-danger"></i> Listing Features
+          </h3>
+          
+          <div class="row g-4">
+            <!-- Room amenities -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-door-open text-danger"></i>
+                </div>
+                <h5 class="mb-0">Room amenities</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Air conditioning</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Private bathroom</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Flat-screen TV</li>
+              </ul>
+            </div>
+            
+            <!-- Bathroom amenities -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-droplet text-danger"></i>
+                </div>
+                <h5 class="mb-0">Bathroom amenities</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Shower</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Towels</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Free toiletries</li>
+              </ul>
+            </div>
+            
+            <!-- Media & Technology -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-tv text-danger"></i>
+                </div>
+                <h5 class="mb-0">Media & Technology</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Free WiFi</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Netflix</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Smart TV</li>
+              </ul>
+            </div>
+            
+            <!-- Food & Security -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-shield-lock text-danger"></i>
+                </div>
+                <h5 class="mb-0">Food & Security</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Breakfast available</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> 24/7 security</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Safe</li>
+              </ul>
+            </div>
+            
+            <!-- Services & Extra -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-stars text-danger"></i>
+                </div>
+                <h5 class="mb-0">Services & Extra</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Daily housekeeping</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Laundry service</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Wake-up service</li>
+              </ul>
+            </div>
+            
+            <!-- Outdoor & View -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-binoculars text-danger"></i>
+                </div>
+                <h5 class="mb-0">Outdoor & View</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> City view</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Terrace</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Garden access</li>
+              </ul>
+            </div>
+            
+            <!-- Accessibility -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-universal-access text-danger"></i>
+                </div>
+                <h5 class="mb-0">Accessibility</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Elevator</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Wheelchair accessible</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Accessible bathroom</li>
+              </ul>
+            </div>
+            
+            <!-- Safety & Security -->
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-light rounded-circle p-3 me-3">
+                  <i class="bi bi-shield-check text-danger"></i>
+                </div>
+                <h5 class="mb-0">Safety & Security</h5>
+              </div>
+              <ul class="list-unstyled ps-5">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Fire extinguishers</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Smoke alarms</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> CCTV in common areas</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> 24/7 security staff</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div> {% endcomment %}
+
+      <!-- Gallery Section -->
+      {% comment %} <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-images me-2 text-danger"></i> Gallery
+          </h3>
+          
+          <div class="row g-3">
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="Room image">
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100">
+                <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="Bathroom image">
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100">
+                <img src="https://images.unsplash.com/photo-1560448204-61dc36dc98c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="Kitchen image">
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100">
+                <img src="https://images.unsplash.com/photo-1560448082-4d9c959a5e5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="Living room image">
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100">
+                <img src="https://images.unsplash.com/photo-1560449752-8b6023e2ab5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="Balcony image">
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="#" class="d-block h-100 position-relative">
+                <img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80" class="img-fluid rounded" alt="View image">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50 rounded">
+                  <span class="text-white fw-bold fs-5">+12 more</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div> {% endcomment %}
+
+      <!-- Reviews Section -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-star me-2 text-danger"></i> Reviews
+          </h3>
+          
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-success text-white rounded p-2 me-3">
+              <span class="fw-bold">4.5</span>
+            </div>
+            <div>
+              <h5 class="mb-0">Excellent</h5>
+              <p class="text-muted mb-0">Based on 128 reviews</p>
+            </div>
+          </div>
+
+          <!-- Review Item -->
+          <div class="border-bottom pb-4 mb-4">
+            <div class="d-flex mb-3">
+              <img src="{% static 'images/one.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
+              <div>
+                <h5 class="mb-1">John Doe</h5>
+                <div class="d-flex align-items-center">
+                  <div class="me-2">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                  </div>
+                  <span class="text-muted">March 15, 2024</span>
+                </div>
+              </div>
+            </div>
+            <p>The room was exceptionally clean and comfortable. The staff was friendly and accommodating. The location is perfect, close to all major attractions. Would definitely stay here again!</p>
+          </div>
+
+          <!-- Review Item -->
+          <div class="border-bottom pb-4 mb-4">
+            <div class="d-flex mb-3">
+              <img src="{% static 'images/one.jpg' %}" alt="Reviewer" class="rounded-circle me-3" width="50" height="50">
+              <div>
+                <h5 class="mb-1">Jane Smith</h5>
+                <div class="d-flex align-items-center">
+                  <div class="me-2">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                  </div>
+                  <span class="text-muted">March 10, 2024</span>
+                </div>
+              </div>
+            </div>
+            <p>Great value for money. The room was spacious and had all the amenities I needed. The only downside was the noise from the street, but that's expected in such a central location.</p>
+          </div>
+
+          <div class="text-center">
+            <a href="#" class="btn btn-outline-danger">View All 128 Reviews</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location Map -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-geo-alt me-2 text-danger"></i> Location
+          </h3>
+          
+          <div class="ratio ratio-16x9 mb-3">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7398366806406!2d-0.12985232302393854!3d51.52377067181161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b323093d307%3A0x2fb199016d5642a7!2sThe%20British%20Museum!5e0!3m2!1sen!2sus!4v1710432943297!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+          </div>
+          
+          <p class="mb-0"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 123 Bloomsbury St, London WC1B 3QF, United Kingdom</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Property Details -->
+    <div class="col-lg-4">
+      <!-- Property Details -->
+      {% comment %} <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-info-circle me-2 text-danger"></i> Details
+          </h3>
+          
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <th class="ps-0">Contract</th>
+                  <td class="text-end pe-0 fw-semibold">For Rent</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Location</th>
+                  <td class="text-end pe-0">New York, USA</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Year Built</th>
+                  <td class="text-end pe-0">1988</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Rooms</th>
+                  <td class="text-end pe-0">3</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Beds</th>
+                  <td class="text-end pe-0">4</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Baths</th>
+                  <td class="text-end pe-0">8</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Gadgets</th>
+                  <td class="text-end pe-0">6</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Home Area</th>
+                  <td class="text-end pe-0">30sqft</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Lot Dimensions</th>
+                  <td class="text-end pe-0">30*30*20 ft</td>
+                </tr>
+                <tr>
+                  <th class="ps-0">Lot Area</th>
+                  <td class="text-end pe-0">50 ft</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> {% endcomment %}
+
+      <!-- Business Info -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-building me-2 text-danger"></i> Business Info
+          </h3>
+          
+          {% comment %} <div class="mb-4">
+            <div class="ratio ratio-16x9 mb-3">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7398366806406!2d-0.12985232302393854!3d51.52377067181161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b323093d307%3A0x2fb199016d5642a7!2sThe%20British%20Museum!5e0!3m2!1sen!2sus!4v1710432943297!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+            </div>
+            <p class="text-end mb-0"><a href="#" class="text-decoration-none">View larger map</a></p>
+          </div> {% endcomment %}
+          
+          <ul class="list-unstyled mb-0">
+            <li class="d-flex mb-3">
+              <i class="bi bi-geo-alt-fill text-danger me-3 fs-5"></i>
+              <div>
+                <h6 class="mb-1">Address</h6>
+                <p class="mb-0">123 Bloomsbury St, London WC1B 3QF, United Kingdom</p>
+              </div>
+            </li>
+            <li class="d-flex mb-3">
+              <i class="bi bi-telephone-fill text-danger me-3 fs-5"></i>
+              <div>
+                <h6 class="mb-1">Phone</h6>
+                <p class="mb-0">+44 20 1234 5678</p>
+              </div>
+            </li>
+            <li class="d-flex mb-3">
+              <i class="bi bi-envelope-fill text-danger me-3 fs-5"></i>
+              <div>
+                <h6 class="mb-1">Email</h6>
+                <p class="mb-0">info@bloomsburyhotel.com</p>
+              </div>
+            </li>
+            <li class="d-flex mb-3">
+              <i class="bi bi-globe text-danger me-3 fs-5"></i>
+              <div>
+                <h6 class="mb-1">Website</h6>
+                <p class="mb-0">www.bloomsburyhotel.com</p>
+              </div>
+            </li>
+            <li class="d-flex">
+              <i class="bi bi-clock-fill text-danger me-3 fs-5"></i>
+              <div>
+                <h6 class="mb-1">Business Hours</h6>
+                <p class="mb-0">Mon-Sun: 24 Hours (Check-in: 2 PM, Check-out: 11 AM)</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-envelope me-2 text-danger"></i> Contact
+          </h3>
+          
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Enter your message"></textarea>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="terms">
+              <label class="form-check-label" for="terms">
+                I agree to the <a href="#" class="text-decoration-none">terms and conditions</a>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-danger w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Similar Listings -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-houses me-2 text-danger"></i> Similar Listings
+          </h3>
+          
+          <!-- Similar Listing Item -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="row g-0">
+              <div class="col-4">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-cover" alt="Similar property">
+              </div>
+              <div class="col-8">
+                <div class="card-body p-2">
+                  <h6 class="card-title mb-1">Luxury Suite in Downtown</h6>
+                  <p class="card-text mb-1"><small class="text-body-secondary">New York, USA</small></p>
+                  <p class="card-text fw-bold mb-0">$320</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Similar Listing Item -->
+          <div class="card mb-3 border-0 shadow-sm">
+            <div class="row g-0">
+              <div class="col-4">
+                <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-cover" alt="Similar property">
+              </div>
+              <div class="col-8">
+                <div class="card-body p-2">
+                  <h6 class="card-title mb-1">Modern Apartment with View</h6>
+                  <p class="card-text mb-1"><small class="text-body-secondary">Brooklyn, USA</small></p>
+                  <p class="card-text fw-bold mb-0">$280</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Similar Listing Item -->
+          <div class="card border-0 shadow-sm">
+            <div class="row g-0">
+              <div class="col-4">
+                <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-coverr" alt="Similar property">
+              </div>
+              <div class="col-8">
+                <div class="card-body p-2">
+                  <h6 class="card-title mb-1">Cozy Studio in Manhattan</h6>
+                  <p class="card-text mb-1"><small class="text-body-secondary">Manhattan, USA</small></p>
+                  <p class="card-text fw-bold mb-0">$295</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="card bg-dark text-white shadow mb-4">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-telephone-fill display-4 mb-3"></i>
+          <h4 class="card-title mb-3">Need Help?</h4>
+          <p class="card-text mb-3">Contact our support team for any questions or assistance with your booking.</p>
+          <a href="tel:+442012345678" class="btn btn-dark text-white fw-bold">
+            <i class="bi bi-telephone-fill me-2"></i> +44 20 1234 5678
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Properties Section -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2 class="border-start border-4 border-danger ps-3 mb-4">Related Listings</h2>
+    </div>
+    
+    <!-- Related Property Card -->
+    <!-- Listing 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Accommodation</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.8</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
+              <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$150/night</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Food & Drinks</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.6</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
+              <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$$$</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Listing 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+            <div class="listing-img position-relative">
+              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
+              <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-dark">Activities</span>
+              </div>
+            </div>
+            <div class="listing-content p-3">
+              <div class="d-flex justify-content-between mb-2">
+                <h5 class="listing-title mb-0">Adventure Park</h5>
+                <div class="listing-rating">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <span>4.9</span>
+                </div>
+              </div>
+              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
+              <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="listing-price text-primary fw-bold">$25/person</div>
+                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
 </div>
-{% endblock %}
+
+
+{% endblock content %}

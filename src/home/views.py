@@ -254,3 +254,24 @@ def about(request):
         ],
     }
     return render(request, "home/about.html", context)
+
+
+def terms_of_service(request):
+    """
+    View to display the terms of service page
+    """
+    return render(request, "home/terms.html")
+
+
+def privacy_policy(request):
+    """
+    View to display the privacy policy page
+    """
+    return render(request, "home/privacy.html")
+
+
+def disclaimer(request):
+    """
+    View to display the disclaimer page
+    """
+    return render(request, "home/disclaimer.html")

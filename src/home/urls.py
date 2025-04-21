@@ -24,4 +24,7 @@ urlpatterns = [
     path("business/<slug:slug>/", views.business_detail, name="business_detail"),
     path("contact/", views.contact_view, name="contact"),
     path("about/", views.about, name="about"),
+    path("terms-of-service/", views.terms_of_service, name="terms_of_service"),
+    path("privacy-policy/", views.privacy_policy, name="privacy_policy"),
+    path("disclaimer/", views.disclaimer, name="disclaimer"),
 ]

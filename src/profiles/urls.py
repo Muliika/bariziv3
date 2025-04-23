@@ -9,6 +9,7 @@ app_name = "profiles"
 urlpatterns = [
     # Profile view and edit
     path("profile/", views.profile_view, name="profile"),
+    path("profile/<int:user_id>/", views.profile_view, name="user_profile"),
     path("profile/edit/", views.profile_edit, name="profile_edit"),
     # Bookmarks
     path("bookmarks/", views.bookmarks, name="bookmarks"),

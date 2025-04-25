@@ -275,3 +275,10 @@ def disclaimer(request):
     View to display the disclaimer page
     """
     return render(request, "home/disclaimer.html")
+
+
+def about_uganda(request):
+    """
+    View to display the about uganda page
+    """
+    return render(request, "home/about_uganda.html")

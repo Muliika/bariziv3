@@ -6,7 +6,7 @@ from .forms import ProfileForm
 from .models import Profile
 
 
-# @login_required
+@login_required
 def profile_view(request):
     """
     View to display the user's profile

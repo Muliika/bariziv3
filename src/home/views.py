@@ -11,8 +11,47 @@ from profiles.models import Profile, User
 CATEGORY_CHOICES = User.CATEGORY_CHOICES
 
 
+# def home(request):
+#     return render(request, "index.html")
+
+
 def home(request):
-    return render(request, "index.html")
+    # Get all categories from CATEGORY_CHOICES
+    categories = [
+        {
+            "name": category[1],  # Display name
+            "value": category[0],  # Value stored in database
+            "icon": get_category_icon(
+                category[0]
+            ),  # Get appropriate icon for each category
+            "count": Profile.objects.filter(
+                user__business_category=category[0], user__user_type="business"
+            ).count(),  # Count of businesses in this category
+        }
+        for category in CATEGORY_CHOICES
+    ]
+
+    context = {"categories": categories}
+    return render(request, "index.html", context)
+
+
+# Helper function to map category values to Bootstrap icons
+def get_category_icon(category_value):
+    icon_mapping = {
+        "accommodation": "house-door",
+        "food_drinks": "cup-hot",
+        "shopping": "shop",
+        "activities": "bicycle",
+        "health": "heart-pulse",
+        "travel": "car-front",
+        "entertainment": "music-note-beamed",
+        "attractions": "bank",
+        "services": "tools",
+        "education": "book",
+        "other": "three-dots",
+    }
+    # Return the mapped icon or a default one if not found
+    return icon_mapping.get(category_value, "tag")
 
 
 def sample_page(request):
@@ -20,7 +59,23 @@ def sample_page(request):
 
 
 def categories(request):
-    return render(request, "home/categories.html")
+    # Get all categories from CATEGORY_CHOICES
+    categories = [
+        {
+            "name": category[1],  # Display name
+            "value": category[0],  # Value stored in database
+            "icon": get_category_icon(
+                category[0]
+            ),  # Get appropriate icon for each category
+            "count": Profile.objects.filter(
+                user__business_category=category[0], user__user_type="business"
+            ).count(),  # Count of businesses in this category
+        }
+        for category in CATEGORY_CHOICES
+    ]
+
+    context = {"categories": categories}
+    return render(request, "home/categories.html", context)
 
 
 def contact_view(request):

@@ -63,7 +63,7 @@
       <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
           <div class="position-relative">
-            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="{{ category.name }}">
+            <img src="{% static 'images/one.jpg' %}" class="card-img-top" alt="{{ category.name }}">
             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
                 style="background: rgba(0,0,0,0.5);">
               <div class="text-center text-white p-3">
@@ -75,176 +75,17 @@
               </div>
             </div>
           </div>
-          <a href="#" class="stretched-link"></a>
+          <a href="{% url 'home:profiles_list' %}?category={{ category.value }}" class="stretched-link"></a>
         </div>
       </div>
       {% empty %}
-      <!-- Fallback static categories if no dynamic data -->
-      <!-- Category 1: Accommodation -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Accommodation">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-house-door fs-1"></i>
-                </div>
-                <h4 class="mb-2">Accommodation</h4>
-                <p class="mb-0">25 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 2: Food & Drinks -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Food & Drinks">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-cup-hot fs-1"></i>
-                </div>
-                <h4 class="mb-2">Food & Drinks</h4>
-                <p class="mb-0">40 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 3: Shopping -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Shopping">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-shop fs-1"></i>
-                </div>
-                <h4 class="mb-2">Shopping</h4>
-                <p class="mb-0">32 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 4: Activities -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1526485856375-9110812fbf35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Activities">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-bicycle fs-1"></i>
-                </div>
-                <h4 class="mb-2">Activities</h4>
-                <p class="mb-0">15 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 5: Health -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Health">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-heart-pulse fs-1"></i>
-                </div>
-                <h4 class="mb-2">Health</h4>
-                <p class="mb-0">22 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 6: Travel -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Travel">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-car-front fs-1"></i>
-                </div>
-                <h4 class="mb-2">Travel</h4>
-                <p class="mb-0">18 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 7: Entertainment -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Entertainment">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-music-note-beamed fs-1"></i>
-                </div>
-                <h4 class="mb-2">Entertainment</h4>
-                <p class="mb-0">28 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
-
-      <!-- Category 8: Local Attractions -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden">
-          <div class="position-relative">
-            <img src="https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Local Attractions">
-            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
-                style="background: rgba(0,0,0,0.5);">
-              <div class="text-center text-white p-3">
-                <div class="category-icon mb-3">
-                  <i class="bi bi-bank fs-1"></i>
-                </div>
-                <h4 class="mb-2">Local Attractions</h4>
-                <p class="mb-0">20 Listings</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </div>
-      </div>
+      <!-- Your existing fallback static categories -->
       {% endfor %}
     </div>
       
       <div class="row mt-5">
         <div class="col-12 text-center">
-          <a href="#" class="btn btn-outline-danger ">View All Categories</a>
+          <a href="{% url 'home:categories' %}" class="btn btn-outline-danger">View All Categories</a>
         </div>
       </div>
     </div>

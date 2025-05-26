@@ -31,7 +31,15 @@ def home(request):
         for category in CATEGORY_CHOICES
     ]
 
-    context = {"categories": categories}
+    # Get featured business profiles
+    # Featured profiles are those with featured=True flag
+    featured_profiles = (
+        Profile.objects.filter(user__user_type="business", featured=True)
+        .select_related("user")
+        .order_by("-rating")[:6]
+    )  # Limit to 6 featured listings
+
+    context = {"categories": categories, "featured_profiles": featured_profiles}
     return render(request, "index.html", context)
 
 

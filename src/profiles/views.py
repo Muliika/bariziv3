@@ -1,28 +1,94 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ProfileForm
-from .models import Profile
+from .models import Profile, User
+
+# User = get_user_model()
+# @login_required
+# def profile_view(request):
+#     """
+#     View to display the user's profile
+#     """
+#     # Try to get the profile, create it if it doesn't exist
+#     try:
+#         profile = request.user.profile
+#     except Profile.DoesNotExist:
+#         profile = Profile.objects.create(user=request.user)
 
 
-@login_required
-def profile_view(request):
+#     context = {
+#         "profile": profile,
+#     }
+#     return render(request, "profiles/profile.html", context)
+def profile_view(request, user_id=None):
     """
-    View to display the user's profile
+    View to display a user's profile
+    - If user_id is provided, show that user's profile
+    - If no user_id is provided and user is logged in, show their own profile
+    - If no user_id is provided and user is not logged in, redirect to login
     """
-    # Try to get the profile, create it if it doesn't exist
+    # If no user_id is provided and user is logged in, show their own profile
+    if user_id is None:
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            # Redirect to login if no user_id and not logged in
+            return redirect("profiles:login")
+    else:
+        # Get the requested user profile or return 404
+        user = get_object_or_404(User, id=user_id)
+
+    # Try to get the profile, create it if it doesn't exist (for the viewed user)
     try:
-        profile = request.user.profile
+        profile = user.profile
     except Profile.DoesNotExist:
-        profile = Profile.objects.create(user=request.user)
+        # Only create a profile automatically if it's the current user
+        if user == request.user:
+            profile = Profile.objects.create(user=user)
+        else:
+            # If trying to view someone else's non-existent profile, return 404
+            return render(request, "profiles/profile_not_found.html", status=404)
 
+    # Determine if the viewer is the profile owner
+    is_owner = request.user.is_authenticated and request.user.id == user.id
+
+    # Determine what information to show based on user type
     context = {
         "profile": profile,
+        "is_owner": is_owner,
+        "user_type": user.user_type if hasattr(user, "user_type") else None,
     }
+
     return render(request, "profiles/profile.html", context)
 
 
+# @login_required
+# def profile_edit(request):
+#     """
+#     View to edit the user's profile
+#     """
+#     # Try to get the profile, create it if it doesn't exist
+#     try:
+#         profile = request.user.profile
+#     except Profile.DoesNotExist:
+#         profile = Profile.objects.create(user=request.user)
+
+#     if request.method == "POST":
+#         form = ProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Your profile has been updated successfully!")
+#             return redirect("/")
+#     else:
+#         form = ProfileForm(instance=profile)
+
+
+#     context = {
+#         "form": form,
+#     }
+#     return render(request, "profiles/profile-edit.html", context)
 @login_required
 def profile_edit(request):
     """
@@ -39,7 +105,7 @@ def profile_edit(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Your profile has been updated successfully!")
-            return redirect("/")
+            return redirect("profiles:profile")
     else:
         form = ProfileForm(instance=profile)
 

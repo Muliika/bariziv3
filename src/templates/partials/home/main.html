@@ -417,176 +417,61 @@
       </div>
       
       <div class="row g-4 mb-5">
-        <!-- Listing 1 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-danger position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Accommodation</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Luxury Hotel & Spa</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.8</span>
+
+        {% if latest_profiles %}
+          {% for profile in latest_profiles %}
+          <!-- Listing 2 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
+              <div class="listing-img position-relative">
+                {% comment %} <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;"> {% endcomment %}
+                {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="{{ profile.user.get_full_name }}" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+                {% else %}
+                  <img src="{% static 'images/one.jpg' %}" alt="{{ profile.user.get_full_name }}" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                {% if profile.featured %}
+                  <span class="badge bg-danger position-absolute top-0 start-0 m-3">Featured</span>
+                {% endif %}
+                <div class="listing-category position-absolute bottom-0 start-0 m-3">
+                  <span class="badge bg-dark">{{ profile.user.get_business_category_display }}</span>
                 </div>
               </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 123 Main St, City</p>
-              <p class="listing-description mb-3">Experience luxury and comfort in our premium hotel with spa services.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                {% comment %} <div class="listing-price text-primary fw-bold">$150/night</div> {% endcomment %}
-                <a href="#" class="btn btn-sm btn-outline-danger">View Details</a>
+              <div class="listing-content p-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <h5 class="listing-title mb-0">{{ profile.user.get_full_name }}</h5>
+                  <div class="listing-rating">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <span>{{ profile.rating|floatformat:1 }}</span>
+                  </div>
+                </div>
+                <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i>  {% if profile.district %}{{ profile.district }}{% else %}Location{% endif %}</p>
+                <p class="listing-description mb-3">
+                  {% if profile.bio %}
+                  {{ profile.bio|truncatechars:80 }}
+                  {% else %}
+                    No description available.
+                  {% endif %}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="listing-price text-primary fw-bold">$$$</div>
+                  <a href="{% url 'profiles:user_profile' profile.user.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          {% endfor %}
+        {% else %}
+          <!-- No listings message -->
+          <div class="col-12 text-center">
+            <p>No listings available at the moment.</p>
+          </div>
+        {% endif %}
         
-        <!-- Listing 2 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Food & Drinks</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Gourmet Restaurant</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.6</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 456 Oak Ave, City</p>
-              <p class="listing-description mb-3">Fine dining experience with international cuisine and local specialties.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$$$</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 3 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Activities</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Adventure Park</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.9</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 789 Pine Rd, City</p>
-              <p class="listing-description mb-3">Exciting outdoor activities for all ages including zip lines and climbing walls.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$25/person</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 4 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Shopping</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Fashion Boutique</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.5</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 101 Fashion St, City</p>
-              <p class="listing-description mb-3">Trendy clothing and accessories from local and international designers.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$$</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 5 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <span class="badge bg-primary position-absolute top-0 start-0 m-3">Featured</span>
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                  Let me continue with the rest of the landing page code:
-                  <span class="badge bg-dark">Health</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Wellness Spa & Center</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.7</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 202 Wellness Ave, City</p>
-              <p class="listing-description mb-3">Rejuvenate your body and mind with our premium spa treatments and services.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">From $60</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Listing 6 -->
-        <div class="col-lg-4 col-md-6">
-          <div class="listing-card bg-white rounded shadow-sm overflow-hidden">
-            <div class="listing-img position-relative">
-              <img src="{% static 'images/one.jpg' %}" alt="Listing" class="img-fluid w-100" style="height: 200px; object-fit: cover;">
-              <div class="listing-category position-absolute bottom-0 start-0 m-3">
-                <span class="badge bg-dark">Entertainment</span>
-              </div>
-            </div>
-            <div class="listing-content p-3">
-              <div class="d-flex justify-content-between mb-2">
-                <h5 class="listing-title mb-0">Cinema Complex</h5>
-                <div class="listing-rating">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <span>4.4</span>
-                </div>
-              </div>
-              <p class="listing-address mb-2"><i class="bi bi-geo-alt me-1"></i> 303 Cinema Blvd, City</p>
-              <p class="listing-description mb-3">State-of-the-art movie theaters with the latest releases and premium seating.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="listing-price text-primary fw-bold">$12/ticket</div>
-                <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       
       <div class="row mt-5">
         <div class="col-12 text-center">
-          <a href="#" class="btn btn-danger">View All Listings</a>
+          <a href="{% url 'home:profiles_list' %}" class="btn btn-danger">View All Listings</a>
         </div>
       </div>
     </div>

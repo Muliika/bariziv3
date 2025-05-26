@@ -39,7 +39,21 @@ def home(request):
         .order_by("-rating")[:6]
     )  # Limit to 6 featured listings
 
-    context = {"categories": categories, "featured_profiles": featured_profiles}
+    # Get latest business profiles
+    # These are the most recently added business profiles
+    latest_profiles = (
+        Profile.objects.filter(user__user_type="business")
+        .select_related("user")
+        .order_by("-user__date_joined")[
+            :6
+        ]  # Limit to 6 latest listings, ordered by join date
+    )
+
+    context = {
+        "categories": categories,
+        "featured_profiles": featured_profiles,
+        "latest_profiles": latest_profiles,
+    }
     return render(request, "index.html", context)
 
 

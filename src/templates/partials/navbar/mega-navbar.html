@@ -118,8 +118,8 @@
         <div class="search-icon">
           <i class="bi bi-search"></i>
         </div>
-        <a href="#" class="btn btn-outline-dark">Login</a>
-        <a href="#" class="btn btn-danger">Sign Up</a>
+        <a href="{% url 'account_login' %}" class="btn btn-outline-dark">Login</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-danger">Sign Up</a>
         <div class="mobile-toggle">
           <button class="hamburger-menu">
             <span></span>
@@ -206,7 +206,7 @@
         <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">About</a></li>
         <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Contact</a></li>
         <li class="mobile-nav-item mobile-actions">
-          <a href="#" class="btn btn-outline-primary">Login</a>
+          <a href="{% url 'profiles:login' %}" class="btn btn-outline-primary">Login</a>
           <a href="#" class="btn btn-primary">Sign Up</a>
         </li>
       </ul>

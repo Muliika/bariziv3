@@ -77,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USER_TYPE_CHOICES = [
         ("customer", "Customer"),
         ("business", "Business"),
-        ("admin", "Admin"),
+        # ("admin", "Admin"),
     ]
     user_type = models.CharField(
         max_length=20, choices=USER_TYPE_CHOICES, default="customer"

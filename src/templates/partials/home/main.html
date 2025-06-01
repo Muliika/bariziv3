@@ -15,14 +15,14 @@
         
         <!-- Search Form -->
         <div class="search-form bg-white p-4 rounded shadow">
-          <form action="#" method="get">
+          <form action="{% url 'home:profiles_list' %}" method="get">
             <div class="row g-2">
               <div class="col-md-5">
                 <div class="input-group">
                   <span class="input-group-text bg-transparent border-0">
                     <i class="bi bi-search"></i>
                   </span>
-                  <input type="text" class="form-control border-0" placeholder="What are you looking for?">
+                  <input type="text" class="form-control border-0" name="keyword" placeholder="What are you looking for?">
                 </div>
               </div>
               <div class="col-md-5">
@@ -30,7 +30,7 @@
                   <span class="input-group-text bg-transparent border-0">
                     <i class="bi bi-geo-alt"></i>
                   </span>
-                  <input type="text" class="form-control border-0" placeholder="Location">
+                  <input type="text" class="form-control border-0" name="location" placeholder="Location">
                 </div>
               </div>
               <div class="col-md-2">

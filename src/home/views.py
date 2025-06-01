@@ -135,91 +135,86 @@ def contact_view(request):
 
 def profiles_list(request):
     """
-    View to display all business profiles with filtering options
+    View to display and filter business profiles
     """
-    # Get only business profiles
+    # Get all profiles that are businesses
     profiles = Profile.objects.filter(user__user_type="business").select_related("user")
 
-    # Initialize filter flags to track if any filters were applied
+    # Get filter parameters from request
+    keyword = request.GET.get("keyword", "")
+    category = request.GET.get("category", "All Categories")
+    location = request.GET.get("location", "All Locations")
+    sort = request.GET.get("sort", "newest")
+
+    # Apply filters
     filters_applied = False
 
-    # Filter by keyword if specified
-    keyword = request.GET.get("keyword", "")
+    # Keyword search (search in name, bio, and description)
     if keyword:
         filters_applied = True
-
         profiles = profiles.filter(
-            Q(user__username__icontains=keyword)
-            | Q(user__first_name__icontains=keyword)
+            Q(user__first_name__icontains=keyword)
             | Q(user__last_name__icontains=keyword)
             | Q(bio__icontains=keyword)
+            | Q(description__icontains=keyword)  # Changed from services to description
         )
 
-    # Filter by business category if specified
-    category = request.GET.get("category", "")
+    # Category filter
     if category and category != "All Categories":
         filters_applied = True
         profiles = profiles.filter(user__business_category=category)
 
-    # Filter by location if specified
-    location = request.GET.get("location", "")
+    # Location filter
     if location and location != "All Locations":
         filters_applied = True
-        # Use district instead of city for location filtering
         profiles = profiles.filter(
             Q(district__icontains=location)
             | Q(county__icontains=location)
             | Q(parish__icontains=location)
         )
 
-    # Sort results if specified
-    sort_by = request.GET.get("sort", "newest")
-    if sort_by == "newest":
+    # Apply sorting
+    if sort == "newest":
         profiles = profiles.order_by("-user__date_joined")
-    elif sort_by == "highest_rated":
+    elif sort == "highest_rated":
         profiles = profiles.order_by("-rating")
-    elif sort_by == "a_z":
-        profiles = profiles.order_by("user__first_name", "user__last_name")
+    elif sort == "a_z":
+        profiles = profiles.order_by("user__first_name")
 
-    # Get unique districts for location filter (instead of cities)
-    districts = (
-        Profile.objects.filter(user__user_type="business", district__isnull=False)
-        .exclude(district="")
+    # Get all unique cities/districts for location filter
+    cities = (
+        Profile.objects.filter(user__user_type="business")
+        .exclude(district__isnull=True)
+        .exclude(district__exact="")
         .values_list("district", flat=True)
         .distinct()
     )
 
-    # Convert to list and sort alphabetically
-    locations_list = sorted(list(districts))
-
     # Pagination
-    page = request.GET.get("page", 1)
-    paginator = Paginator(profiles, 6)  # Show 6 profiles per page
-
+    paginator = Paginator(profiles, 9)  # Show 9 profiles per page
+    page = request.GET.get("page")
     try:
-        paginated_profiles = paginator.page(page)
+        profiles = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page
-        paginated_profiles = paginator.page(1)
+        profiles = paginator.page(1)
     except EmptyPage:
-        # If page is out of range, deliver last page of results
-        paginated_profiles = paginator.page(paginator.num_pages)
+        profiles = paginator.page(paginator.num_pages)
 
-    # Count total results before pagination
-    total_results = profiles.count()
+    # Get all category choices for the filter dropdown
+    category_choices = CATEGORY_CHOICES
 
     context = {
-        "profiles": paginated_profiles,
-        "category_choices": CATEGORY_CHOICES,  # Make sure this is imported or defined
-        "cities": locations_list,  # We're using districts but keeping the variable name for template compatibility
-        # Pass the current filter values back to the template
+        "profiles": profiles,
+        "total_results": paginator.count,
+        "category_choices": category_choices,
+        "cities": cities,
         "current_keyword": keyword,
-        "current_category": category or "All Categories",
-        "current_location": location or "All Locations",
-        "current_sort": sort_by,
+        "current_category": category,
+        "current_location": location,
+        "current_sort": sort,
         "filters_applied": filters_applied,
-        "total_results": total_results,
     }
+
     return render(request, "home/listings.html", context)
 
 

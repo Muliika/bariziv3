@@ -116,7 +116,7 @@
       <!-- Right Side Actions -->
       <div class="navbar-actions">
         <div class="search-icon">
-          <i class="bi bi-search"></i>
+          <a href="{% url 'home:listings' %}" class="link-dark"><i class="bi bi-search"></i></a>
         </div>
         <a href="{% url 'account_login' %}" class="btn btn-outline-dark">Login</a>
         <a href="{% url 'account_signup' %}" class="btn btn-danger">Sign Up</a>

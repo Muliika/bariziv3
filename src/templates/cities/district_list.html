@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Districts in Uganda{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <h1 class="mb-3">Districts in Uganda</h1>
+      <p class="lead">Explore Uganda's administrative districts and discover cities within each region.</p>
+    </div>
+    <div class="col-md-4">
+      <form method="get" class="search-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search districts..." value="{{ query }}">
+          <button class="btn btn-primary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if total_results == 0 %}
+    <div class="alert alert-info">
+      No districts found matching your search criteria.
+    </div>
+  {% else %}
+    <div class="row">
+      {% for district in districts %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ district.name }}</h5>
+              <p class="card-text">
+                {% if district.population %}
+                  <span class="badge bg-info">Population: {{ district.population|intcomma }}</span>
+                {% endif %}
+              </p>
+              <p class="card-text">{{ district.description|truncatewords:20 }}</p>
+              <a href="{% url 'cities:district_detail' district.slug %}" class="btn btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if districts.has_other_pages %}
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% if districts.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ districts.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&laquo;</span>
+            </li>
+          {% endif %}
+
+          {% for i in districts.paginator.page_range %}
+            {% if districts.number == i %}
+              <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ i }}{% if query %}&q={{ query }}{% endif %}">{{ i }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if districts.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ districts.next_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

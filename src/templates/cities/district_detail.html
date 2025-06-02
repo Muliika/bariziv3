@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ district.name }} District{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'cities:district_list' %}">Districts</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ district.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row mb-5">
+    <div class="col-md-8">
+      <h1 class="mb-3">{{ district.name }} District</h1>
+      {% if district.population %}
+        <p><strong>Population:</strong> {{ district.population|intcomma }}</p>
+      {% endif %}
+      {% if district.area %}
+        <p><strong>Area:</strong> {{ district.area }} sq km</p>
+      {% endif %}
+      <div class="district-description mb-4">
+        {{ district.description|linebreaks }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">District Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Total Cities:</strong> {{ total_cities }}</p>
+          <p><strong>Added:</strong> {{ district.created_at|date:"F j, Y" }}</p>
+          <p><strong>Last Updated:</strong> {{ district.updated_at|date:"F j, Y" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mb-4">Cities in {{ district.name }}</h2>
+  
+  {% if cities %}
+    <div class="row">
+      {% for city in cities %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            {% if city.image %}
+              <img src="{{ city.image.url }}" class="card-img-top" alt="{{ city.name }}">
+            {% else %}
+              <img src="{% static 'images/city-placeholder.jpg' %}" class="card-img-top" alt="{{ city.name }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ city.name }}
+                {% if city.is_capital %}
+                  <span class="badge bg-success">Capital</span>
+                {% endif %}
+                {% if city.is_featured %}
+                  <span class="badge bg-warning">Featured</span>
+                {% endif %}
+              </h5>
+              <p class="card-text">{{ city.description|truncatewords:20 }}</p>
+              <a href="{% url 'cities:city_detail' city.slug %}" class="btn btn-outline-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if cities.has_other_pages %}
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% if cities.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ cities.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&laquo;</span>
+            </li>
+          {% endif %}
+
+          {% for i in cities.paginator.page_range %}
+            {% if cities.number == i %}
+              <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if cities.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ cities.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  {% else %}
+    <div class="alert alert-info">
+      No cities found in this district.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

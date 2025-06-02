@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tourist Attractions{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Attractions</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <!-- Sidebar with Filters -->
+    <div class="col-lg-3 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Filter Attractions</h5>
+        </div>
+        <div class="card-body">
+          <form method="get" action="{% url 'attractions:attraction_list' %}">
+            <div class="mb-3">
+              <label for="categorySelect" class="form-label">Category</label>
+              <select class="form-select" id="categorySelect" name="category">
+                <option value="">All Categories</option>
+                {% for value, label in category_choices %}
+                  <option value="{{ value }}" {% if current_category == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="citySelect" class="form-label">City</label>
+              <select class="form-select" id="citySelect" name="city">
+                <option value="">All Cities</option>
+                {% for city in cities %}
+                  <option value="{{ city.slug }}" {% if current_city == city.slug %}selected{% endif %}>{{ city.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="featuredCheck" name="featured" {% if featured %}checked{% endif %}>
+              <label class="form-check-label" for="featuredCheck">Featured Only</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+            {% if current_category or current_city or featured %}
+              <a href="{% url 'attractions:attraction_list' %}" class="btn btn-outline-secondary w-100 mt-2">Clear Filters</a>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <h1 class="mb-4">Tourist Attractions</h1>
+      
+      {% if attractions %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          {% for attraction in attractions %}
+            <div class="col">
+              <div class="card h-100">
+                {% if attraction.image %}
+                  <img src="{{ attraction.image.url }}" class="card-img-top" alt="{{ attraction.name }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                  <img src="{% static 'images/attraction-placeholder.jpg' %}" class="card-img-top" alt="{{ attraction.name }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ attraction.name }}</h5>
+                  <p class="card-text text-muted">
+                    {% if attraction.category == 'natural' %}
+                      <i class="bi bi-tree"></i> Natural Attraction
+                    {% elif attraction.category == 'historical' %}
+                      <i class="bi bi-building"></i> Historical Site
+                    {% elif attraction.category == 'cultural' %}
+                      <i class="bi bi-people"></i> Cultural Venue
+                    {% elif attraction.category == 'entertainment' %}
+                      <i class="bi bi-music-note"></i> Entertainment
+                    {% elif attraction.category == 'shopping' %}
+                      <i class="bi bi-bag"></i> Shopping
+                    {% elif attraction.category == 'food' %}
+                      <i class="bi bi-cup-hot"></i> Food & Dining
+                    {% else %}
+                      <i class="bi bi-geo"></i> Other
+                    {% endif %}
+                  </p>
+                  <p class="text-muted"><i class="bi bi-geo-alt"></i> {{ attraction.city.name }}</p>
+                  <p class="card-text">{{ attraction.description|truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer">
+                  <div class="d-flex justify-content-between align-items-center">
+                    {% if attraction.is_featured %}
+                      <span class="badge bg-warning text-dark">Featured</span>
+                    {% else %}
+                      <span></span>
+                    {% endif %}
+                    <a href="{% url 'attractions:attraction_detail' attraction.city.slug attraction.slug %}" class="btn btn-outline-primary">View Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+          <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_city %}&city={{ current_city }}{% endif %}{% if featured %}&featured=on{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+              
+              {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                  <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_city %}&city={{ current_city }}{% endif %}{% if featured %}&featured=on{% endif %}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_city %}&city={{ current_city }}{% endif %}{% if featured %}&featured=on{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="alert alert-info">
+          <i class="bi bi-info-circle me-2"></i> No attractions found matching your criteria. Try adjusting your filters.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

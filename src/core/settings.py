@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.humanize",
     # custom apps
     "home",
     "commando",
@@ -100,6 +101,9 @@ INSTALLED_APPS = [
     "allauth.account",
     # tagging
     "taggit",
+    # information based apps
+    "cities",
+    "attractions",
 ]
 
 AUTH_USER_MODEL = "profiles.User"

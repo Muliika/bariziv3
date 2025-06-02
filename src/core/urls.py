@@ -8,6 +8,9 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("", include("home.urls", namespace="home")),
     path("profiles/", include("profiles.urls", namespace="profiles")),
+    # information based urls
+    path("cities/", include("cities.urls", namespace="cities")),
+    path("attractions/", include("attractions.urls", namespace="attractions")),
 ]
 
 

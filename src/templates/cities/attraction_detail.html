@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ attraction.name }} - {{ city.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'cities:city_list' %}">Cities</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'cities:city_detail' city.slug %}">{{ city.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ attraction.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row mb-5">
+    <div class="col-md-8">
+      <h1 class="mb-3">{{ attraction.name }}</h1>
+      <p class="lead">
+        {% if attraction.category == 'natural' %}
+          <i class="bi bi-tree"></i> Natural Attraction
+        {% elif attraction.category == 'historical' %}
+          <i class="bi bi-building"></i> Historical Site
+        {% elif attraction.category == 'cultural' %}
+          <i class="bi bi-people"></i> Cultural Venue
+        {% elif attraction.category == 'entertainment' %}
+          <i class="bi bi-music-note"></i> Entertainment
+        {% elif attraction.category == 'shopping' %}
+          <i class="bi bi-bag"></i> Shopping
+        {% elif attraction.category == 'food' %}
+          <i class="bi bi-cup-hot"></i> Food & Dining
+        {% else %}
+          <i class="bi bi-geo"></i> Other
+        {% endif %}
+        in {{ city.name }}, {{ city.district.name }}
+      </p>
+      
+      {% if attraction.image %}
+        <div class="mb-4">
+          <img src="{{ attraction.image.url }}" class="img-fluid rounded" alt="{{ attraction.name }}">
+        </div>
+      {% endif %}
+      
+      <div class="attraction-description mb-4">
+        {{ attraction.description|linebreaks }}
+      </div>
+      
+      {% if attraction.address or attraction.website or attraction.phone %}
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Contact Information</h5>
+          </div>
+          <div class="card-body">
+            {% if attraction.address %}
+              <p><strong><i class="bi bi-geo-alt"></i> Address:</strong> {{ attraction.address }}</p>
+            {% endif %}
+            
+            {% if attraction.phone %}
+              <p><strong><i class="bi bi-telephone"></i> Phone:</strong> {{ attraction.phone }}</p>
+            {% endif %}
+            
+            {% if attraction.website %}
+              <p><strong><i class="bi bi-globe"></i> Website:</strong> <a href="{{ attraction.website }}" target="_blank" rel="noopener noreferrer">{{ attraction.website }}</a></p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+      <!-- City information card -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Location</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>City:</strong> <a href="{% url 'cities:city_detail' city.slug %}">{{ city.name }}</a></p>
+          <p><strong>District:</strong> <a href="{% url 'cities:district_detail' city.district.slug %}">{{ city.district.name }}</a></p>
+        </div>
+      </div>
+      
+      <!-- Related attractions -->
+      {% if related_attractions %}
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Similar Attractions</h5>
+          </div>
+          <div class="list-group list-group-flush">
+            {% for related in related_attractions %}
+              <a href="{% url 'cities:attraction_detail' city.slug related.slug %}" class="list-group-item list-group-item-action">
+                {{ related.name }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

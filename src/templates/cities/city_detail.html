@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ city.name }} - {{ city.district.name }} District{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'cities:city_list' %}">Cities</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'cities:district_detail' city.district.slug %}">{{ city.district.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ city.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row mb-5">
+    <div class="col-md-8">
+      <h1 class="mb-3">
+        {{ city.name }}
+        {% if city.is_capital %}
+          <span class="badge bg-success">Capital</span>
+        {% endif %}
+        {% if city.is_featured %}
+          <span class="badge bg-warning">Featured</span>
+        {% endif %}
+      </h1>
+      <p class="lead">{{ city.district.name }} District</p>
+      
+      {% if city.image %}
+        <div class="mb-4">
+          <img src="{{ city.image.url }}" class="img-fluid rounded" alt="{{ city.name }}">
+        </div>
+      {% endif %}
+      
+      <div class="city-details mb-4">
+        {% if city.population %}
+          <p><strong>Population:</strong> {{ city.population|intcomma }}</p>
+        {% endif %}
+        {% if city.latitude and city.longitude %}
+          <p><strong>Coordinates:</strong> {{ city.latitude }}, {{ city.longitude }}</p>
+        {% endif %}
+      </div>
+      
+      <div class="city-description mb-4">
+        {{ city.description|linebreaks }}
+      </div>
+      
+      {% if attractions %}
+        <h2 class="mb-4">Attractions in {{ city.name }}</h2>
+        
+        <div class="row">
+          {% for attraction in attractions %}
+            <div class="col-md-6 mb-4">
+              <div class="card h-100">
+                {% if attraction.image %}
+                  <img src="{{ attraction.image.url }}" class="card-img-top" alt="{{ attraction.name }}">
+                {% else %}
+                  <img src="{% static 'images/attraction-placeholder.jpg' %}" class="card-img-top" alt="{{ attraction.name }}">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ attraction.name }}</h5>
+                  <p class="card-text text-muted">
+                    {% if attraction.category == 'natural' %}
+                      <i class="bi bi-tree"></i> Natural Attraction
+                    {% elif attraction.category == 'historical' %}
+                      <i class="bi bi-building"></i> Historical Site
+                    {% elif attraction.category == 'cultural' %}
+                      <i class="bi bi-people"></i> Cultural Venue
+                    {% elif attraction.category == 'entertainment' %}
+                      <i class="bi bi-music-note"></i> Entertainment
+                    {% elif attraction.category == 'shopping' %}
+                      <i class="bi bi-bag"></i> Shopping
+                    {% elif attraction.category == 'food' %}
+                      <i class="bi bi-cup-hot"></i> Food & Dining
+                    {% else %}
+                      <i class="bi bi-geo"></i> Other
+                    {% endif %}
+                  </p>
+                  <p class="card-text">{{ attraction.description|truncatewords:20 }}</p>
+                  <a href="{% url 'cities:attraction_detail' city.slug attraction.slug %}" class="btn btn-outline-primary">View Details</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info">
+          No attractions found for this city{% if current_category %} in the selected category{% endif %}.
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+      <!-- City information card -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">City Information</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>District:</strong> <a href="{% url 'cities:district_detail' city.district.slug %}">{{ city.district.name }}</a></p>
+          <p><strong>Added:</strong> {{ city.created_at|date:"F j, Y" }}</p>
+          <p><strong>Last Updated:</strong> {{ city.updated_at|date:"F j, Y" }}</p>
+        </div>
+      </div>
+      
+      <!-- Attractions by category -->
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Attractions by Category</h5>
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="{% url 'cities:city_detail' city.slug %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if not current_category %}active{% endif %}">
+            All Categories
+            <span class="badge bg-primary rounded-pill">{{ attractions.count }}</span>
+          </a>
+          {% if 'natural' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=natural" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'natural' %}active{% endif %}">
+              Natural Attractions
+              <span class="badge bg-primary rounded-pill">{{ categories.natural }}</span>
+            </a>
+          {% endif %}
+          {% if 'historical' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=historical" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'historical' %}active{% endif %}">
+              Historical Sites
+              <span class="badge bg-primary rounded-pill">{{ categories.historical }}</span>
+            </a>
+          {% endif %}
+          {% if 'cultural' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=cultural" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'cultural' %}active{% endif %}">
+              Cultural Venues
+              <span class="badge bg-primary rounded-pill">{{ categories.cultural }}</span>
+            </a>
+          {% endif %}
+          {% if 'entertainment' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=entertainment" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'entertainment' %}active{% endif %}">
+              Entertainment
+              <span class="badge bg-primary rounded-pill">{{ categories.entertainment }}</span>
+            </a>
+          {% endif %}
+          {% if 'shopping' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=shopping" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'shopping' %}active{% endif %}">
+              Shopping
+              <span class="badge bg-primary rounded-pill">{{ categories.shopping }}</span>
+            </a>
+          {% endif %}
+          {% if 'food' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=food" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'food' %}active{% endif %}">
+              Food & Dining
+              <span class="badge bg-primary rounded-pill">{{ categories.food }}</span>
+            </a>
+          {% endif %}
+          {% if 'other' in categories %}
+            <a href="{% url 'cities:city_detail' city.slug %}?category=other" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {% if current_category == 'other' %}active{% endif %}">
+              Other
+              <span class="badge bg-primary rounded-pill">{{ categories.other }}</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

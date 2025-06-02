@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cities in Uganda{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- Sidebar with filters -->
+    <div class="col-md-3 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Filter Cities</h5>
+        </div>
+        <div class="card-body">
+          <form method="get" action="{% url 'cities:city_list' %}">
+            <div class="mb-3">
+              <label for="keyword" class="form-label">Search</label>
+              <input type="text" class="form-control" id="keyword" name="keyword" value="{{ keyword }}" placeholder="Search cities...">
+            </div>
+            
+            <div class="mb-3">
+              <label for="district" class="form-label">District</label>
+              <select class="form-select" id="district" name="district">
+                <option value="">All Districts</option>
+                {% for district in districts %}
+                  <option value="{{ district.slug }}" {% if district.slug == current_district %}selected{% endif %}>
+                    {{ district.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="sort" class="form-label">Sort By</label>
+              <select class="form-select" id="sort" name="sort">
+                <option value="name" {% if current_sort == 'name' %}selected{% endif %}>Name (A-Z)</option>
+                <option value="population_high" {% if current_sort == 'population_high' %}selected{% endif %}>Population (High to Low)</option>
+                <option value="population_low" {% if current_sort == 'population_low' %}selected{% endif %}>Population (Low to High)</option>
+              </select>
+            </div>
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="featured" name="featured" value="true" {% if featured == 'true' %}checked{% endif %}>
+              <label class="form-check-label" for="featured">Featured Cities Only</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+            {% if filters_applied %}
+              <a href="{% url 'cities:city_list' %}" class="btn btn-outline-secondary w-100 mt-2">Clear Filters</a>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="col-md-9">
+      <h1 class="mb-3">Cities in Uganda</h1>
+      
+      <!-- Results summary -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <p class="mb-0">Showing {{ cities|length }} of {{ total_results }} cities</p>
+      </div>
+      
+      {% if cities %}
+        <div class="row">
+          {% for city in cities %}
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                {% if city.image %}
+                  <img src="{{ city.image.url }}" class="card-img-top" alt="{{ city.name }}">
+                {% else %}
+                  <img src="{% static 'images/city-placeholder.jpg' %}" class="card-img-top" alt="{{ city.name }}">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ city.name }}
+                    {% if city.is_capital %}
+                      <span class="badge bg-success">Capital</span>
+                    {% endif %}
+                    {% if city.is_featured %}
+                      <span class="badge bg-warning">Featured</span>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text text-muted">{{ city.district.name }} District</p>
+                  {% if city.population %}
+                    <p class="card-text"><small>Population: {{ city.population|intcomma }}</small></p>
+                  {% endif %}
+                  <p class="card-text">{{ city.description|truncatewords:15 }}</p>
+                  <a href="{% url 'cities:city_detail' city.slug %}" class="btn btn-outline-primary">View Details</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if cities.has_other_pages %}
+          <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+              {% if cities.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ cities.previous_page_number }}{% if keyword %}&keyword={{ keyword }}{% endif %}{% if current_district %}&district={{ current_district }}{% endif %}{% if featured %}&featured={{ featured }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link">&laquo;</span>
+                </li>
+              {% endif %}
+
+              {% for i in cities.paginator.page_range %}
+                {% if cities.number == i %}
+                  <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}{% if keyword %}&keyword={{ keyword }}{% endif %}{% if current_district %}&district={{ current_district }}{% endif %}{% if featured %}&featured={{ featured }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ i }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if cities.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ cities.next_page_number }}{% if keyword %}&keyword={{ keyword }}{% endif %}{% if current_district %}&district={{ current_district }}{% endif %}{% if featured %}&featured={{ featured }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">&raquo;</span>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      {% endif %}
+    {% else %}
+      <div class="alert alert-info">
+        No cities found matching your search criteria.
+      </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}

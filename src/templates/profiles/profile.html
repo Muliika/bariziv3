@@ -380,21 +380,40 @@
           </div>
         </div>
 
-      <!-- Location Map -->
-        <div class="card shadow-sm mb-4">
-          <div class="card-body">
-            <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
-              <i class="bi bi-geo-alt me-2 text-danger"></i> Location
-            </h3>
+        
+        {% if user_type == 'business' %}
+          <!-- Location Map -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+                <i class="bi bi-geo-alt me-2 text-danger"></i> Location
+              </h3>
 
-            <div class="ratio ratio-16x9 mb-3">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7398366806406!2d-0.12985232302393854!3d51.52377067181161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b323093d307%3A0x2fb199016d5642a7!2sThe%20British%20Museum!5e0!3m2!1sen!2sus!4v1710432943297!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+              <div class="ratio ratio-16x9 mb-3">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.7398366806406!2d-0.12985232302393854!3d51.52377067181161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b323093d307%3A0x2fb199016d5642a7!2sThe%20British%20Museum!5e0!3m2!1sen!2sus!4v1710432943297!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+              </div>
+
+              <p class="mb-0"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 123 Bloomsbury St, London WC1B 3QF, United Kingdom</p>
             </div>
-
-            <p class="mb-0"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 123 Bloomsbury St, London WC1B 3QF, United Kingdom</p>
           </div>
         </div>
+      {% else %}
+      <!-- Location Map -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+            <i class="bi bi-geo-alt me-2 text-danger"></i> Location
+          </h3>
+
+          
+
+          <p class="mb-0"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 123 Bloomsbury St, London WC1B 3QF, United Kingdom</p>
+        </div>
       </div>
+    </div>
+      {% endif %}
+          
+      
 
     <!-- Right Column: Property Details -->
       <div class="col-lg-4">
@@ -455,7 +474,7 @@
       </div> {% endcomment %}
 
       <!-- Business Info -->
-        {% if user_type == 'business' or is_owner %}
+        {% if user_type == 'business' %}
           <div class="card shadow-sm mb-4">
             <div class="card-body">
               <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
@@ -551,7 +570,65 @@
           </div>
         </div>
 
-      <!-- Similar Listings -->
+        {% if user_type == 'customer' %}
+        <!-- Similar Listings -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
+              <i class="bi bi-houses me-2 text-danger"></i> Featured Listings
+            </h3>
+
+          <!-- Similar Listing Item -->
+            <div class="card mb-3 border-0 shadow-sm">
+              <div class="row g-0">
+                <div class="col-4">
+                  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-cover" alt="Similar property">
+                </div>
+                <div class="col-8">
+                  <div class="card-body p-2">
+                    <h6 class="card-title mb-1">Luxury Suite in Downtown</h6>
+                    <p class="card-text mb-1"><small class="text-body-secondary">New York, USA</small></p>
+                    <p class="card-text fw-bold mb-0">$320</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Similar Listing Item -->
+            <div class="card mb-3 border-0 shadow-sm">
+              <div class="row g-0">
+                <div class="col-4">
+                  <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-cover" alt="Similar property">
+                </div>
+                <div class="col-8">
+                  <div class="card-body p-2">
+                    <h6 class="card-title mb-1">Modern Apartment with View</h6>
+                    <p class="card-text mb-1"><small class="text-body-secondary">Brooklyn, USA</small></p>
+                    <p class="card-text fw-bold mb-0">$280</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Similar Listing Item -->
+            <div class="card border-0 shadow-sm">
+              <div class="row g-0">
+                <div class="col-4">
+                  <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150&q=80" class="img-fluid rounded-start h-100 object-fit-coverr" alt="Similar property">
+                </div>
+                <div class="col-8">
+                  <div class="card-body p-2">
+                    <h6 class="card-title mb-1">Cozy Studio in Manhattan</h6>
+                    <p class="card-text mb-1"><small class="text-body-secondary">Manhattan, USA</small></p>
+                    <p class="card-text fw-bold mb-0">$295</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% elif user_type == 'business' %}
+        <!-- Similar Listings -->
         <div class="card shadow-sm mb-4">
           <div class="card-body">
             <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
@@ -608,6 +685,7 @@
           </div>
         </div>
 
+        {% endif %}
 
 
       <!-- Call to Action -->
@@ -623,14 +701,14 @@
         </div>
 
       <!-- tags -->
-        {% if user_type == "business" or is_owner and profile.tags %}
+        {% if is_owner and profile.tags %}
           <div class="card shadow-sm mb-4">
             <div class="card-body">
               <h3 class="card-title border-start border-4 border-danger ps-3 mb-4">
                 <i class="bi bi-houses me-2 text-danger"></i> Tags
               </h3>
 
-
+              
               <div class="d-flex flex-wrap gap-2">
                 {% for tag in profile.tags.all %}
                   <span class="badge bg-secondary">{{ tag.name }}</span>

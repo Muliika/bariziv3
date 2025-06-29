@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/landing-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menudropdown.css' %}">
     
     {% block styles %}
       
     {% endblock styles %}
+    
       
 
     <!-- Bootstrap Icons -->
@@ -121,6 +123,25 @@
           toggle.classList.remove('bi-chevron-up');
           toggle.classList.add('bi-chevron-down');
         });
+      }
+    });
+  });
+
+  // Custom dropdown implementation
+  const customDropdowns = document.querySelectorAll('.custom-dropdown');
+    
+  customDropdowns.forEach(dropdown => {
+    const toggleBtn = dropdown.querySelector('.dropdown-toggle');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    
+    toggleBtn.addEventListener('click', function() {
+      menu.classList.toggle('show');
+    });
+    
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!dropdown.contains(e.target)) {
+        menu.classList.remove('show');
       }
     });
   });

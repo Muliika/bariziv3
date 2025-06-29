@@ -119,27 +119,27 @@
           <a href="{% url 'home:listings' %}" class="link-dark"><i class="bi bi-search"></i></a>
         </div>
         {% if user.is_authenticated %}
-  <div class="dropdown">
-    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="desktopUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-      Hey, {{ user.first_name|default:user.username }}!
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="desktopUserDropdown">
-      <li><a class="dropdown-item" href="{% url 'profiles:profile' %}">
-        <i class="bi bi-person me-2"></i> My Profile
-      </a></li>
-      <li><a class="dropdown-item" href="{% url 'profiles:profile' %}">
-        <i class="bi bi-gear me-2"></i> Settings
-      </a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="{% url 'account_logout' %}">
-        <i class="bi bi-box-arrow-right me-2"></i> Log Out
-      </a></li>
-    </ul>
-  </div>
-  {% else %}
-  <a href="{% url 'account_login' %}" class="btn btn-outline-dark">Login</a>
-  <a href="{% url 'account_signup' %}" class="btn btn-danger">Sign Up</a>
-  {% endif %}
+        <div class="dropdown custom-dropdown">
+          <button class="btn btn-outline-dark dropdown-toggle" type="button" id="desktopUserDropdown">
+            Hey, {{ user.first_name|default:user.username }}!
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="desktopUserDropdown">
+            <li><a class="dropdown-item" href="{% url 'profiles:profile' %}">
+              <i class="bi bi-person me-2"></i> My Profile
+            </a></li>
+            <li><a class="dropdown-item" href="{% url 'profiles:settings' %}">
+              <i class="bi bi-gear me-2"></i> Settings
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'account_logout' %}">
+              <i class="bi bi-box-arrow-right me-2"></i> Log Out
+            </a></li>
+          </ul>
+        </div>
+        {% else %}
+        <a href="{% url 'account_login' %}" class="btn btn-outline-dark">Login</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-danger">Sign Up</a>
+        {% endif %}
         <div class="mobile-toggle">
           <button class="hamburger-menu">
             <span></span>
